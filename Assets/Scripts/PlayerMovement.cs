@@ -18,7 +18,7 @@ public class PlayerMovement : MonoBehaviour
     private void FixedUpdate()
     {
         // 🔴 БЛОК ДВИЖЕНИЯ во время диалога
-        if (GameState.IsDialogueOpen || GameState.IsTransitioning|| GameState.IsMenuOpen)//|| GameState.IsInventoryOpen)
+        if (GameState.IsDialogueOpen || GameState.IsTransitioning|| GameState.IsMenuOpen|| GameState.IsInspecting)//|| GameState.IsInventoryOpen)
         {
             rb.linearVelocity = Vector2.zero; // гарантированно останавливаем игрока
             return;
@@ -31,7 +31,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (GameState.IsDialogueOpen || GameState.IsTransitioning|| GameState.IsMenuOpen)
+        if (GameState.IsDialogueOpen || GameState.IsTransitioning|| GameState.IsMenuOpen|| GameState.IsInspecting)
             return;
 
         // Обновляем подсказку каждый кадр

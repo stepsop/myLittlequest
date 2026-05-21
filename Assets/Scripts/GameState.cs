@@ -4,4 +4,5 @@ public static class GameState
     public static bool IsInventoryOpen = false;
     public static bool IsTransitioning = false;
     public static bool IsMenuOpen = false;
+    public static bool IsInspecting = false;
 }

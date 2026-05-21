@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
+using NUnit.Framework;
 
 public class UIItemSlot : MonoBehaviour,
     IPointerEnterHandler, IPointerExitHandler,
@@ -59,7 +60,7 @@ public class UIItemSlot : MonoBehaviour,
     public void OnPointerClick(PointerEventData eventData)
     {
         if (item == null) return;
-        if(isDragging) return;
+        if (isDragging) return;
 
         if (eventData.button == PointerEventData.InputButton.Left)
         {
@@ -68,20 +69,20 @@ public class UIItemSlot : MonoBehaviour,
         }
         else if (eventData.button == PointerEventData.InputButton.Right)
         {
-            // Правая кнопка — осмотреть предмет
+            Debug.Log("Правая кнопка нажата");// Правая кнопка — осмотреть предмет
             InspectItem();
         }
     }
 
     private void InspectItem()
     {
+        Debug.Log("in method InspectItem ");
         if (item == null) return;
 
-        // Показываем фразу осмотра через SpeechBubble
-        if (!string.IsNullOrEmpty(item.inspectPhrase))
-            SpeechBubble.Instance?.Show(item.inspectPhrase, item.inspectAudio);
+        // Открываем панель описания
+        ItemInspectPanel.Instance?.Show(item);
 
-        // Если осмотр трансформирует предмет — меняем его
+        // Трансформация предмета при осмотре
         if (item.inspectTransformTo != null)
         {
             InventoryManager.Instance.RemoveItem(item);
@@ -91,17 +92,17 @@ public class UIItemSlot : MonoBehaviour,
 
     // public void OnClick()
     // {
-        // Важно: этот метод вызывается Unity UI Button'ом (onClick) из префаба слота.
-        //
-        // Но этот же класс также реализует IPointerClickHandler (OnPointerClick),
-        // где мы уже обрабатываем ЛКМ/ПКМ и делаем SelectItem/InspectItem.
-        //
-        // Если оставить SelectItem и тут, и в OnPointerClick, то при клике ЛКМ часто происходит:
-        // 1) OnPointerClick -> SelectItem(item)  (выбрали)
-        // 2) Button.onClick -> OnClick -> SelectItem(item) (сразу же сняли, потому что SelectItem = toggle)
-        //
-        // В итоге визуально кажется, что выбор предмета "перестал работать".
-        // Поэтому onClick-обработчик намеренно оставляем пустым и используем OnPointerClick как единую точку правды.
+    // Важно: этот метод вызывается Unity UI Button'ом (onClick) из префаба слота.
+    //
+    // Но этот же класс также реализует IPointerClickHandler (OnPointerClick),
+    // где мы уже обрабатываем ЛКМ/ПКМ и делаем SelectItem/InspectItem.
+    //
+    // Если оставить SelectItem и тут, и в OnPointerClick, то при клике ЛКМ часто происходит:
+    // 1) OnPointerClick -> SelectItem(item)  (выбрали)
+    // 2) Button.onClick -> OnClick -> SelectItem(item) (сразу же сняли, потому что SelectItem = toggle)
+    //
+    // В итоге визуально кажется, что выбор предмета "перестал работать".
+    // Поэтому onClick-обработчик намеренно оставляем пустым и используем OnPointerClick как единую точку правды.
     // }
 
     public void SetSelected(bool value)
