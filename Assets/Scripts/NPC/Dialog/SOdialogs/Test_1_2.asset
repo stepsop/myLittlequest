@@ -1,0 +1,30 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97ee081b04e4979439ff49fae0e2b212, type: 3}
+  m_Name: Test_1_2
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  playerName: 
+  playerPortrait: {fileID: 0}
+  npcName: 
+  npcPortrait: {fileID: 0}
+  text: "\u041F\u0440\u0438\u0432\u0435\u0442"
+  options:
+  - text: "\u0417\u0430\u0431\u0438\u0440\u0430\u044E \u043F\u0440\u0435\u0434\u043C\u0435\u0442"
+    nextDialogue: {fileID: 0}
+    conditionType: 0
+    requiredItem: {fileID: 0}
+    npcState: {fileID: 11400000, guid: 0788a4fec80c2f24f855c4071486917c, type: 2}
+    actionType: 2
+    giveItem: {fileID: 0}
+    takeItem: {fileID: 11400000, guid: ea25205d16db61c409ae0c85172adc0e, type: 2}
+    targetNpcState: {fileID: 11400000, guid: 0788a4fec80c2f24f855c4071486917c, type: 2}
+    lockDialogue: 0
