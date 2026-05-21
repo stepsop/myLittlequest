@@ -12,45 +12,67 @@ public class ItemInspectPanel : MonoBehaviour
     [SerializeField] private TextMeshProUGUI description;
 
     private PlayerInputActions input;
+    private ItemData currentItem;
 
     private void Awake()
     {
-        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
+        if (Instance != null && Instance != this) 
+        { 
+            Destroy(gameObject); 
+            return; 
+        }
         Instance = this;
-
+        
+        gameObject.SetActive(true);
         input = new PlayerInputActions();
         input.Enable();
 
-        panel.SetActive(false);
+        if (panel != null)
+            panel.SetActive(false);
     }
 
     private void Update()
     {
-        // Закрыть по Escape
+        // Только закрытие по Escape
         if (panel.activeSelf && input.Player.Menu.WasPressedThisFrame())
+        {
             Close();
+        }
     }
 
     public void Show(ItemData item)
     {
         if (item == null) return;
-
-        itemIcon.sprite = item.icon;
-        itemName.text = item.itemName;
-        description.text = !string.IsNullOrEmpty(item.inspectPhrase)
-            ? item.inspectPhrase
-            : "Нет описания.";
-
+        
+        // Если уже открыт этот же предмет - закрываем
+        if (panel.activeSelf && currentItem == item)
+        {
+            Close();
+            return;
+        }
+        
+        currentItem = item;
         panel.SetActive(true);
-        GameState.IsInspecting = true;
+        
+        if (itemIcon != null) itemIcon.sprite = item.icon;
+        if (itemName != null) itemName.text = item.itemName;
+        if (description != null)
+        {
+            description.text = !string.IsNullOrEmpty(item.inspectPhrase)
+                ? item.inspectPhrase
+                : "Нет описания.";
+        }
 
-        // Показываем SpeechBubble одновременно
+        GameState.IsInspecting = true;
         SpeechBubble.Instance?.Show(item.inspectPhrase, item.inspectAudio);
     }
 
     public void Close()
     {
-        panel.SetActive(false);
+        if (panel != null)
+            panel.SetActive(false);
+        
         GameState.IsInspecting = false;
+        currentItem = null;
     }
 }

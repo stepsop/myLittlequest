@@ -39,6 +39,14 @@ public class PauseMenuUI : MonoBehaviour
     {
         if (input.Player.Menu.WasPressedThisFrame())
         {
+            // Если открыт инспектор - закрываем его и НЕ открываем меню паузы
+            if (GameState.IsInspecting)
+            {
+                ItemInspectPanel.Instance?.Close();
+                return; // Выходим, чтобы меню паузы не открывалось
+            }
+            
+            // Если инспектор закрыт - открываем/закрываем меню паузы
             ToggleMenu();
         }
     }
@@ -63,13 +71,11 @@ public class PauseMenuUI : MonoBehaviour
 
     private void OpenSettings()
     {
-        // TODO: открыть панель настроек
         Debug.Log("Настройки");
     }
 
     private void OpenSaveLoad()
     {
-        // TODO: открыть панель сохранения
         Debug.Log("Сохранение");
     }
 
