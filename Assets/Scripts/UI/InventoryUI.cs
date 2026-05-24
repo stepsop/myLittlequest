@@ -24,16 +24,27 @@ public class InventoryUI : MonoBehaviour
 
     private void Awake()
     {
+        if (Instance != null && Instance != this) 
+        { 
+            Destroy(gameObject); 
+            return; 
+        }
         Instance = this;
+        
+        gameObject.SetActive(true);
         input = new PlayerInputActions();
         input.Enable();
+
+        if (inventoryPanel != null)
+            inventoryPanel.SetActive(false);
+        // Instance = this;
+        // input = new PlayerInputActions();
+        // input.Enable();
     }
 
     private void Start()
     {
-        // Скрываем инвентарь при старте
-        // Так же как с диалогом — в редакторе видно, в игре скрыто
-        inventoryPanel.SetActive(false);
+        
 
         // В сцене кнопки перелистывания иногда "теряют" target в OnClick (UnityEvent),
         // и тогда нажатие визуально происходит, но метод NextPage/PrevPage не вызывается.
