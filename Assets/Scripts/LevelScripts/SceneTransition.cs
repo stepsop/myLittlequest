@@ -50,4 +50,5 @@ public class SceneTransition : MonoBehaviour, IInteractable
         if (other.CompareTag("Player"))
             playerInside = false;
     }
+    
 }

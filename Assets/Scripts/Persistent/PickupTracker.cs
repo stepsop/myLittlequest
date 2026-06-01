@@ -38,4 +38,17 @@ public class PickupTracker : MonoBehaviour
     {
         return pickedUpItems.Contains(itemID);
     }
+    // Возвращаем копию HashSet для сохранения
+    public HashSet<string> GetPickedUpItems()
+    {
+        return new HashSet<string>(pickedUpItems);
+    }
+
+    // Загружаем список подобранных предметов из сохранения
+    public void LoadPickedUpItems(List<string> items)
+    {
+        pickedUpItems.Clear();
+        foreach (var item in items)
+            pickedUpItems.Add(item);
+    }
 }

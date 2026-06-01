@@ -14,7 +14,7 @@ public sealed class GameManager : MonoBehaviour
         go.AddComponent<GameManager>();
         go.AddComponent<PickupTracker>();
         go.AddComponent<InventoryManager>();
-        
+        go.AddComponent<SaveManager>();
     }
 
     private void Awake()

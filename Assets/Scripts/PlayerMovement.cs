@@ -17,10 +17,33 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+
         // 🔴 БЛОК ДВИЖЕНИЯ во время диалога
-        if (GameState.IsDialogueOpen || GameState.IsTransitioning|| GameState.IsMenuOpen|| GameState.IsInspecting)//|| GameState.IsInventoryOpen)
+        if (GameState.IsDialogueOpen)
         {
-            rb.linearVelocity = Vector2.zero; // гарантированно останавливаем игрока
+            Debug.Log("BLOCK: Dialogue");
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
+        if (GameState.IsTransitioning)
+        {
+            Debug.Log("BLOCK: Transition");
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
+        if (GameState.IsMenuOpen)
+        {
+            Debug.Log("BLOCK: Menu");
+            rb.linearVelocity = Vector2.zero;
+            return;
+        }
+
+        if (GameState.IsInspecting)
+        {
+            Debug.Log("BLOCK: Inspect");
+            rb.linearVelocity = Vector2.zero;
             return;
         }
 
@@ -31,39 +54,39 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (GameState.IsDialogueOpen || GameState.IsTransitioning|| GameState.IsMenuOpen|| GameState.IsInspecting)
+        if (GameState.IsDialogueOpen || GameState.IsTransitioning || GameState.IsMenuOpen || GameState.IsInspecting)
             return;
 
         // Обновляем подсказку каждый кадр
-       /*  UpdateHint(); */
+        /*  UpdateHint(); */
 
         if (input.Player.Interact.WasPressedThisFrame())
             TryInteract();
     }
-   /*  void UpdateHint()
-    { */
-        /* Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1.2f);
+    /*  void UpdateHint()
+     { */
+    /* Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1.2f);
 
-        InteractionHint nearestHint = null;
+    InteractionHint nearestHint = null;
 
-        foreach (var hit in hits)
+    foreach (var hit in hits)
+    {
+        IInteractable interactable = hit.GetComponent<IInteractable>();
+        if (interactable != null && interactable.CanInteract())
         {
-            IInteractable interactable = hit.GetComponent<IInteractable>();
-            if (interactable != null && interactable.CanInteract())
-            {
-                nearestHint = hit.GetComponent<InteractionHint>();
-                break;
-            }
-        } */
+            nearestHint = hit.GetComponent<InteractionHint>();
+            break;
+        }
+    } */
 
-        // Если подсказка изменилась — скрываем старую показываем новую
-        /* if (nearestHint != currentHint)
-        {
-            if (currentHint != null) currentHint.Hide();
-            currentHint = nearestHint;
-            if (currentHint != null) currentHint.Show();
-        } */
-   /*  } */
+    // Если подсказка изменилась — скрываем старую показываем новую
+    /* if (nearestHint != currentHint)
+    {
+        if (currentHint != null) currentHint.Hide();
+        currentHint = nearestHint;
+        if (currentHint != null) currentHint.Show();
+    } */
+    /*  } */
 
     void TryInteract()
     {

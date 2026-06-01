@@ -114,4 +114,12 @@ public class InventoryManager : MonoBehaviour
             InventoryUI.Instance.RefreshUI(items);
         }
     }
+    
+    // Полная очистка инвентаря — используется при загрузке сохранения
+    public void ClearInventory()
+    {
+        items.Clear();
+        SelectedItem = null;
+        InventoryUI.Instance?.RefreshUI(items);
+    }
 }

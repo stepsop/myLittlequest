@@ -68,14 +68,16 @@ public class MainMenuUI : MonoBehaviour
 
         // Загружаем первый уровень
         // Индекс 1 — потому что MainMenu = 0, Level1 = 1 в Build Settings
-        SceneManager.LoadScene(1);
+        //SceneLoader.Instance.LoadScene("MainLogic");
+        SceneManager.LoadScene("Level1");
+
     }
 
     private void ContinueGame()
     {
         // Загружаем сцену из сохранения — пока просто Level1
         // Когда добавим SaveManager — будем загружать нужную сцену
-        SceneManager.LoadScene(1);
+        SceneLoader.Instance.LoadScene("Level1");
     }
 
     private void OpenSettings()
