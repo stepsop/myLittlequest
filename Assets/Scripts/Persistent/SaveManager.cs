@@ -9,9 +9,15 @@ public class SaveManager : MonoBehaviour
 {
     public static SaveManager Instance { get; private set; }
 
+    private float _loadedPlayerX;
+    private float _loadedPlayerY;
+    private bool _pendingPositionRestore = false;
+
     // Ключи в PlayerPrefs — константы чтобы не ошибиться в строках
     private const string SaveExistsKey = "HasSave";
     private const string SaveDataKey = "SaveData";
+
+
 
     private void Awake()
     {
@@ -84,38 +90,27 @@ public class SaveManager : MonoBehaviour
     // Загружаем состояние игры
     public void Load()
     {
-        if (!HasSave())
-        {
-            Debug.LogWarning("Нет сохранения");
-            return;
-        }
+        if (!HasSave()) return;
 
         string json = PlayerPrefs.GetString(SaveDataKey);
         SaveData data = JsonUtility.FromJson<SaveData>(json);
 
         // 1. Восстанавливаем инвентарь
-        // Сначала очищаем текущий инвентарь
         InventoryManager.Instance.ClearInventory();
-
-        // Ищем ItemData по имени в Resources
         foreach (var itemData in data.inventoryItems)
         {
             ItemData item = Resources.Load<ItemData>($"Items/{itemData.itemName}");
             if (item != null)
                 InventoryManager.Instance.AddItem(item, itemData.amount);
-            else
-                Debug.LogWarning($"ItemData не найден: {itemData.itemName}. Убедись что предмет лежит в Resources/Items/");
         }
 
-        // 2. Восстанавливаем подобранные предметы
+        // 2. Подобранные предметы
         PickupTracker.Instance.LoadPickedUpItems(data.pickedUpItems);
 
-        // 3. Восстанавливаем состояния NPC
+        // 3. Состояния NPC
         NPCState[] allStates = Resources.FindObjectsOfTypeAll<NPCState>();
         foreach (var savedState in data.npcStates)
-        {
             foreach (var state in allStates)
-            {
                 if (state.name == savedState.stateName)
                 {
                     state.isLoyal = savedState.isLoyal;
@@ -123,15 +118,28 @@ public class SaveManager : MonoBehaviour
                     state.isLocked = savedState.isLocked;
                     break;
                 }
-            }
-        }
 
-        // 4. Позиция игрока — ставим после загрузки сцены
-        GameObject player = GameObject.FindWithTag("Player");
-        if (player != null)
-            player.transform.position = new Vector3(data.playerX, data.playerY, 0);
+        // 4. Сохраняем позицию — загрузим её ПОСЛЕ перехода на сцену
+        PlayerSpawnManager.ShouldSpawn = false; // не трогаем спавн
+        _loadedPlayerX = data.playerX;         // запомним для использования после загрузки
+        _loadedPlayerY = data.playerY;
+        _pendingPositionRestore = true;
+
+        // 5. Загружаем сцену
+        if (SceneLoader.Instance != null)
+            SceneLoader.Instance.LoadScene(data.sceneName);
+        else
+            SceneManager.LoadScene(data.sceneName);
 
         Debug.Log($"Игра загружена: сцена {data.sceneName}");
+
+        // Загружаем сцену — это должно быть последним действием
+        // После LoadScene Unity перезагрузит объекты,
+        // поэтому позицию игрока нужно восстанавливать через PlayerSpawnManager
+        if (SceneLoader.Instance != null)
+            SceneLoader.Instance.LoadScene(data.sceneName);
+        else
+            UnityEngine.SceneManagement.SceneManager.LoadScene(data.sceneName);
     }
 
     // Удаляем сохранение — при новой игре
@@ -140,6 +148,24 @@ public class SaveManager : MonoBehaviour
         PlayerPrefs.DeleteKey(SaveExistsKey);
         PlayerPrefs.DeleteKey(SaveDataKey);
         PlayerPrefs.Save();
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        if (!_pendingPositionRestore) return;
+
+        _pendingPositionRestore = false;
+
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player != null)
+            player.transform.position = new Vector3(_loadedPlayerX, _loadedPlayerY, 0);
+    }
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 }
 

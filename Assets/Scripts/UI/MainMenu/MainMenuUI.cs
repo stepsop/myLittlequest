@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using TMPro;
+using System.Collections.Generic;
 
 // Контроллер главного меню.
 // Отвечает только за навигацию между панелями и запуск игры.
@@ -62,13 +63,20 @@ public class MainMenuUI : MonoBehaviour
 
     private void StartNewGame()
     {
-        // Сбрасываем сохранение при новой игре
+        // Удаляем сохранение из PlayerPrefs
         PlayerPrefs.DeleteAll();
         PlayerPrefs.Save();
 
-        // Загружаем первый уровень
-        // Индекс 1 — потому что MainMenu = 0, Level1 = 1 в Build Settings
-        //SceneLoader.Instance.LoadScene("MainLogic");
+        // Очищаем состояние в памяти —
+        // иначе инвентарь из прошлой сессии останется
+        InventoryManager.Instance?.ClearInventory();
+        PickupTracker.Instance?.LoadPickedUpItems(new List<string>());
+
+        // Сбрасываем состояния всех NPC
+        NPCState[] allStates = Resources.FindObjectsOfTypeAll<NPCState>();
+        foreach (var state in allStates)
+            state.Reset();
+
         SceneManager.LoadScene("Level1");
 
     }
@@ -78,7 +86,7 @@ public class MainMenuUI : MonoBehaviour
         // Загружаем только если сохранение реально есть
         if (!SaveManager.HasSave()) return;
         SaveManager.Instance.Load();
-        
+
     }
 
     private void OpenSettings()
