@@ -45,7 +45,7 @@ public class PauseMenuUI : MonoBehaviour
                 ItemInspectPanel.Instance?.Close();
                 return; // Выходим, чтобы меню паузы не открывалось
             }
-            
+
             // Если инспектор закрыт - открываем/закрываем меню паузы
             ToggleMenu();
         }
@@ -76,7 +76,9 @@ public class PauseMenuUI : MonoBehaviour
 
     private void OpenSaveLoad()
     {
-        Debug.Log("Сохранение");
+        SaveManager.Instance.Save();
+        // Можно показать надпись "Сохранено!" через SpeechBubble или отдельный текст
+        Debug.Log("Игра сохранена!");
     }
 
     private void ExitGame()

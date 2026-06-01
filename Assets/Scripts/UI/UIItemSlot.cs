@@ -2,7 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using TMPro;
-using NUnit.Framework;
+
 
 public class UIItemSlot : MonoBehaviour,
     IPointerEnterHandler, IPointerExitHandler,

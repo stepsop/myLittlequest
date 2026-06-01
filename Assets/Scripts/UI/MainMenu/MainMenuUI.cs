@@ -42,8 +42,8 @@ public class MainMenuUI : MonoBehaviour
         backButton.onClick.AddListener(ClosePlayPanel);
 
         // Показываем кнопку "Продолжить" только если есть сохранение
-        // PlayerPrefs.HasKey проверяет существует ли ключ в хранилище
-        continueButton.gameObject.SetActive(PlayerPrefs.HasKey(SaveKey));
+        // SaveManager.HasSave() проверяет существует ли сохранение
+        continueButton.gameObject.SetActive(SaveManager.HasSave());
     }
 
     // Открыть панель выбора — новая игра или продолжить
@@ -75,9 +75,10 @@ public class MainMenuUI : MonoBehaviour
 
     private void ContinueGame()
     {
-        // Загружаем сцену из сохранения — пока просто Level1
-        // Когда добавим SaveManager — будем загружать нужную сцену
-        SceneLoader.Instance.LoadScene("Level1");
+        // Загружаем только если сохранение реально есть
+        if (!SaveManager.HasSave()) return;
+        SaveManager.Instance.Load();
+        
     }
 
     private void OpenSettings()

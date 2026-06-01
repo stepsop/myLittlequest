@@ -37,7 +37,7 @@ public class InventoryManager : MonoBehaviour
         Instance = this;
 
         // Иначе при переходе сцены список предметов сбрасывается.
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     public void AddItem(ItemData item, int amount = 1)
@@ -49,7 +49,7 @@ public class InventoryManager : MonoBehaviour
         else
             items.Add(new ItemStack(item, amount));
 
-        InventoryUI.Instance.RefreshUI(items);
+        InventoryUI.Instance?.RefreshUI(items);
     }
 
     public void RemoveItem(ItemData item, int amount = 1)
@@ -114,7 +114,7 @@ public class InventoryManager : MonoBehaviour
             InventoryUI.Instance.RefreshUI(items);
         }
     }
-    
+
     // Полная очистка инвентаря — используется при загрузке сохранения
     public void ClearInventory()
     {

@@ -14,7 +14,8 @@ public class PickupItem : MonoBehaviour, IInteractable
     private void Start()
     {
         // ID = сцена + имя объекта — уникален пока объект не переименован
-        itemID = gameObject.scene.name + "_" + gameObject.name;
+        itemID = gameObject.scene.name + "_" + gameObject.name
+       + "_" + transform.position.x + "_" + transform.position.y;
 
         // Если уже подбирали — скрываем сразу при загрузке сцены
         if (PickupTracker.Instance != null && PickupTracker.Instance.IsPickedUp(itemID))

@@ -24,7 +24,7 @@ public class PickupTracker : MonoBehaviour
         Instance = this;
 
         // Нужен, чтобы HashSet не сбрасывался при переходах сцен.
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     // Запомнить что предмет подобран
