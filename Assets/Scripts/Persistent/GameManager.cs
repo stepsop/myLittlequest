@@ -3,18 +3,31 @@ using System.Collections.Generic;
 
 public sealed class GameManager : MonoBehaviour
 {
+    [SerializeField] private GameObject playerPrefab;
+    [SerializeField] private GameObject cameraPrefab;
+    private Transform playerTransform;
+
     public static GameManager Instance { get; private set; }
 
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
     private static void Initialize()
     {
+
         if (Instance != null) return;
 
-        var go = new GameObject(nameof(GameManager));
-        go.AddComponent<GameManager>();
-        go.AddComponent<PickupTracker>();
-        go.AddComponent<InventoryManager>();
-        go.AddComponent<SaveManager>();
+        // Загружаем prefab GameManager из Resources
+        var prefab = Resources.Load<GameObject>("GameManager");
+        if (prefab != null)
+            Instantiate(prefab);
+        else
+            Debug.LogError("Положи GameManager.prefab в Assets/Resources/");
+        // if (Instance != null) return;
+
+        // var go = new GameObject(nameof(GameManager));
+        // go.AddComponent<GameManager>();
+        // go.AddComponent<PickupTracker>();
+        // go.AddComponent<InventoryManager>();
+        // go.AddComponent<SaveManager>();
     }
 
     private void Awake()
@@ -27,6 +40,46 @@ public sealed class GameManager : MonoBehaviour
 
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        // Добавляем менеджеры как компоненты
+        if (GetComponent<PickupTracker>() == null) gameObject.AddComponent<PickupTracker>();
+        if (GetComponent<InventoryManager>() == null) gameObject.AddComponent<InventoryManager>();
+        if (GetComponent<SaveManager>() == null) gameObject.AddComponent<SaveManager>();
+        if (GetComponent<CombineManager>() == null) gameObject.AddComponent<CombineManager>();
+
+        SpawnPlayer();
+        SpawnCamera();
+    }
+    private void SpawnPlayer()
+    {
+        if (playerPrefab == null)
+        {
+            Debug.LogError("playerPrefab не назначен!"); return;
+        }
+        var player = Instantiate(playerPrefab);
+        player.name = "Player";
+        player.tag = "Player";
+        playerTransform = player.transform;
+        DontDestroyOnLoad(player);
+    }
+    private void SpawnCamera()
+    {
+        if (cameraPrefab == null)
+        {
+            Debug.LogError("cameraPrefab не назначен!"); return;
+        }
+        var camera = Instantiate(cameraPrefab);
+        camera.name = "Main Camera";
+        Camera spawnedCamera = camera.GetComponentInChildren<Camera>();
+        if (spawnedCamera != null)
+            spawnedCamera.gameObject.tag = "MainCamera";
+        else
+            camera.tag = "MainCamera";
+
+        CameraFollow cameraFollow = camera.GetComponentInChildren<CameraFollow>();
+        if (cameraFollow != null)
+            cameraFollow.SetTarget(playerTransform);
+
+        DontDestroyOnLoad(camera);
     }
 }
-

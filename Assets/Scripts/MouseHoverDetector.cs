@@ -17,6 +17,9 @@ public class MouseHoverDetector : MonoBehaviour
 
     private void Update()
     {
+        if (!IsHoverableAlive(currentHovered))
+            currentHovered = null;
+
         Vector3 mouseWorldPos = cam.ScreenToWorldPoint(Input.mousePosition);
         // 2D‑проверка
         Collider2D hit = Physics2D.OverlapPoint(mouseWorldPos, layerMask);
@@ -24,17 +27,35 @@ public class MouseHoverDetector : MonoBehaviour
         IHoverable newHovered = null;
         if (hit != null)
             newHovered = hit.GetComponent<IHoverable>();
+        if (!IsHoverableAlive(newHovered))
+            newHovered = null;
 
         // Смена объекта под курсором
         if (newHovered != currentHovered)
         {
-            if (currentHovered != null)      // уход с предыдущего
+            if (IsHoverableAlive(currentHovered))      // уход с предыдущего
                 currentHovered.OnMouseExit();
 
-            if (newHovered != null)          // вход на новый
+            if (IsHoverableAlive(newHovered))          // вход на новый
                 newHovered.OnMouseEnter();
 
             currentHovered = newHovered;
         }
+    }
+
+    private void OnDisable()
+    {
+        if (IsHoverableAlive(currentHovered))
+            currentHovered.OnMouseExit();
+
+        currentHovered = null;
+    }
+
+    private static bool IsHoverableAlive(IHoverable hoverable)
+    {
+        if (hoverable == null) return false;
+
+        Object unityObject = hoverable as Object;
+        return unityObject == null || unityObject != null;
     }
 }

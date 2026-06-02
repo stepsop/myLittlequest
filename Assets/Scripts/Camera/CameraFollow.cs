@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class CameraFollow : MonoBehaviour
 {
@@ -16,12 +17,46 @@ public class CameraFollow : MonoBehaviour
     private void Awake()
     {
         cam = GetComponent<Camera>();
+        if (cam == null)
+            cam = GetComponentInChildren<Camera>();
     }
 
     private void Start()
     {
+        FindTarget();
+
         // Ищем границы автоматически при старте сцены
         FindBounds();
+    }
+
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
+
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    public void SetTarget(Transform newTarget)
+    {
+        target = newTarget;
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        FindTarget();
+        FindBounds();
+    }
+
+    private void FindTarget()
+    {
+        if (target != null) return;
+
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player != null)
+            target = player.transform;
     }
 
     // Публичный метод — вызывай его при переходе на новый уровень
@@ -59,12 +94,16 @@ public class CameraFollow : MonoBehaviour
 
     private void LateUpdate()
     {
-        if (target == null) return;
+        if (target == null)
+        {
+            FindTarget();
+            if (target == null) return;
+        }
 
         Vector3 targetPosition = target.position + offset;
 
         // Применяем границы только если они найдены
-        if (hasBounds)
+        if (hasBounds && cam != null)
         {
             float camHalfHeight = cam.orthographicSize;
             float camHalfWidth = cam.orthographicSize * cam.aspect;

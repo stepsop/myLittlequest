@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 // Отвечает за сохранение и загрузку всего состояния игры.
 // Использует PlayerPrefs + JSON — просто и без внешних зависимостей.
@@ -120,26 +121,21 @@ public class SaveManager : MonoBehaviour
                 }
 
         // 4. Сохраняем позицию — загрузим её ПОСЛЕ перехода на сцену
-        PlayerSpawnManager.ShouldSpawn = false; // не трогаем спавн
-        _loadedPlayerX = data.playerX;         // запомним для использования после загрузки
+        _loadedPlayerX = data.playerX;
         _loadedPlayerY = data.playerY;
         _pendingPositionRestore = true;
 
+        // Ждём загрузки и ставим позицию
+        ResetGameplayState();
+
         // 5. Загружаем сцену
-        if (SceneLoader.Instance != null)
-            SceneLoader.Instance.LoadScene(data.sceneName);
-        else
-            SceneManager.LoadScene(data.sceneName);
+        SceneManager.LoadScene(data.sceneName);
 
         Debug.Log($"Игра загружена: сцена {data.sceneName}");
 
         // Загружаем сцену — это должно быть последним действием
         // После LoadScene Unity перезагрузит объекты,
         // поэтому позицию игрока нужно восстанавливать через PlayerSpawnManager
-        if (SceneLoader.Instance != null)
-            SceneLoader.Instance.LoadScene(data.sceneName);
-        else
-            UnityEngine.SceneManagement.SceneManager.LoadScene(data.sceneName);
     }
 
     // Удаляем сохранение — при новой игре
@@ -158,6 +154,8 @@ public class SaveManager : MonoBehaviour
         GameObject player = GameObject.FindWithTag("Player");
         if (player != null)
             player.transform.position = new Vector3(_loadedPlayerX, _loadedPlayerY, 0);
+
+        ResetGameplayState();
     }
     private void OnEnable()
     {
@@ -167,33 +165,53 @@ public class SaveManager : MonoBehaviour
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
-}
+    private IEnumerator SetPositionAfterLoad(float x, float y)
+    {
+        // Ждём один кадр — сцена должна загрузиться
+        yield return null;
 
-// Контейнер всех данных для сохранения
-// [System.Serializable] нужен чтобы JsonUtility мог сериализовать класс
-[System.Serializable]
-public class SaveData
-{
-    public string sceneName;
-    public float playerX;
-    public float playerY;
-    public List<ItemSaveData> inventoryItems = new List<ItemSaveData>();
-    public List<string> pickedUpItems = new List<string>();
-    public List<NPCStateSaveData> npcStates = new List<NPCStateSaveData>();
-}
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player != null)
+            player.transform.position = new Vector3(x, y, 0);
 
-[System.Serializable]
-public class ItemSaveData
-{
-    public string itemName; // Имя SO asset файла
-    public int amount;
-}
+    }
 
-[System.Serializable]
-public class NPCStateSaveData
-{
-    public string stateName; // Имя NPCState SO asset файла
-    public bool isLoyal;
-    public bool itemGiven;
-    public bool isLocked;
+    // Контейнер всех данных для сохранения
+    // [System.Serializable] нужен чтобы JsonUtility мог сериализовать класс
+    private static void ResetGameplayState()
+    {
+        Time.timeScale = 1f;
+        GameState.IsDialogueOpen = false;
+        GameState.IsInventoryOpen = false;
+        GameState.IsTransitioning = false;
+        GameState.IsMenuOpen = false;
+        GameState.IsInspecting = false;
+    }
+
+    [System.Serializable]
+    public class SaveData
+    {
+        public string sceneName;
+        public float playerX;
+        public float playerY;
+        public List<ItemSaveData> inventoryItems = new List<ItemSaveData>();
+        public List<string> pickedUpItems = new List<string>();
+        public List<NPCStateSaveData> npcStates = new List<NPCStateSaveData>();
+    }
+
+    [System.Serializable]
+    public class ItemSaveData
+    {
+        public string itemName; // Имя SO asset файла
+        public int amount;
+    }
+
+    [System.Serializable]
+    public class NPCStateSaveData
+    {
+        public string stateName; // Имя NPCState SO asset файла
+        public bool isLoyal;
+        public bool itemGiven;
+        public bool isLocked;
+    }
 }

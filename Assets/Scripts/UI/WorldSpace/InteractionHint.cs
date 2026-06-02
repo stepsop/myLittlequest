@@ -32,7 +32,10 @@ public class InteractionHint : MonoBehaviour, IHoverable
 
     private void LateUpdate()
     {
-        if (!hintObject.activeSelf) return;
+        if (hintObject == null || !hintObject.activeSelf) return;
+        if (mainCamera == null)
+            mainCamera = Camera.main;
+        if (mainCamera == null) return;
 
         // Подпись всегда «выпрямлена» к камере
         hintObject.transform.position = transform.position + Vector3.up * heightOffset + offset;
@@ -42,18 +45,29 @@ public class InteractionHint : MonoBehaviour, IHoverable
     #region IHoverable
     public void OnMouseEnter()
     {
-        hintObject?.SetActive(true);
+        if (hintObject != null)
+            hintObject.SetActive(true);
     }
 
     public void OnMouseExit()
     {
-        hintObject?.SetActive(false);
+        if (hintObject != null)
+            hintObject.SetActive(false);
     }
     #endregion
 
     // Для ручного вызова из других скриптов (не обязательно)
-    public void Show() => hintObject?.SetActive(true);
-    public void Hide() => hintObject?.SetActive(false);
+    public void Show()
+    {
+        if (hintObject != null)
+            hintObject.SetActive(true);
+    }
+
+    public void Hide()
+    {
+        if (hintObject != null)
+            hintObject.SetActive(false);
+    }
 
     private void OnDestroy()
     {
