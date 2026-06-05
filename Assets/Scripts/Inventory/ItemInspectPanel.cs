@@ -16,13 +16,13 @@ public class ItemInspectPanel : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this) 
-        { 
-            Destroy(gameObject); 
-            return; 
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
         }
         Instance = this;
-        
+
         gameObject.SetActive(true);
         input = new PlayerInputActions();
         input.Enable();
@@ -43,17 +43,17 @@ public class ItemInspectPanel : MonoBehaviour
     public void Show(ItemData item)
     {
         if (item == null) return;
-        
+
         // Если уже открыт этот же предмет - закрываем
         if (panel.activeSelf && currentItem == item)
         {
             Close();
             return;
         }
-        
+
         currentItem = item;
         panel.SetActive(true);
-        
+
         if (itemIcon != null) itemIcon.sprite = item.icon;
         if (itemName != null) itemName.text = item.itemName;
         if (description != null)
@@ -71,8 +71,12 @@ public class ItemInspectPanel : MonoBehaviour
     {
         if (panel != null)
             panel.SetActive(false);
-        
+
         GameState.IsInspecting = false;
         currentItem = null;
+    }
+    private void OnDestroy()
+    {
+        input?.Disable();
     }
 }

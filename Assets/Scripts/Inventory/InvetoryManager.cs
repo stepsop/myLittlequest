@@ -61,7 +61,7 @@ public class InventoryManager : MonoBehaviour
         if (stack.amount <= 0)
             items.Remove(stack);
 
-        InventoryUI.Instance.RefreshUI(items);
+        InventoryUI.Instance?.RefreshUI(items);
     }
 
     public bool HasItem(ItemData item)

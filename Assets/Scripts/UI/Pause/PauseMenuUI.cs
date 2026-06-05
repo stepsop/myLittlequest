@@ -80,6 +80,10 @@ public class PauseMenuUI : MonoBehaviour
         // Можно показать надпись "Сохранено!" через SpeechBubble или отдельный текст
         Debug.Log("Игра сохранена!");
     }
+    private void OnDestroy()
+    {
+        input?.Disable();
+    }
 
     private void ExitGame()
     {

@@ -26,6 +26,7 @@ public class PickupItem : MonoBehaviour, IInteractable
 
     public void Interact()
     {
+        if (!CanInteract()) return;
         PickupTracker.Instance?.MarkPickedUp(itemID);
         InventoryManager.Instance.AddItem(itemData);
         Destroy(gameObject);

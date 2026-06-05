@@ -24,13 +24,13 @@ public class InventoryUI : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this) 
-        { 
-            Destroy(gameObject); 
-            return; 
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
         }
         Instance = this;
-        
+
         gameObject.SetActive(true);
         input = new PlayerInputActions();
         input.Enable();
@@ -44,8 +44,6 @@ public class InventoryUI : MonoBehaviour
 
     private void Start()
     {
-        
-
         // В сцене кнопки перелистывания иногда "теряют" target в OnClick (UnityEvent),
         // и тогда нажатие визуально происходит, но метод NextPage/PrevPage не вызывается.
         // Чтобы не чинить руками YAML каждой сцены — страхуемся кодом.
@@ -88,7 +86,7 @@ public class InventoryUI : MonoBehaviour
 
     private void Update()
     {
-        
+
 
         if (input.Player.OpenInventory.WasPressedThisFrame())
         {
@@ -113,7 +111,7 @@ public class InventoryUI : MonoBehaviour
         if (pauseMenuUI != null)
         {
             pauseMenuUI.SetMenuButtonActive(isOpen);
-            
+
             // Если закрыли инвентарь — закрываем pausePanel
             if (!isOpen)
                 pauseMenuUI.CloseMenu();
@@ -188,5 +186,9 @@ public class InventoryUI : MonoBehaviour
     {
         currentPage--;
         RefreshUI(InventoryManager.Instance.Items);
+    }
+    private void OnDestroy()
+    {
+        input?.Disable();
     }
 }

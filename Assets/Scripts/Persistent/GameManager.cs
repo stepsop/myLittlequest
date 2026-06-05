@@ -1,6 +1,6 @@
 using UnityEngine;
 using System.Collections.Generic;
-
+using UnityEngine.SceneManagement;
 public sealed class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject playerPrefab;
@@ -47,8 +47,24 @@ public sealed class GameManager : MonoBehaviour
         if (GetComponent<SaveManager>() == null) gameObject.AddComponent<SaveManager>();
         if (GetComponent<CombineManager>() == null) gameObject.AddComponent<CombineManager>();
 
-        SpawnPlayer();
-        SpawnCamera();
+        SceneManager.sceneLoaded += OnSceneLoaded;
+
+    }
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        // Главное меню — ничего не делаем
+        if (scene.name == "Main menu") return;
+
+        // Игрок уже существует (DontDestroyOnLoad) — не спавним повторно
+        if (GameObject.FindWithTag("Player") == null)
+            SpawnPlayer();
+
+        if (Camera.main == null)
+            SpawnCamera();
+    }
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
     }
     private void SpawnPlayer()
     {

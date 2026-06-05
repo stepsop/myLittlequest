@@ -14,12 +14,12 @@ public class NPCState : ScriptableObject
     public bool isLocked;
 
     // Вызывается автоматически когда NPCDialogue стартует
-    private void OnEnable()
-    {
-        // OnEnable вызывается при загрузке SO — сбрасываем состояние
-        // Это происходит при каждом запуске игры в Editor и в билде
-        Reset();
-    }
+    // private void OnEnable()
+    // {
+    //     // OnEnable вызывается при загрузке SO — сбрасываем состояние
+    //     // Это происходит при каждом запуске игры в Editor и в билде
+    //     Reset();
+    // }
 
     public void Reset()
     {
