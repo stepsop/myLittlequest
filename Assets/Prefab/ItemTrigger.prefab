@@ -106,6 +106,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InteractionHint
   hintPrefab: {fileID: 8040543859212806918, guid: 113970cb6d061814590ee6afd3f1e063, type: 3}
   heightOffset: 1
+  offset: {x: 0, y: 0, z: 0}
 --- !u!1 &8370567563182396878
 GameObject:
   m_ObjectHideFlags: 0
@@ -307,9 +308,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::LeverZone
   requiredItem: {fileID: 0}
-  rewardItem: {fileID: 0}
+  rewardPrefab: {fileID: 0}
   spawnPoint: {fileID: 0}
-  wrongItemPhrases: {fileID: 0}
+  wrongItemPhrases: {fileID: 11400000, guid: da4c7a7954c206444955ca3bdb29b0eb, type: 2}
 --- !u!114 &5634203139711847719
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -324,3 +325,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InteractionHint
   hintPrefab: {fileID: 8040543859212806918, guid: 113970cb6d061814590ee6afd3f1e063, type: 3}
   heightOffset: 1
+  offset: {x: 0, y: 0, z: 0}

@@ -5,6 +5,7 @@ public sealed class GameManager : MonoBehaviour
 {
     [SerializeField] private GameObject playerPrefab;
     [SerializeField] private GameObject cameraPrefab;
+    [SerializeField] private GameObject uiRootPrefab;
     private Transform playerTransform;
 
     public static GameManager Instance { get; private set; }
@@ -47,14 +48,35 @@ public sealed class GameManager : MonoBehaviour
         if (GetComponent<SaveManager>() == null) gameObject.AddComponent<SaveManager>();
         if (GetComponent<CombineManager>() == null) gameObject.AddComponent<CombineManager>();
 
+        
+
         SceneManager.sceneLoaded += OnSceneLoaded;
 
+    }
+    private void SpawnUIRoot()
+    {
+        if(SceneManager.GetActiveScene().name == "Main menu") return;
+        // Проверяем — вдруг UIRoot уже есть (например при повторном Awake)
+        if (FindAnyObjectByType<InventoryUI>() != null) return;
+
+        if (uiRootPrefab == null)
+        {
+            Debug.LogError("uiRootPrefab не назначен в GameManager!");
+            return;
+        }
+
+        var uiRoot = Instantiate(uiRootPrefab);
+        uiRoot.name = "UIRoot";
+        DontDestroyOnLoad(uiRoot);
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+        GameState.IsTransitioning = false;
         // Главное меню — ничего не делаем
         if (scene.name == "Main menu") return;
+
+        SpawnUIRoot();
 
         // Игрок уже существует (DontDestroyOnLoad) — не спавним повторно
         if (GameObject.FindWithTag("Player") == null)
@@ -66,7 +88,7 @@ public sealed class GameManager : MonoBehaviour
 
     private void OnDestroy()
     {
-        
+
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
     private void SpawnPlayer()

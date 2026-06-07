@@ -120,6 +120,8 @@ public class InventoryManager : MonoBehaviour
     {
         items.Clear();
         SelectedItem = null;
-        InventoryUI.Instance?.RefreshUI(items);
+        // проверяем что Instance жив:
+        if (InventoryUI.Instance != null && InventoryUI.Instance.gameObject != null)
+            InventoryUI.Instance.RefreshUI(items);
     }
 }

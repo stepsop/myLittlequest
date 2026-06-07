@@ -124,6 +124,9 @@ public class InventoryUI : MonoBehaviour
 
     public void RefreshUI(List<InventoryManager.ItemStack> items)
     {
+        // Если контейнер уничтожен — выходим
+        if (itemsContainer == null) return;
+
         foreach (Transform child in itemsContainer)
             Destroy(child.gameObject);
 

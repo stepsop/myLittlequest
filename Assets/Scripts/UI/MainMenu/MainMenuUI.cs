@@ -63,30 +63,27 @@ public class MainMenuUI : MonoBehaviour
 
     private void StartNewGame()
     {
-        // Удаляем сохранение из PlayerPrefs
         PlayerPrefs.DeleteAll();
         PlayerPrefs.Save();
 
-        // Очищаем состояние в памяти —
-        // иначе инвентарь из прошлой сессии останется
         InventoryManager.Instance?.ClearInventory();
         PickupTracker.Instance?.LoadPickedUpItems(new List<string>());
 
-        // Сбрасываем состояния всех NPC
         NPCState[] allStates = Resources.FindObjectsOfTypeAll<NPCState>();
-        foreach (var state in allStates)
-            state.Reset();
+        foreach (var state in allStates) state.Reset();
 
-        SceneManager.LoadScene("Level1");
+        // Используем SceneLoader если есть, иначе грузим напрямую
+        if (SceneLoader.Instance != null)
+            SceneLoader.Instance.LoadScene("Level1");
+        else
+            UnityEngine.SceneManagement.SceneManager.LoadScene("Level1");
 
     }
 
     private void ContinueGame()
     {
-        // Загружаем только если сохранение реально есть
         if (!SaveManager.HasSave()) return;
         SaveManager.Instance.Load();
-
     }
 
     private void OpenSettings()
