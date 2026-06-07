@@ -25,7 +25,8 @@ public class ItemInspectPanel : MonoBehaviour
 
         gameObject.SetActive(true);
         input = new PlayerInputActions();
-        input.Enable();
+        input.Player.Enable();
+        Debug.Log($"{gameObject.name} → input создан");
 
         if (panel != null)
             panel.SetActive(false);
@@ -77,6 +78,7 @@ public class ItemInspectPanel : MonoBehaviour
     }
     private void OnDestroy()
     {
-        input?.Disable();
+        input?.Player.Disable();
+        Debug.Log($"{gameObject.name} → input уничтожен");
     }
 }

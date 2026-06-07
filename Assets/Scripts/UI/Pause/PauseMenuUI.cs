@@ -21,7 +21,8 @@ public class PauseMenuUI : MonoBehaviour
     private void Awake()
     {
         input = new PlayerInputActions();
-        input.Enable();
+        input.Player.Enable();
+        Debug.Log($"{gameObject.name} → input создан");
     }
 
     private void Start()
@@ -82,7 +83,8 @@ public class PauseMenuUI : MonoBehaviour
     }
     private void OnDestroy()
     {
-        input?.Disable();
+        Debug.Log($"{gameObject.name} → input уничтожен");
+        input?.Player.Disable();
     }
 
     private void ExitGame()

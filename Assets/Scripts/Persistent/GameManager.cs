@@ -50,6 +50,7 @@ public sealed class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded;
 
     }
+
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         // Главное меню — ничего не делаем
@@ -62,8 +63,10 @@ public sealed class GameManager : MonoBehaviour
         if (Camera.main == null)
             SpawnCamera();
     }
+
     private void OnDestroy()
     {
+        
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
     private void SpawnPlayer()

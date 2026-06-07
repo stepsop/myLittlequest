@@ -11,8 +11,9 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
+        Debug.Log($"{gameObject.name} → input создан");
         input = new PlayerInputActions();
-        input.Enable();
+        input.Player.Enable();
     }
 
     private void FixedUpdate()
@@ -112,6 +113,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDestroy()
     {
+        Debug.Log($"{gameObject.name} → input уничтожен");
         input.Disable();
     }
 }
