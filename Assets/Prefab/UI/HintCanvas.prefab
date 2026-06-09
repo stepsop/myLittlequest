@@ -149,6 +149,7 @@ GameObject:
   - component: {fileID: 8432736362234562423}
   - component: {fileID: 8322821553740795307}
   - component: {fileID: 1309914301707387984}
+  - component: {fileID: 8163327423281904811}
   m_Layer: 0
   m_Name: HintCanvas
   m_TagString: Untagged
@@ -194,6 +195,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
+  m_UseReflectionProbes: 0
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
@@ -239,3 +241,16 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &8163327423281904811
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8040543859212806918}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a0924bb0380f4c24c8cd53654adba2e0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractionHintUI
+  label: {fileID: 7695798274462020986}
