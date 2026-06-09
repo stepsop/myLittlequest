@@ -7,6 +7,7 @@ public class MouseHoverDetector : MonoBehaviour
     [Tooltip("Какой слой проверять (по умолчанию Default)")]
     public LayerMask layerMask = Physics2D.DefaultRaycastLayers;
 
+    private readonly Collider2D[] hoverHits = new Collider2D[16];
     private Camera cam;
     private IHoverable currentHovered;   // объект, над которым сейчас курсор
 
@@ -21,14 +22,7 @@ public class MouseHoverDetector : MonoBehaviour
             currentHovered = null;
 
         Vector3 mouseWorldPos = cam.ScreenToWorldPoint(Input.mousePosition);
-        // 2D‑проверка
-        Collider2D hit = Physics2D.OverlapPoint(mouseWorldPos, layerMask);
-
-        IHoverable newHovered = null;
-        if (hit != null)
-            newHovered = hit.GetComponent<IHoverable>();
-        if (!IsHoverableAlive(newHovered))
-            newHovered = null;
+        IHoverable newHovered = FindHoverableAt(mouseWorldPos);
 
         // Смена объекта под курсором
         if (newHovered != currentHovered)
@@ -49,6 +43,24 @@ public class MouseHoverDetector : MonoBehaviour
             currentHovered.OnMouseExit();
 
         currentHovered = null;
+    }
+
+    private IHoverable FindHoverableAt(Vector3 worldPosition)
+    {
+        int hitCount = Physics2D.OverlapPointNonAlloc(worldPosition, hoverHits, layerMask);
+
+        for (int i = 0; i < hitCount; i++)
+        {
+            Collider2D hit = hoverHits[i];
+            if (hit == null)
+                continue;
+
+            IHoverable hoverable = hit.GetComponent<IHoverable>() ?? hit.GetComponentInParent<IHoverable>();
+            if (IsHoverableAlive(hoverable))
+                return hoverable;
+        }
+
+        return null;
     }
 
     private static bool IsHoverableAlive(IHoverable hoverable)
