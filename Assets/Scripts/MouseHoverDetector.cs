@@ -66,8 +66,7 @@ public class MouseHoverDetector : MonoBehaviour
     private static bool IsHoverableAlive(IHoverable hoverable)
     {
         if (hoverable == null) return false;
-
         Object unityObject = hoverable as Object;
-        return unityObject == null || unityObject != null;
+        return unityObject != null; // уничтоженный объект вернёт false
     }
 }

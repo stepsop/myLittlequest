@@ -26,7 +26,7 @@ MonoBehaviour:
     actionType: 1
     giveItem: {fileID: 11400000, guid: ea25205d16db61c409ae0c85172adc0e, type: 2}
     takeItem: {fileID: 0}
-    targetNpcState: {fileID: 11400000, guid: 0788a4fec80c2f24f855c4071486917c, type: 2}
+    targetNpcState: {fileID: 0}
     lockDialogue: 0
     lockedPhrase: 
     lockedAudio: {fileID: 0}

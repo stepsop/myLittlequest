@@ -26,7 +26,7 @@ public class NPCDialogue : MonoBehaviour, IInteractable
             SpeechBubble.Instance?.Show(lockedPhrase, lockedAudio);
             return;
         }
-        if (!CanInteract()) return;
+       
 
         // DialogueUI.Instance становится null, если объект с DialogueUI выключен в инспекторе:
         // Unity НЕ вызывает Awake() на неактивных объектах => Instance не присваивается.

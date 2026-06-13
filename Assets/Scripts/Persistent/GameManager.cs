@@ -22,13 +22,7 @@ public sealed class GameManager : MonoBehaviour
             Instantiate(prefab);
         else
             Debug.LogError("Положи GameManager.prefab в Assets/Resources/");
-        // if (Instance != null) return;
-
-        // var go = new GameObject(nameof(GameManager));
-        // go.AddComponent<GameManager>();
-        // go.AddComponent<PickupTracker>();
-        // go.AddComponent<InventoryManager>();
-        // go.AddComponent<SaveManager>();
+       
     }
 
     private void Awake()

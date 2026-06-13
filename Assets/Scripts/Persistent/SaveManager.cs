@@ -125,9 +125,6 @@ public class SaveManager : MonoBehaviour
         _loadedPlayerY = data.playerY;
         _pendingPositionRestore = true;
 
-        // Ждём загрузки и ставим позицию
-        ResetGameplayState();
-
         // 5. Загружаем сцену
         SceneManager.LoadScene(data.sceneName);
 
