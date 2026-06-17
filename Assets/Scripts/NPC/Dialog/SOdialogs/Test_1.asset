@@ -24,8 +24,8 @@ MonoBehaviour:
     requiredItem: {fileID: 0}
     npcState: {fileID: 11400000, guid: 0788a4fec80c2f24f855c4071486917c, type: 2}
     actionType: 1
-    giveItem: {fileID: 11400000, guid: ea25205d16db61c409ae0c85172adc0e, type: 2}
-    takeItem: {fileID: 0}
+    giveItem: {fileID: 0}
+    takeItem: {fileID: 11400000, guid: afd403308f33b534e88336611d71a30d, type: 2}
     targetNpcState: {fileID: 0}
     lockDialogue: 0
     lockedPhrase: 

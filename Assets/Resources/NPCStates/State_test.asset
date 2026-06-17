@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4e1b24c0b74efe498cf6f172b081017, type: 3}
   m_Name: State_test
   m_EditorClassIdentifier: Assembly-CSharp::NPCState
-  isLoyal: 0
+  isLoyal: 1
   itemGiven: 1
   isLocked: 0
