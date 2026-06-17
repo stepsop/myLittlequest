@@ -178,6 +178,7 @@ public class DialogueUI : MonoBehaviour
                 {
                     InventoryManager.Instance.AddItem(option.giveItem);
                     option.targetNpcState.itemGiven = true;
+                    SaveManager.Instance?.Save();
                 }
                 break;
 
@@ -185,17 +186,20 @@ public class DialogueUI : MonoBehaviour
                 // NPC забирает предмет у игрока
                 if (option.takeItem != null)
                     InventoryManager.Instance.RemoveItem(option.takeItem);
+                    SaveManager.Instance?.Save();
                 break;
 
             case ActionType.ExchangeItems:
                 // Обмен — забирает takeItem, выдаёт giveItem
                 if (option.takeItem != null)
                     InventoryManager.Instance.RemoveItem(option.takeItem);
+                    SaveManager.Instance?.Save();
                 if (option.giveItem != null && option.targetNpcState != null
                     && !option.targetNpcState.itemGiven)
                 {
                     InventoryManager.Instance.AddItem(option.giveItem);
                     option.targetNpcState.itemGiven = true;
+                    SaveManager.Instance?.Save();
                 }
                 break;
 
@@ -203,16 +207,19 @@ public class DialogueUI : MonoBehaviour
                 // NPC становится лояльным
                 if (option.targetNpcState != null)
                     option.targetNpcState.isLoyal = true;
+                    SaveManager.Instance?.Save();
                 break;
 
             case ActionType.LockDialogue:
                 // Блокируем диалог навсегда
                 if (option.targetNpcState != null)
                     option.targetNpcState.isLocked = true;
+                    SaveManager.Instance?.Save();
                 break;
         }
         if (option.lockDialogue && option.targetNpcState != null)
             option.targetNpcState.isLocked = true;
+            SaveManager.Instance?.Save();
     }
 
     private void ClearOptions()

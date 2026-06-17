@@ -67,12 +67,12 @@ public class SaveManager : MonoBehaviour
         data.pickedUpItems = new List<string>(PickupTracker.Instance.GetPickedUpItems());
 
         // 5. Состояния NPC — берём все NPCState assets
-        NPCState[] allStates = Resources.FindObjectsOfTypeAll<NPCState>();
+        NPCState[] allStates = Resources.LoadAll<NPCState>("NPCStates");
         foreach (var state in allStates)
         {
             data.npcStates.Add(new NPCStateSaveData
             {
-                stateName = state.name, // Имя SO asset файла
+                stateName = state.name,
                 isLoyal = state.isLoyal,
                 itemGiven = state.itemGiven,
                 isLocked = state.isLocked
@@ -109,30 +109,35 @@ public class SaveManager : MonoBehaviour
         PickupTracker.Instance.LoadPickedUpItems(data.pickedUpItems);
 
         // 3. Состояния NPC
-        NPCState[] allStates = Resources.FindObjectsOfTypeAll<NPCState>();
-        foreach (var savedState in data.npcStates)
+        NPCState[] allStates = Resources.LoadAll<NPCState>("NPCStates");
+
+        foreach (var saved in data.npcStates)
+        {
             foreach (var state in allStates)
-                if (state.name == savedState.stateName)
-                {
-                    state.isLoyal = savedState.isLoyal;
-                    state.itemGiven = savedState.itemGiven;
-                    state.isLocked = savedState.isLocked;
-                    break;
-                }
+            {
+                if (state.name != saved.stateName) continue;
 
-        // 4. Сохраняем позицию — загрузим её ПОСЛЕ перехода на сцену
-        _loadedPlayerX = data.playerX;
-        _loadedPlayerY = data.playerY;
-        _pendingPositionRestore = true;
+                // Нашли нужный SO — восстанавливаем флаги
+                state.isLoyal = saved.isLoyal;
+                state.itemGiven = saved.itemGiven;
+                state.isLocked = saved.isLocked;
+                break;
+            }
 
-        // 5. Загружаем сцену
-        SceneManager.LoadScene(data.sceneName);
+            // 4. Сохраняем позицию — загрузим её ПОСЛЕ перехода на сцену
+            _loadedPlayerX = data.playerX;
+            _loadedPlayerY = data.playerY;
+            _pendingPositionRestore = true;
 
-        Debug.Log($"Игра загружена: сцена {data.sceneName}");
+            // 5. Загружаем сцену
+            SceneManager.LoadScene(data.sceneName);
 
-        // Загружаем сцену — это должно быть последним действием
-        // После LoadScene Unity перезагрузит объекты,
-        // поэтому позицию игрока нужно восстанавливать через PlayerSpawnManager
+            Debug.Log($"Игра загружена: сцена {data.sceneName}");
+
+            // Загружаем сцену — это должно быть последним действием
+            // После LoadScene Unity перезагрузит объекты,
+            // поэтому позицию игрока нужно восстанавливать через PlayerSpawnManager
+        }
     }
 
     // Удаляем сохранение — при новой игре
