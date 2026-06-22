@@ -14,8 +14,17 @@ public class NPCState : ScriptableObject
     // Сброс используется только при старте новой игры
     public void Reset()
     {
-        isLoyal   = false;
+        isLoyal = false;
         itemGiven = false;
-        isLocked  = false;
+        isLocked = false;
     }
+
+#if UNITY_EDITOR
+  
+    private void OnEnable()
+    {
+        if (UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode)
+            Reset();
+    }
+#endif
 }

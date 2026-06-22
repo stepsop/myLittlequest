@@ -96,7 +96,7 @@ public class SaveManager : MonoBehaviour
         string json = PlayerPrefs.GetString(SaveDataKey);
         SaveData data = JsonUtility.FromJson<SaveData>(json);
 
-        // 1. Восстанавливаем инвентарь
+        // 1. Инвентарь
         InventoryManager.Instance.ClearInventory();
         foreach (var itemData in data.inventoryItems)
         {
@@ -110,34 +110,27 @@ public class SaveManager : MonoBehaviour
 
         // 3. Состояния NPC
         NPCState[] allStates = Resources.LoadAll<NPCState>("NPCStates");
-
         foreach (var saved in data.npcStates)
         {
             foreach (var state in allStates)
             {
                 if (state.name != saved.stateName) continue;
-
-                // Нашли нужный SO — восстанавливаем флаги
                 state.isLoyal = saved.isLoyal;
                 state.itemGiven = saved.itemGiven;
                 state.isLocked = saved.isLocked;
                 break;
             }
-
-            // 4. Сохраняем позицию — загрузим её ПОСЛЕ перехода на сцену
-            _loadedPlayerX = data.playerX;
-            _loadedPlayerY = data.playerY;
-            _pendingPositionRestore = true;
-
-            // 5. Загружаем сцену
-            SceneManager.LoadScene(data.sceneName);
-
-            Debug.Log($"Игра загружена: сцена {data.sceneName}");
-
-            // Загружаем сцену — это должно быть последним действием
-            // После LoadScene Unity перезагрузит объекты,
-            // поэтому позицию игрока нужно восстанавливать через PlayerSpawnManager
         }
+
+        // 4. Запоминаем позицию — восстановим ПОСЛЕ загрузки сцены
+        _loadedPlayerX = data.playerX;
+        _loadedPlayerY = data.playerY;
+        _pendingPositionRestore = true;
+
+        // 5. Загружаем сцену — ПОСЛЕДНЕЕ действие
+        SceneManager.LoadScene(data.sceneName);
+
+        Debug.Log($"Загрузка: сцена {data.sceneName}, позиция ({data.playerX}, {data.playerY})");
     }
 
     // Удаляем сохранение — при новой игре
@@ -149,20 +142,34 @@ public class SaveManager : MonoBehaviour
     }
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
+
         if (!_pendingPositionRestore) return;
 
         _pendingPositionRestore = false;
 
-        GameObject player = GameObject.FindWithTag("Player");
-        if (player != null)
-            player.transform.position = new Vector3(_loadedPlayerX, _loadedPlayerY, 0);
+        // Ждём один кадр — GameManager успеет заспавнить игрока
+        StartCoroutine(RestorePositionNextFrame());
 
         ResetGameplayState();
     }
+
+    private IEnumerator RestorePositionNextFrame()
+    {
+        // Ждём пока GameManager заспавнит игрока
+        yield return null;
+
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player != null)
+            player.transform.position = new Vector3(_loadedPlayerX, _loadedPlayerY, 0);
+        else
+            Debug.LogError("RestorePosition: Player не найден!");
+    }
+
     private void OnEnable()
     {
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
+    
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;

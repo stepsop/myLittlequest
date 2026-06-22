@@ -118,32 +118,46 @@ public class DialogueUI : MonoBehaviour
 
     private void SpawnOptions(DialogueData dialogue)
     {
-        ClearOptions();
-        optionsCanvas.SetActive(true);
-
-        foreach (var option in dialogue.options)
         {
-            // Проверяем условие — показывать ли этот вариант
-            if (!CheckCondition(option)) continue;
+            ClearOptions();
+            optionsCanvas.SetActive(true);
 
-            Button btn = Instantiate(optionPrefab, optionsContainer);
-            btn.GetComponentInChildren<TMP_Text>().text = option.text;
+            // Считаем сколько кнопок реально появится
+            int visibleCount = 0;
 
-            var localOption = option;
-            btn.onClick.AddListener(() =>
+            foreach (var option in dialogue.options)
             {
-                // Выполняем действие при выборе
-                ExecuteAction(localOption);
+                if (!CheckCondition(option)) continue;
 
-                if (localOption.nextDialogue != null)
-                    OpenDialogue(localOption.nextDialogue);
-                else
-                    CloseDialogue();
-            });
+                visibleCount++;
+                Debug.Log($"Spawning button: {option.text}, action={option.actionType}, giveItem={option.giveItem}, targetNpcState={option.targetNpcState}");
+                Button btn = Instantiate(optionPrefab, optionsContainer);
+                btn.GetComponentInChildren<TMP_Text>().text = option.text;
+
+                var localOption = option;
+                btn.onClick.AddListener(() =>
+                {
+                    ExecuteAction(localOption);
+
+                    if (localOption.nextDialogue != null)
+                        OpenDialogue(localOption.nextDialogue);
+                    else
+                        CloseDialogue();
+                });
+            }
+
+            // Если ни одна опция не прошла условие — добавляем кнопку выхода
+            if (visibleCount == 0)
+            {
+                Button exitBtn = Instantiate(optionPrefab, optionsContainer);
+                exitBtn.GetComponentInChildren<TMP_Text>().text = "Выйти";
+                exitBtn.onClick.AddListener(CloseDialogue);
+            }
         }
     }
     private bool CheckCondition(DialogueOption option)
     {
+        Debug.Log($"CheckCondition: text={option.text}, condition={option.conditionType}, action={option.actionType}, targetNpcState={option.targetNpcState}, itemGiven={option.targetNpcState?.itemGiven}");
         switch (option.conditionType)
         {
             case ConditionType.None:
@@ -173,6 +187,7 @@ public class DialogueUI : MonoBehaviour
         switch (option.actionType)
         {
             case ActionType.GiveItem:
+                Debug.Log($"GiveItem: giveItem={option.giveItem}, targetNpcState={option.targetNpcState}, itemGiven={option.targetNpcState?.itemGiven}");
                 if (option.giveItem != null && option.targetNpcState != null
                     && !option.targetNpcState.itemGiven)
                 {
@@ -186,14 +201,14 @@ public class DialogueUI : MonoBehaviour
                 // NPC забирает предмет у игрока
                 if (option.takeItem != null)
                     InventoryManager.Instance.RemoveItem(option.takeItem);
-                    SaveManager.Instance?.Save();
+                SaveManager.Instance?.Save();
                 break;
 
             case ActionType.ExchangeItems:
                 // Обмен — забирает takeItem, выдаёт giveItem
                 if (option.takeItem != null)
                     InventoryManager.Instance.RemoveItem(option.takeItem);
-                    SaveManager.Instance?.Save();
+                SaveManager.Instance?.Save();
                 if (option.giveItem != null && option.targetNpcState != null
                     && !option.targetNpcState.itemGiven)
                 {
@@ -207,19 +222,19 @@ public class DialogueUI : MonoBehaviour
                 // NPC становится лояльным
                 if (option.targetNpcState != null)
                     option.targetNpcState.isLoyal = true;
-                    SaveManager.Instance?.Save();
+                SaveManager.Instance?.Save();
                 break;
 
             case ActionType.LockDialogue:
                 // Блокируем диалог навсегда
                 if (option.targetNpcState != null)
                     option.targetNpcState.isLocked = true;
-                    SaveManager.Instance?.Save();
+                SaveManager.Instance?.Save();
                 break;
         }
         if (option.lockDialogue && option.targetNpcState != null)
             option.targetNpcState.isLocked = true;
-            SaveManager.Instance?.Save();
+        SaveManager.Instance?.Save();
     }
 
     private void ClearOptions()
