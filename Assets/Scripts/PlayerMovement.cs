@@ -64,31 +64,7 @@ public class PlayerMovement : MonoBehaviour
         if (input.Player.Interact.WasPressedThisFrame())
             TryInteract();
     }
-    /*  void UpdateHint()
-     { */
-    /* Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1.2f);
-
-    InteractionHint nearestHint = null;
-
-    foreach (var hit in hits)
-    {
-        IInteractable interactable = hit.GetComponent<IInteractable>();
-        if (interactable != null && interactable.CanInteract())
-        {
-            nearestHint = hit.GetComponent<InteractionHint>();
-            break;
-        }
-    } */
-
-    // Если подсказка изменилась — скрываем старую показываем новую
-    /* if (nearestHint != currentHint)
-    {
-        if (currentHint != null) currentHint.Hide();
-        currentHint = nearestHint;
-        if (currentHint != null) currentHint.Show();
-    } */
-    /*  } */
-
+  
     void TryInteract()
     {
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1.2f);

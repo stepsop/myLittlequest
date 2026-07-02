@@ -76,8 +76,7 @@ public sealed class GameManager : MonoBehaviour
         if (GameObject.FindWithTag("Player") == null)
             SpawnPlayer();
 
-        //  if (Camera.main == null)
-        //      SpawnCamera();
+        
     }
 
     private void OnDestroy()
@@ -97,24 +96,5 @@ public sealed class GameManager : MonoBehaviour
         playerTransform = player.transform;
         DontDestroyOnLoad(player);
     }
-    // private void SpawnCamera()
-    // {
-    //     if (cameraPrefab == null)
-    //     {
-    //         Debug.LogError("cameraPrefab не назначен!"); return;
-    //     }
-    //     var camera = Instantiate(cameraPrefab);
-    //     camera.name = "Main Camera";
-    //     Camera spawnedCamera = camera.GetComponentInChildren<Camera>();
-    //     if (spawnedCamera != null)
-    //         spawnedCamera.gameObject.tag = "MainCamera";
-    //     else
-    //         camera.tag = "MainCamera";
-
-    //     CameraFollow cameraFollow = camera.GetComponentInChildren<CameraFollow>();
-    //     if (cameraFollow != null)
-    //         cameraFollow.SetTarget(playerTransform);
-
-    //     DontDestroyOnLoad(camera);
-    // }
+   
 }
