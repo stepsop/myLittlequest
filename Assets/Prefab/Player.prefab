@@ -254,8 +254,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::JumpingText
   jumpHeight: 4
-  jumpSpeed: 3
-  charOffset: 1.2
+  smoothSpeed: 12
+  minDelay: 0.05
+  maxDelay: 0.25
 --- !u!1 &3013421522557968391
 GameObject:
   m_ObjectHideFlags: 0
@@ -415,6 +416,7 @@ GameObject:
   - component: {fileID: 9155739560275282939}
   - component: {fileID: 8919491514885488765}
   - component: {fileID: 8398912783673886429}
+  - component: {fileID: 5090587365343505748}
   m_Layer: 0
   m_Name: PlayerVisual
   m_TagString: Player
@@ -487,7 +489,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_MaskInteraction: 0
-  m_Sprite: {fileID: 4799327077185395405, guid: af5c9a57bf2267c4f87035c72c7eb8b3, type: 3}
+  m_Sprite: {fileID: 8793639957104055765, guid: e3e5533b82d728448ada4a0f6eaf884f, type: 3}
   m_Color: {r: 0.9716981, g: 0.9716981, b: 0.9716981, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -519,6 +521,18 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &5090587365343505748
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4862006860584699885}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b766b4b2b3c1eff40ad4ea67388741e1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerVisual
 --- !u!1 &5348850927863583329
 GameObject:
   m_ObjectHideFlags: 0

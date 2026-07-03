@@ -6,11 +6,18 @@ public class PlayerMovement : MonoBehaviour
 
     private Rigidbody2D rb;
     private PlayerInputActions input;
+    public static PlayerMovement Instance { get; private set; }
+    private Camera _mainCamera;
+
+    private bool _isAlive;
+    private bool _isRunning;
     /* private InteractionHint currentHint; */
 
     private void Awake()
     {
+        Instance = this;
         rb = GetComponent<Rigidbody2D>();
+        _mainCamera = Camera.main;
         Debug.Log($"{gameObject.name} → input создан");
         input = new PlayerInputActions();
         input.Player.Enable();
@@ -91,5 +98,18 @@ public class PlayerMovement : MonoBehaviour
     {
         Debug.Log($"{gameObject.name} → input уничтожен");
         input.Disable();
+    }
+    public bool IsAlive()
+    {
+        return _isAlive;
+    }
+     public bool IsRunning()
+    {
+        return _isRunning;
+    }
+     public Vector3 GetPlayerScreenPosition()
+    {
+        Vector3 playerScreenPosition = _mainCamera.WorldToScreenPoint(transform.position);
+        return playerScreenPosition;
     }
 }
