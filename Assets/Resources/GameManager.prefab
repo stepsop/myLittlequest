@@ -44,6 +44,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 336ed2273e92e5f4eb24030e7169571b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  playerPrefab: {fileID: 4744098592666751532, guid: d030e46226afea54797b0d0600cb2faf, type: 3}
-  cameraPrefab: {fileID: 6271394291047659707, guid: 1a33a3e989899c941b18f8812f2cdca0, type: 3}
+  playerPrefab: {fileID: 6151737631336936912, guid: d030e46226afea54797b0d0600cb2faf, type: 3}
   uiRootPrefab: {fileID: 4965876787573431083, guid: f0f7d7d0797b6dc4f94dd5e5739bb270, type: 3}

@@ -16,6 +16,7 @@ public class PlayerMovement : MonoBehaviour
     private void Awake()
     {
         Instance = this;
+         _isAlive = true;
         rb = GetComponent<Rigidbody2D>();
         _mainCamera = Camera.main;
         Debug.Log($"{gameObject.name} → input создан");

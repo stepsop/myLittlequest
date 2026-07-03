@@ -621,6 +621,8 @@ GameObject:
   - component: {fileID: 4118463143738481065}
   - component: {fileID: 6434899591683462425}
   - component: {fileID: 7822061399758821813}
+  - component: {fileID: 2530015130433865981}
+  - component: {fileID: 1884589650314435927}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -730,3 +732,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
   speed: 5
+--- !u!114 &2530015130433865981
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6151737631336936912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d84adc1622094a29b4ac495436769e6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: glTFast::GLTFast.DontDestroyOnLoad
+--- !u!114 &1884589650314435927
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6151737631336936912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02c14cd7f1bedfa49af57b4105a11330, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CombineManager
+  failPhraseDatabase: {fileID: 11400000, guid: da4c7a7954c206444955ca3bdb29b0eb, type: 2}
