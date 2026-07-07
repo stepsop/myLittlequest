@@ -10,6 +10,10 @@ GameObject:
   m_Component:
   - component: {fileID: 8640370958744985696}
   - component: {fileID: 1859081784871504985}
+  - component: {fileID: -1980785615732952935}
+  - component: {fileID: -3458303090413920635}
+  - component: {fileID: 2633501510397591661}
+  - component: {fileID: 7477580349426140964}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -44,5 +48,52 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 336ed2273e92e5f4eb24030e7169571b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameManager
-  playerPrefab: {fileID: 6151737631336936912, guid: d030e46226afea54797b0d0600cb2faf, type: 3}
   uiRootPrefab: {fileID: 4965876787573431083, guid: f0f7d7d0797b6dc4f94dd5e5739bb270, type: 3}
+--- !u!114 &-1980785615732952935
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3634986074553219586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 42277d6e58dc21b4097665c2d1c92edf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PickupTracker
+--- !u!114 &-3458303090413920635
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3634986074553219586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e6dfa6983c6114343b6fca2522c124dc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InventoryManager
+--- !u!114 &2633501510397591661
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3634986074553219586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48b4be6f288d1ed4688db7989efffe2f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SaveManager
+--- !u!114 &7477580349426140964
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3634986074553219586}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 451d0442e36eaa44ea555ace93220584, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GameInput

@@ -37,11 +37,7 @@ public sealed class GameManager : MonoBehaviour
         DontDestroyOnLoad(gameObject);
 
         // Добавляем менеджеры как компоненты
-        if (GetComponent<PickupTracker>() == null) gameObject.AddComponent<PickupTracker>();
-        if (GetComponent<InventoryManager>() == null) gameObject.AddComponent<InventoryManager>();
-        if (GetComponent<SaveManager>() == null) gameObject.AddComponent<SaveManager>();
-        //if (GetComponent<CombineManager>() == null) gameObject.AddComponent<CombineManager>();
-        if (GetComponent<GameInput>() == null) gameObject.AddComponent<GameInput>();
+     
 
 
         SceneManager.sceneLoaded += OnSceneLoaded;
