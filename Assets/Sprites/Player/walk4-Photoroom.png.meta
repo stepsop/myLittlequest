@@ -1,0 +1,977 @@
+fileFormatVersion: 2
+guid: 5dc85962e3d019245b8f5fa1785f2507
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 7327013289287199254
+    second: walk4-Photoroom_0
+  - first:
+      213: -4644073402783429351
+    second: walk4-Photoroom_1
+  - first:
+      213: 7881856849656393648
+    second: walk4-Photoroom_2
+  - first:
+      213: -2831997391522810537
+    second: walk4-Photoroom_3
+  - first:
+      213: 182552960009477223
+    second: walk4-Photoroom_4
+  - first:
+      213: -3370951099249175891
+    second: walk4-Photoroom_5
+  - first:
+      213: 1788682420866794904
+    second: walk4-Photoroom_6
+  - first:
+      213: 5947134042188352555
+    second: walk4-Photoroom_7
+  - first:
+      213: -1107658702832950992
+    second: walk4-Photoroom_8
+  - first:
+      213: -4563539513468277430
+    second: walk4-Photoroom_9
+  - first:
+      213: 8479369909375624604
+    second: walk4-Photoroom_10
+  - first:
+      213: 5582325078292702888
+    second: walk4-Photoroom_11
+  - first:
+      213: 941114931425801664
+    second: walk4-Photoroom_12
+  - first:
+      213: -319647081348959580
+    second: walk4-Photoroom_13
+  - first:
+      213: 4818346790045744838
+    second: walk4-Photoroom_14
+  - first:
+      213: 5746660344413152573
+    second: walk4-Photoroom_15
+  - first:
+      213: 4285606094220314169
+    second: walk4-Photoroom_16
+  - first:
+      213: 7816481582854931963
+    second: walk4-Photoroom_17
+  - first:
+      213: 1694989988805543297
+    second: walk4-Photoroom_18
+  - first:
+      213: 6634092917761106146
+    second: walk4-Photoroom_19
+  - first:
+      213: -532486133833615110
+    second: walk4-Photoroom_20
+  - first:
+      213: -7263809304750565825
+    second: walk4-Photoroom_21
+  - first:
+      213: 8643582126132498440
+    second: walk4-Photoroom_22
+  - first:
+      213: -6967261330849666577
+    second: walk4-Photoroom_23
+  - first:
+      213: 8230730675198345758
+    second: walk4-Photoroom_24
+  - first:
+      213: -1460994625872274535
+    second: walk4-Photoroom_25
+  - first:
+      213: 2696911241090041857
+    second: walk4-Photoroom_26
+  - first:
+      213: -3495357991886293610
+    second: walk4-Photoroom_27
+  - first:
+      213: 1765374353411281386
+    second: walk4-Photoroom_28
+  - first:
+      213: -2675167840925384322
+    second: walk4-Photoroom_29
+  - first:
+      213: 3310679145753256982
+    second: walk4-Photoroom_30
+  - first:
+      213: -5990379856853155947
+    second: walk4-Photoroom_31
+  - first:
+      213: 2542989054376089793
+    second: walk4-Photoroom_32
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: walk4-Photoroom_0
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 890
+        width: 100
+        height: 174
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 61aa78434c7cea560800000000000000
+      internalID: 7327013289287199254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_1
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 891
+        width: 99
+        height: 170
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91d014478dfec8fb0800000000000000
+      internalID: -4644073402783429351
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_2
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 891
+        width: 88
+        height: 173
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0bfaf3e7b0bf16d60800000000000000
+      internalID: 7881856849656393648
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_3
+      rect:
+        serializedVersion: 2
+        x: 645
+        y: 891
+        width: 90
+        height: 172
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 75533718069b2b8d0800000000000000
+      internalID: -2831997391522810537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_4
+      rect:
+        serializedVersion: 2
+        x: 835
+        y: 890
+        width: 104
+        height: 173
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76c9f0e23fe888200800000000000000
+      internalID: 182552960009477223
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_5
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 891
+        width: 96
+        height: 175
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: da25a06d5d9f731d0800000000000000
+      internalID: -3370951099249175891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_6
+      rect:
+        serializedVersion: 2
+        x: 1210
+        y: 891
+        width: 99
+        height: 173
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 89540c75f2da2d810800000000000000
+      internalID: 1788682420866794904
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_7
+      rect:
+        serializedVersion: 2
+        x: 70
+        y: 656
+        width: 93
+        height: 170
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b2c0540f6e6788250800000000000000
+      internalID: 5947134042188352555
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_8
+      rect:
+        serializedVersion: 2
+        x: 265
+        y: 656
+        width: 92
+        height: 169
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 031a545474ec0a0f0800000000000000
+      internalID: -1107658702832950992
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_9
+      rect:
+        serializedVersion: 2
+        x: 456
+        y: 656
+        width: 91
+        height: 170
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a4da34dbdfc0ba0c0800000000000000
+      internalID: -4563539513468277430
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_10
+      rect:
+        serializedVersion: 2
+        x: 646
+        y: 657
+        width: 92
+        height: 168
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c956877c106cca570800000000000000
+      internalID: 8479369909375624604
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_11
+      rect:
+        serializedVersion: 2
+        x: 843
+        y: 656
+        width: 86
+        height: 169
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8a624601517687d40800000000000000
+      internalID: 5582325078292702888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_12
+      rect:
+        serializedVersion: 2
+        x: 1025
+        y: 656
+        width: 85
+        height: 170
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0c5737c3b038f0d00800000000000000
+      internalID: 941114931425801664
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_13
+      rect:
+        serializedVersion: 2
+        x: 1213
+        y: 656
+        width: 94
+        height: 170
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 4a274be4ca2609bf0800000000000000
+      internalID: -319647081348959580
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_14
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 419
+        width: 96
+        height: 170
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6cef15970e43ed240800000000000000
+      internalID: 4818346790045744838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_15
+      rect:
+        serializedVersion: 2
+        x: 266
+        y: 419
+        width: 89
+        height: 169
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d35e199d22d30cf40800000000000000
+      internalID: 5746660344413152573
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_16
+      rect:
+        serializedVersion: 2
+        x: 461
+        y: 419
+        width: 86
+        height: 170
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 936404d5908897b30800000000000000
+      internalID: 4285606094220314169
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_17
+      rect:
+        serializedVersion: 2
+        x: 648
+        y: 419
+        width: 93
+        height: 168
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bf5837b0698b97c60800000000000000
+      internalID: 7816481582854931963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_18
+      rect:
+        serializedVersion: 2
+        x: 834
+        y: 419
+        width: 96
+        height: 168
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 18509941a60d58710800000000000000
+      internalID: 1694989988805543297
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_19
+      rect:
+        serializedVersion: 2
+        x: 1024
+        y: 419
+        width: 93
+        height: 168
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2e0e51a1c58011c50800000000000000
+      internalID: 6634092917761106146
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_20
+      rect:
+        serializedVersion: 2
+        x: 1214
+        y: 419
+        width: 93
+        height: 168
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: af8b609beaa3c98f0800000000000000
+      internalID: -532486133833615110
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_21
+      rect:
+        serializedVersion: 2
+        x: 67
+        y: 186
+        width: 92
+        height: 164
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f365a223ce3c13b90800000000000000
+      internalID: -7263809304750565825
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_22
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 186
+        width: 90
+        height: 164
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 8001b07e52c24f770800000000000000
+      internalID: 8643582126132498440
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_23
+      rect:
+        serializedVersion: 2
+        x: 452
+        y: 186
+        width: 91
+        height: 164
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe9e365dbb05f4f90800000000000000
+      internalID: -6967261330849666577
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_24
+      rect:
+        serializedVersion: 2
+        x: 641
+        y: 186
+        width: 90
+        height: 164
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e12cb19d0fd693270800000000000000
+      internalID: 8230730675198345758
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_25
+      rect:
+        serializedVersion: 2
+        x: 834
+        y: 186
+        width: 92
+        height: 164
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 99bd022e02189bbe0800000000000000
+      internalID: -1460994625872274535
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_26
+      rect:
+        serializedVersion: 2
+        x: 1021
+        y: 187
+        width: 92
+        height: 163
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1080ee32c7a5d6520800000000000000
+      internalID: 2696911241090041857
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_27
+      rect:
+        serializedVersion: 2
+        x: 1212
+        y: 186
+        width: 91
+        height: 164
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6957bc2fc6efd7fc0800000000000000
+      internalID: -3495357991886293610
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_28
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 0
+        width: 93
+        height: 153
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ae11aaefe9edf7810800000000000000
+      internalID: 1765374353411281386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_29
+      rect:
+        serializedVersion: 2
+        x: 260
+        y: 4
+        width: 87
+        height: 149
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e710817b505efdad0800000000000000
+      internalID: -2675167840925384322
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_30
+      rect:
+        serializedVersion: 2
+        x: 455
+        y: 4
+        width: 85
+        height: 147
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 614aaef6425e1fd20800000000000000
+      internalID: 3310679145753256982
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_31
+      rect:
+        serializedVersion: 2
+        x: 644
+        y: 4
+        width: 85
+        height: 148
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 59fbc923245eddca0800000000000000
+      internalID: -5990379856853155947
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: walk4-Photoroom_32
+      rect:
+        serializedVersion: 2
+        x: 840
+        y: 4
+        width: 85
+        height: 148
+      alignment: 7
+      pivot: {x: 0.5, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1c81bc552138a4320800000000000000
+      internalID: 2542989054376089793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: ef6bfe0bc0322d24e9621b54bd3b2839
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries:
+      - key: SpriteEditor.SliceSettings
+        value: '{"sliceOnImport":false,"gridCellCount":{"x":7.0,"y":5.0},"gridSpriteSize":{"x":200.0,"y":214.0},"gridSpriteOffset":{"x":0.0,"y":50.0},"gridSpritePadding":{"x":0.0,"y":0.0},"pivot":{"x":0.5,"y":0.0},"pivotPixels":{"x":0.0,"y":0.0},"autoSlicingMethod":0,"spriteAlignment":7,"pivotUnitMode":0,"slicingType":0,"keepEmptyRects":false,"isAlternate":false}'
+    nameFileIdTable:
+      walk4-Photoroom_0: 7327013289287199254
+      walk4-Photoroom_1: -4644073402783429351
+      walk4-Photoroom_10: 8479369909375624604
+      walk4-Photoroom_11: 5582325078292702888
+      walk4-Photoroom_12: 941114931425801664
+      walk4-Photoroom_13: -319647081348959580
+      walk4-Photoroom_14: 4818346790045744838
+      walk4-Photoroom_15: 5746660344413152573
+      walk4-Photoroom_16: 4285606094220314169
+      walk4-Photoroom_17: 7816481582854931963
+      walk4-Photoroom_18: 1694989988805543297
+      walk4-Photoroom_19: 6634092917761106146
+      walk4-Photoroom_2: 7881856849656393648
+      walk4-Photoroom_20: -532486133833615110
+      walk4-Photoroom_21: -7263809304750565825
+      walk4-Photoroom_22: 8643582126132498440
+      walk4-Photoroom_23: -6967261330849666577
+      walk4-Photoroom_24: 8230730675198345758
+      walk4-Photoroom_25: -1460994625872274535
+      walk4-Photoroom_26: 2696911241090041857
+      walk4-Photoroom_27: -3495357991886293610
+      walk4-Photoroom_28: 1765374353411281386
+      walk4-Photoroom_29: -2675167840925384322
+      walk4-Photoroom_3: -2831997391522810537
+      walk4-Photoroom_30: 3310679145753256982
+      walk4-Photoroom_31: -5990379856853155947
+      walk4-Photoroom_32: 2542989054376089793
+      walk4-Photoroom_4: 182552960009477223
+      walk4-Photoroom_5: -3370951099249175891
+      walk4-Photoroom_6: 1788682420866794904
+      walk4-Photoroom_7: 5947134042188352555
+      walk4-Photoroom_8: -1107658702832950992
+      walk4-Photoroom_9: -4563539513468277430
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

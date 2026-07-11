@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float speed = 5f;
+    public float movingSpeed = 5f;
 
     private Rigidbody2D rb;
     private PlayerInputActions input;
@@ -11,12 +11,14 @@ public class PlayerMovement : MonoBehaviour
 
     private bool _isAlive;
     private bool _isRunning;
+
+
     /* private InteractionHint currentHint; */
 
     private void Awake()
     {
         Instance = this;
-         _isAlive = true;
+        _isAlive = true;
         rb = GetComponent<Rigidbody2D>();
         _mainCamera = Camera.main;
         Debug.Log($"{gameObject.name} → input создан");
@@ -26,39 +28,34 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-
-        // 🔴 БЛОК ДВИЖЕНИЯ во время диалога
-        if (GameState.IsDialogueOpen)
+        // Если движение заблокировано (диалог/переход/меню/осмотр) — стоим на месте
+        if (IsMovementBlocked())
         {
-            Debug.Log("BLOCK: Dialogue");
             rb.linearVelocity = Vector2.zero;
             return;
         }
 
-        if (GameState.IsTransitioning)
-        {
-            Debug.Log("BLOCK: Transition");
-            rb.linearVelocity = Vector2.zero;
-            return;
-        }
+        HandleMovement();
+    }
 
-        if (GameState.IsMenuOpen)
-        {
-            Debug.Log("BLOCK: Menu");
-            rb.linearVelocity = Vector2.zero;
-            return;
-        }
+    // Двигает игрока и обновляет состояние "бежит/стоит" для аниматора
+    private void HandleMovement()
+    {
+        Vector2 move = input.Player.Move.ReadValue<Vector2>();
 
-        if (GameState.IsInspecting)
-        {
-            Debug.Log("BLOCK: Inspect");
-            rb.linearVelocity = Vector2.zero;
-            return;
-        }
+        
+        _isRunning = move.sqrMagnitude > 0.01f;
 
-        // 🟢 Движение
-        Vector2 move = input.Player.Move.ReadValue<Vector2>().normalized;
-        rb.MovePosition(rb.position + move * speed * Time.fixedDeltaTime);
+        rb.MovePosition(rb.position + move.normalized * movingSpeed * Time.fixedDeltaTime);
+    }
+
+    // Проверяет, разрешено ли сейчас движение
+    private bool IsMovementBlocked()
+    {
+        return GameState.IsDialogueOpen
+            || GameState.IsTransitioning
+            || GameState.IsMenuOpen
+            || GameState.IsInspecting;
     }
 
     private void Update()
@@ -72,7 +69,8 @@ public class PlayerMovement : MonoBehaviour
         if (input.Player.Interact.WasPressedThisFrame())
             TryInteract();
     }
-  
+
+
     void TryInteract()
     {
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1.2f);
@@ -104,11 +102,11 @@ public class PlayerMovement : MonoBehaviour
     {
         return _isAlive;
     }
-     public bool IsRunning()
+    public bool IsRunning()
     {
         return _isRunning;
     }
-     public Vector3 GetPlayerScreenPosition()
+    public Vector3 GetPlayerScreenPosition()
     {
         Vector3 playerScreenPosition = _mainCamera.WorldToScreenPoint(transform.position);
         return playerScreenPosition;

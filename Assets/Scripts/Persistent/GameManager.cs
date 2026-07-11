@@ -36,10 +36,7 @@ public sealed class GameManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        // Добавляем менеджеры как компоненты
      
-
-
         SceneManager.sceneLoaded += OnSceneLoaded;
 
     }
@@ -68,11 +65,6 @@ public sealed class GameManager : MonoBehaviour
 
         SpawnUIRoot();
 
-        // Игрок уже существует (DontDestroyOnLoad) — не спавним повторно
-        //if (GameObject.FindWithTag("Player") == null)
-           // SpawnPlayer();
-
-
     }
 
     private void OnDestroy()
@@ -80,17 +72,6 @@ public sealed class GameManager : MonoBehaviour
 
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
-    // private void SpawnPlayer()
-    // {
-    //     if (playerPrefab == null)
-    //     {
-    //         Debug.LogError("playerPrefab не назначен!"); return;
-    //     }
-    //     var player = Instantiate(playerPrefab);
-    //     player.name = "Player";
-    //     player.tag = "Player";
-    //     playerTransform = player.transform;
-    //     DontDestroyOnLoad(player);
-    // }
+   
 
 }

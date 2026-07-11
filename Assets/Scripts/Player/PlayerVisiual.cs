@@ -3,11 +3,11 @@ using UnityEngine;
 public class PlayerVisual : MonoBehaviour
 {
     
-    private static readonly int Running = Animator.StringToHash(IsRunning);
+    private static readonly int Running = Animator.StringToHash(IS_RUNNING);
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
   
-    private const string IsRunning = "IsRunning";
+    private const string IS_RUNNING = "IsRunning";
     
 
     private void Awake()
@@ -26,7 +26,7 @@ public class PlayerVisual : MonoBehaviour
 
     private void Update()
     {
-        _animator.SetBool(Running, PlayerMovement.Instance.IsRunning());
+        _animator.SetBool(IS_RUNNING, PlayerMovement.Instance.IsRunning());
 
         if (PlayerMovement.Instance.IsAlive())
         {
