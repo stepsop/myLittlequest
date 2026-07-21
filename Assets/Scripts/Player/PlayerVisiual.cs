@@ -2,19 +2,19 @@ using UnityEngine;
 
 public class PlayerVisual : MonoBehaviour
 {
-    
+
     private static readonly int Running = Animator.StringToHash(IS_RUNNING);
     private Animator _animator;
     private SpriteRenderer _spriteRenderer;
-  
+
     private const string IS_RUNNING = "IsRunning";
-    
+
 
     private void Awake()
     {
         _spriteRenderer = GetComponent<SpriteRenderer>();
         _animator = GetComponent<Animator>();
-       
+
 
         if (_animator == null)
         {
@@ -26,7 +26,11 @@ public class PlayerVisual : MonoBehaviour
 
     private void Update()
     {
-        _animator.SetBool(IS_RUNNING, PlayerMovement.Instance.IsRunning());
+        // Защита: если PlayerMovement ещё не создан или уже уничтожен —
+        // пропускаем кадр вместо падения с MissingReferenceException.
+        if (PlayerMovement.Instance == null) return;
+
+        _animator.SetBool(Running, PlayerMovement.Instance.IsRunning());
 
         if (PlayerMovement.Instance.IsAlive())
         {
@@ -39,5 +43,5 @@ public class PlayerVisual : MonoBehaviour
         Vector3 playerPosition = PlayerMovement.Instance.GetPlayerScreenPosition();
         _spriteRenderer.flipX = mousePos.x < playerPosition.x;
     }
-    
+
 }

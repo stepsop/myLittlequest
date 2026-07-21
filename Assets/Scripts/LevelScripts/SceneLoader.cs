@@ -69,7 +69,7 @@ public class SceneLoader : MonoBehaviour
         yield return null;
 
         // Сбрасываем состояния
-        GameState.IsTransitioning = false;
+        //GameState.IsTransitioning = false;
         GameState.IsMenuOpen = false;
         GameState.IsDialogueOpen = false;
         GameState.IsInspecting = false;
@@ -79,7 +79,7 @@ public class SceneLoader : MonoBehaviour
 
         isLoading = false;
 
-        Debug.Log("Transition complete");
+        Debug.Log($"[TRANSITION] Сцена={UnityEngine.SceneManagement.SceneManager.GetActiveScene().name}, Переход завершен");
     }
 
     // =====================================

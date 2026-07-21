@@ -85,7 +85,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_Sprite: {fileID: 7482667652216324306, guid: 311925a002f4447b3a28927169b83ea6, type: 3}
-  m_Color: {r: 0.3962264, g: 0.27784276, b: 0.117746525, a: 1}
+  m_Color: {r: 0.3962264, g: 0.27784276, b: 0.117746525, a: 0}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -166,6 +166,5 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 98f6037fdcd7f554a94052a9becb1dd5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractionHint
-  hintPrefab: {fileID: 8040543859212806918, guid: 113970cb6d061814590ee6afd3f1e063, type: 3}
   heightOffset: 1
   offset: {x: 0, y: 0, z: 0}

@@ -13,27 +13,57 @@ public class PlayerSpawnManager : MonoBehaviour
     [Header("ID этой точки спавна")]
     [SerializeField] private int spawnID = 0;
 
+    // ЗАМЕНИ Start() НА ЭТО — временная версия с логами для диагностики:
+
     private void Start()
     {
-        // Если перехода не было — ничего не делаем
-        // Игрок стоит там где поставлен в редакторе
-        if (!ShouldSpawn) return;
+        Debug.Log($"[SPAWN] Сцена={UnityEngine.SceneManagement.SceneManager.GetActiveScene().name}, " +
+           $"{gameObject.name} (spawnID={spawnID}) Start() вызван. " +
+           $"ShouldSpawn={ShouldSpawn}, NextSpawnID={NextSpawnID}, " +
+           $"МояПозиция={transform.position}, Time={Time.time}");
 
-        PlayerSpawnManager[] allSpawns = FindObjectsByType<PlayerSpawnManager>(FindObjectsSortMode.None);
-
-        foreach (var spawn in allSpawns)
+        if (!ShouldSpawn)
         {
-            if (spawn.spawnID == NextSpawnID)
-            {
-                GameObject player = GameObject.FindWithTag("Player");
-                if (player != null)
-                    player.transform.position = spawn.transform.position;
-
-                break;
-            }
+            GameState.IsTransitioning = false;
+            return;
         }
 
-        // Сбрасываем флаг после телепортации
+        if (spawnID != NextSpawnID) return;
+
+        GameObject player = GameObject.FindWithTag("Player");
+        if (player == null)
+        {
+            Debug.LogError("PlayerSpawnManager: Player не найден на сцене!");
+            return;
+        }
+
+        Debug.Log($"[SPAWN] Сцена={UnityEngine.SceneManagement.SceneManager.GetActiveScene().name}, " +
+                   $"ДО телепортации: player.position={player.transform.position}, " +
+                   $"spawnPoint.position={transform.position}");
+
+        Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
+        if (rb != null)
+            rb.position = transform.position;
+
+        player.transform.position = transform.position;
+
+        Debug.Log($"[SPAWN] Сцена={UnityEngine.SceneManagement.SceneManager.GetActiveScene().name}, " +
+                   $"ПОСЛЕ телепортации: player.position={player.transform.position}, " +
+                   $"rb.position={(rb != null ? rb.position.ToString() : "null")}");
+
         ShouldSpawn = false;
+        GameState.IsTransitioning = false;
+    }
+
+    private void LateUpdate()
+    {
+        // Временная диагностика: проверяем, не двигается ли игрок
+        // ПОСЛЕ спавна в первые несколько кадров (признак гонки с физикой)
+        if (Time.frameCount < 10)
+        {
+            GameObject player = GameObject.FindWithTag("Player");
+            if (player != null)
+                Debug.Log($"[SPAWN-WATCH] Сцена={UnityEngine.SceneManagement.SceneManager.GetActiveScene().name}, Frame={Time.frameCount}, player.position={player.transform.position}");
+        }
     }
 }

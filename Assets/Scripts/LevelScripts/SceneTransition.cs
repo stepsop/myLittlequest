@@ -22,6 +22,7 @@ public class SceneTransition : MonoBehaviour, IInteractable
     public void Interact()
     {
         if (!CanInteract()) return;
+        Debug.Log($"[TRANSITION] Переход: targetScene={targetScene}, spawnPointID={spawnPointID}");
 
         // Запоминаем где появится игрок в новой сцене
         PlayerSpawnManager.NextSpawnID = spawnPointID;
@@ -50,5 +51,5 @@ public class SceneTransition : MonoBehaviour, IInteractable
         if (other.CompareTag("Player"))
             playerInside = false;
     }
-    
+
 }

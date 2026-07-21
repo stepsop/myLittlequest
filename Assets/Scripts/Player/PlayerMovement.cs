@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour
     {
         Vector2 move = input.Player.Move.ReadValue<Vector2>();
 
-        
+
         _isRunning = move.sqrMagnitude > 0.01f;
 
         rb.MovePosition(rb.position + move.normalized * movingSpeed * Time.fixedDeltaTime);
@@ -95,8 +95,13 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDestroy()
     {
-        Debug.Log($"{gameObject.name} → input уничтожен");
+        Debug.Log($"[SPAWN] Сцена={UnityEngine.SceneManagement.SceneManager.GetActiveScene().name}, " +
+                   $"{gameObject.name} → input уничтожен");
         input.Disable();
+
+       
+        if (Instance == this)
+            Instance = null;
     }
     public bool IsAlive()
     {
@@ -108,6 +113,10 @@ public class PlayerMovement : MonoBehaviour
     }
     public Vector3 GetPlayerScreenPosition()
     {
+        if (_mainCamera == null)
+        {
+            _mainCamera = Camera.main;
+        }
         Vector3 playerScreenPosition = _mainCamera.WorldToScreenPoint(transform.position);
         return playerScreenPosition;
     }
