@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 562376209669245224}
   - component: {fileID: 5352054249203298540}
+  - component: {fileID: 586255314102916506}
   m_Layer: 0
   m_Name: SceneLoader
   m_TagString: Untagged
@@ -44,6 +45,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 74b17236438444c449873d96e9e1d78d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::SceneLoader
+  fadeController: {fileID: 586255314102916506}
+--- !u!114 &586255314102916506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3662831789078874813}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6e48736e96a1f784080843c3048be91d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::FadeController
   fadeImage: {fileID: 9132649962409779486}
   fadeDuration: 0.7
 --- !u!1 &4965876787573431083

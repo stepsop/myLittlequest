@@ -2,68 +2,78 @@ using UnityEngine;
 
 public class PlayerSpawnManager : MonoBehaviour
 {
-    // ID следующей точки спавна
-    public static int NextSpawnID = 0;
+    public static PlayerSpawnManager Instance { get; private set; }
 
-    // Флаг — был ли переход между сценами
-    // false = игра только запустилась, телепортировать не надо
-    // true = был реальный переход, телепортируем игрока
-    public static bool ShouldSpawn = false;
-
-    [Header("ID этой точки спавна")]
-    [SerializeField] private int spawnID = 0;
-
-    // ЗАМЕНИ Start() НА ЭТО — временная версия с логами для диагностики:
-
-    private void Start()
+    private void Awake()
     {
-        Debug.Log($"[SPAWN] Сцена={UnityEngine.SceneManagement.SceneManager.GetActiveScene().name}, " +
-           $"{gameObject.name} (spawnID={spawnID}) Start() вызван. " +
-           $"ShouldSpawn={ShouldSpawn}, NextSpawnID={NextSpawnID}, " +
-           $"МояПозиция={transform.position}, Time={Time.time}");
-
-        if (!ShouldSpawn)
+        if (Instance != null && Instance != this)
         {
-            GameState.IsTransitioning = false;
+            Destroy(gameObject);
             return;
         }
+        Instance = this;
+        DontDestroyOnLoad(gameObject);
+    }
 
-        if (spawnID != NextSpawnID) return;
-
-        GameObject player = GameObject.FindWithTag("Player");
+    // Ставит игрока на SpawnPoint с нужным ID.
+    // Перед этим убирает дубли Player, если они вдруг оказались в сцене.
+    public void SpawnAtID(int spawnID)
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
         if (player == null)
         {
             Debug.LogError("PlayerSpawnManager: Player не найден на сцене!");
             return;
         }
 
-        Debug.Log($"[SPAWN] Сцена={UnityEngine.SceneManagement.SceneManager.GetActiveScene().name}, " +
-                   $"ДО телепортации: player.position={player.transform.position}, " +
-                   $"spawnPoint.position={transform.position}");
+        SpawnPoint target = FindSpawnPoint(spawnID);
+        if (target == null)
+        {
+            Debug.LogError($"PlayerSpawnManager: SpawnPoint с ID={spawnID} не найден в сцене " +
+                            $"{UnityEngine.SceneManagement.SceneManager.GetActiveScene().name}!");
+            return;
+        }
 
+        // Двигаем и Rigidbody2D (физическое тело), и transform —
+        // иначе один кадр физика может "откатить" позицию назад.
         Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
         if (rb != null)
-            rb.position = transform.position;
+            rb.position = target.transform.position;
 
-        player.transform.position = transform.position;
-
-        Debug.Log($"[SPAWN] Сцена={UnityEngine.SceneManagement.SceneManager.GetActiveScene().name}, " +
-                   $"ПОСЛЕ телепортации: player.position={player.transform.position}, " +
-                   $"rb.position={(rb != null ? rb.position.ToString() : "null")}");
-
-        ShouldSpawn = false;
-        GameState.IsTransitioning = false;
+        player.transform.position = target.transform.position;
     }
 
-    private void LateUpdate()
+    // Находит все SpawnPoint в активной сцене и берёт нужный по ID.
+    private SpawnPoint FindSpawnPoint(int spawnID)
     {
-        // Временная диагностика: проверяем, не двигается ли игрок
-        // ПОСЛЕ спавна в первые несколько кадров (признак гонки с физикой)
-        if (Time.frameCount < 10)
+        SpawnPoint[] points = FindObjectsByType<SpawnPoint>(FindObjectsSortMode.None);
+        foreach (var point in points)
         {
-            GameObject player = GameObject.FindWithTag("Player");
-            if (player != null)
-                Debug.Log($"[SPAWN-WATCH] Сцена={UnityEngine.SceneManagement.SceneManager.GetActiveScene().name}, Frame={Time.frameCount}, player.position={player.transform.position}");
+            if (point.SpawnID == spawnID)
+                return point;
         }
+        return null;
     }
+
+    // Гарантирует что в сцене остался ровно один Player.
+    // Если по ошибке в новой сцене вручную стоит ещё один Player —
+    // лишние уничтожаются, остаётся persistent-инстанс.
+    // private GameObject GetSinglePlayer()
+    // {
+    //     GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+    //     if (players.Length == 0)
+    //         return null;
+
+    //     if (players.Length > 1)
+    //     {
+    //         Debug.LogWarning($"PlayerSpawnManager: найдено {players.Length} объектов Player, " +
+    //                           "удаляю дубли.");
+    //         // Оставляем первый, остальные — в мусор.
+    //         for (int i = 1; i < players.Length; i++)
+    //             Destroy(players[i]);
+    //     }
+
+    //     return players[0];
+    // }
 }

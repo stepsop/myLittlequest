@@ -24,20 +24,16 @@ public class SceneTransition : MonoBehaviour, IInteractable
         if (!CanInteract()) return;
         Debug.Log($"[TRANSITION] Переход: targetScene={targetScene}, spawnPointID={spawnPointID}");
 
-        // Запоминаем где появится игрок в новой сцене
-        PlayerSpawnManager.NextSpawnID = spawnPointID;
-        PlayerSpawnManager.ShouldSpawn = true;
-
-        // Запускаем переход
         // SceneLoader.Instance может быть "битым" (уничтоженный объект) если в сценах были дубли
-        // или кто-то отключил/удалил объект. Делаем проверку, чтобы не ронять игру.
+       
         if (SceneLoader.Instance == null)
         {
-            Debug.LogError("SceneLoader.Instance == null. Добавь SceneLoader на сцену (например, MainLogic) или поднимай его через bootstrap.");
+            Debug.LogError("SceneLoader.Instance == null. Добавь SceneLoader в GameManager prefab.");
             return;
         }
 
-        SceneLoader.Instance.LoadScene(targetScene);
+        // spawnPointID передаётся напрямую в LoadScene — без статических флагов.
+        SceneLoader.Instance.LoadScene(targetScene, spawnPointID);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

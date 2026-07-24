@@ -74,7 +74,7 @@ public class MainMenuUI : MonoBehaviour
 
         // Используем SceneLoader если есть, иначе грузим напрямую
         if (SceneLoader.Instance != null)
-            SceneLoader.Instance.LoadScene("Level1");
+            SceneLoader.Instance.LoadScene("Level1", 0);
         else
             UnityEngine.SceneManagement.SceneManager.LoadScene("Level1");
 

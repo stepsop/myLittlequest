@@ -1,31 +1,26 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
+// Отвечает ТОЛЬКО за загрузку сцены и порядок действий вокруг неё.
+// Fade — в FadeController. Спавн игрока — в PlayerSpawnController.
+// Никаких статических флагов между кадрами — весь порядок здесь, явно.
 public class SceneLoader : MonoBehaviour
 {
     public static SceneLoader Instance { get; private set; }
 
-    [Header("Fade")]
-    [SerializeField] private Image fadeImage;
-
-    [SerializeField] private float fadeDuration = 0.5f;
+    [SerializeField] private FadeController fadeController;
 
     private bool isLoading = false;
 
     private void Awake()
     {
-        // Singleton
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
             return;
         }
-
         Instance = this;
-
-        //DontDestroyOnLoad(gameObject);
     }
 
     private void OnDestroy()
@@ -34,92 +29,49 @@ public class SceneLoader : MonoBehaviour
             Instance = null;
     }
 
-    // =====================================
-    // ЗАГРУЗКА СЦЕНЫ
-    // =====================================
-
-    public void LoadScene(string sceneName)
+    // targetSpawnID — куда поставить игрока в новой сцене.
+    // Передаём явным параметром, а не через статику — исключает гонки.
+    public void LoadScene(string sceneName, int targetSpawnID)
     {
-        if (isLoading)
-            return;
-
-        StartCoroutine(LoadSceneRoutine(sceneName));
+        if (isLoading) return;
+        StartCoroutine(LoadSceneRoutine(sceneName, targetSpawnID));
     }
 
-    private IEnumerator LoadSceneRoutine(string sceneName)
+    private IEnumerator LoadSceneRoutine(string sceneName, int targetSpawnID)
     {
         isLoading = true;
-
         GameState.IsTransitioning = true;
 
         // Fade Out
-        yield return StartCoroutine(Fade(0f, 1f));
+        if (fadeController != null)
+            yield return StartCoroutine(fadeController.Fade(0f, 1f));
 
         // Загружаем сцену
         AsyncOperation loadOperation = SceneManager.LoadSceneAsync(sceneName);
-
-        // Ждём полной загрузки
         while (!loadOperation.isDone)
-        {
             yield return null;
-        }
 
-        // ВАЖНО:
-        // ждём ещё 1 кадр после загрузки
+        // Ждём кадр — GameManager успевает заспавнить UIRoot и т.д.
         yield return null;
 
-        // Сбрасываем состояния
-        //GameState.IsTransitioning = false;
+        // Спавним игрока НА НУЖНОМ SpawnPoint.
+        // Это явный вызов, а не флаг + угадывание порядка Start() —
+        // поэтому 100% гарантия, что игрок появится в правильном месте.
+        if (PlayerSpawnManager.Instance != null)
+            PlayerSpawnManager.Instance.SpawnAtID(targetSpawnID);
+        else
+            Debug.LogError("SceneLoader: PlayerSpawnManager.Instance == null. Добавь его в GameManager prefab.");
+
+        // Сбрасываем состояния UI
         GameState.IsMenuOpen = false;
         GameState.IsDialogueOpen = false;
         GameState.IsInspecting = false;
 
         // Fade In
-        yield return StartCoroutine(Fade(1f, 0f));
+        if (fadeController != null)
+            yield return StartCoroutine(fadeController.Fade(1f, 0f));
 
+        GameState.IsTransitioning = false;
         isLoading = false;
-
-        Debug.Log($"[TRANSITION] Сцена={UnityEngine.SceneManagement.SceneManager.GetActiveScene().name}, Переход завершен");
-    }
-
-    // =====================================
-    // FADE
-    // =====================================
-
-    private IEnumerator Fade(float from, float to)
-    {
-        if (fadeImage == null)
-        {
-            Debug.LogError("Fade Image не назначен.");
-
-            yield break;
-        }
-
-        float elapsed = 0f;
-
-        Color color = fadeImage.color;
-
-        while (elapsed < fadeDuration)
-        {
-            elapsed += Time.deltaTime;
-
-            float alpha = Mathf.Lerp(from, to, elapsed / fadeDuration);
-
-            fadeImage.color = new Color(
-                color.r,
-                color.g,
-                color.b,
-                alpha
-            );
-
-            yield return null;
-        }
-
-        fadeImage.color = new Color(
-            color.r,
-            color.g,
-            color.b,
-            to
-        );
     }
 }
