@@ -16,6 +16,9 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private GameObject prevButton;
     [SerializeField] private PauseMenuUI pauseMenuUI; // Назначи в редакторе
 
+    [Header("Анимация")]
+    [SerializeField] private InventorySlideAnimation slideAnimation; // на InventoryPanel
+
     private int currentPage = 0;
     private Dictionary<ItemData, UIItemSlot> slots = new();
 
@@ -35,11 +38,8 @@ public class InventoryUI : MonoBehaviour
         input = new PlayerInputActions();
         input.Enable();
 
-        if (inventoryPanel != null)
-            inventoryPanel.SetActive(false);
-        // Instance = this;
-        // input = new PlayerInputActions();
-        // input.Enable();
+        // Панелью (показ/скрытие/анимация) управляет InventorySlideAnimation —
+        // он сам прячет панель в своём Awake()
     }
 
     private void Start()
@@ -86,8 +86,6 @@ public class InventoryUI : MonoBehaviour
 
     private void Update()
     {
-
-
         if (input.Player.OpenInventory.WasPressedThisFrame())
         {
             Debug.Log("Кнопка I нажата!");
@@ -104,7 +102,6 @@ public class InventoryUI : MonoBehaviour
     public void ToggleInventory()
     {
         isOpen = !isOpen; // Инвертируем состояние
-        inventoryPanel.SetActive(isOpen);
         GameState.IsInventoryOpen = isOpen;
 
         // Управляем видимостью кнопки меню
@@ -120,6 +117,15 @@ public class InventoryUI : MonoBehaviour
         // Если открыли — обновляем UI чтобы показать актуальные предметы
         if (isOpen)
             RefreshUI(InventoryManager.Instance.Items);
+
+        // Запускаем анимацию
+        if (slideAnimation != null)
+        {
+            if (isOpen)
+                slideAnimation.Show();
+            else
+                slideAnimation.Hide();
+        }
     }
 
     public void RefreshUI(List<InventoryManager.ItemStack> items)
@@ -160,8 +166,11 @@ public class InventoryUI : MonoBehaviour
 
     private void UpdatePageButtons(int totalPages)
     {
-        nextButton.SetActive(currentPage < totalPages - 1);
-        prevButton.SetActive(currentPage > 0);
+        if (nextButton != null)
+            nextButton.SetActive(currentPage < totalPages - 1);
+
+        if (prevButton != null)
+            prevButton.SetActive(currentPage > 0);
     }
 
     public void Highlight(ItemData item)
@@ -190,6 +199,7 @@ public class InventoryUI : MonoBehaviour
         currentPage--;
         RefreshUI(InventoryManager.Instance.Items);
     }
+
     private void OnDestroy()
     {
         input?.Disable();

@@ -194,10 +194,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 6440904232042212014}
     m_Modifications:
+    - target: {fileID: 1248149921235517529, guid: 43f06c4c1bba45e4eadbd641fc9f20c7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3320848640950833149, guid: 43f06c4c1bba45e4eadbd641fc9f20c7, type: 3}
       propertyPath: m_Name
       value: Canvas
       objectReference: {fileID: 0}
+    - target: {fileID: 4025671442058650416, guid: 43f06c4c1bba45e4eadbd641fc9f20c7, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5420473376732184756, guid: 43f06c4c1bba45e4eadbd641fc9f20c7, type: 3}
+      propertyPath: slideAnimation
+      value: 
+      objectReference: {fileID: 6066818948379896812}
     - target: {fileID: 7050401095620792236, guid: 43f06c4c1bba45e4eadbd641fc9f20c7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.48139
@@ -241,13 +253,45 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 1248149921235517529, guid: 43f06c4c1bba45e4eadbd641fc9f20c7, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6066818948379896812}
   m_SourcePrefab: {fileID: 100100000, guid: 43f06c4c1bba45e4eadbd641fc9f20c7, type: 3}
 --- !u!4 &4588344458829807563 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 7050401095620792236, guid: 43f06c4c1bba45e4eadbd641fc9f20c7, type: 3}
   m_PrefabInstance: {fileID: 6806377785421869159}
   m_PrefabAsset: {fileID: 0}
+--- !u!224 &5414960817692898454 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 1535959075556181233, guid: 43f06c4c1bba45e4eadbd641fc9f20c7, type: 3}
+  m_PrefabInstance: {fileID: 6806377785421869159}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &5703612343964069950 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1248149921235517529, guid: 43f06c4c1bba45e4eadbd641fc9f20c7, type: 3}
+  m_PrefabInstance: {fileID: 6806377785421869159}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &6066818948379896812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5703612343964069950}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e2612279c9a25944f9bacf034ec2d7b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InventorySlideAnimation
+  panelToMove: {fileID: 5414960817692898454}
+  hiddenOffsetY: 150
+  steps: 4
+  stepDuration: 0.05
+  audioSource: {fileID: 0}
+  openSound: {fileID: 0}
+  closeSound: {fileID: 0}
 --- !u!114 &9132649962409779486 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2362327437179965817, guid: 43f06c4c1bba45e4eadbd641fc9f20c7, type: 3}
