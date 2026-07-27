@@ -210,6 +210,10 @@ PrefabInstance:
       propertyPath: slideAnimation
       value: 
       objectReference: {fileID: 6066818948379896812}
+    - target: {fileID: 5754377774179441374, guid: 43f06c4c1bba45e4eadbd641fc9f20c7, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 801178827194513011, guid: fd28e9a1b90b04145871a163eb66605d, type: 3}
     - target: {fileID: 7050401095620792236, guid: 43f06c4c1bba45e4eadbd641fc9f20c7, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.48139
