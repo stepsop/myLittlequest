@@ -1,7 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using System.Collections;
 
 // Отвечает за сохранение и загрузку всего состояния игры.
 // Использует PlayerPrefs + JSON — просто и без внешних зависимостей.
@@ -10,15 +9,9 @@ public class SaveManager : MonoBehaviour
 {
     public static SaveManager Instance { get; private set; }
 
-    private float _loadedPlayerX;
-    private float _loadedPlayerY;
-    private bool _pendingPositionRestore = false;
-
     // Ключи в PlayerPrefs — константы чтобы не ошибиться в строках
     private const string SaveExistsKey = "HasSave";
     private const string SaveDataKey = "SaveData";
-
-
 
     private void Awake()
     {
@@ -88,7 +81,10 @@ public class SaveManager : MonoBehaviour
         Debug.Log("Игра сохранена");
     }
 
-    // Загружаем состояние игры
+    // Загружаем состояние игры.
+    // Сцену и позицию игрока грузит SceneLoader — так же, как обычный переход
+    // между уровнями (fade out → загрузка → спавн → fade in), только по координатам,
+    // а не по SpawnPoint ID.
     public void Load()
     {
         if (!HasSave()) return;
@@ -122,13 +118,19 @@ public class SaveManager : MonoBehaviour
             }
         }
 
-        // 4. Запоминаем позицию — восстановим ПОСЛЕ загрузки сцены
-        _loadedPlayerX = data.playerX;
-        _loadedPlayerY = data.playerY;
-        _pendingPositionRestore = true;
+        // 4. Сцена + позиция игрока — через SceneLoader, с fade-эффектом,
+        // как обычный переход. IsTransitioning и сброс UI-состояний
+        // SceneLoader делает сам.
+        Vector3 targetPosition = new Vector3(data.playerX, data.playerY, 0);
 
-        // 5. Загружаем сцену — ПОСЛЕДНЕЕ действие
-        SceneManager.LoadScene(data.sceneName);
+        if (SceneLoader.Instance != null)
+        {
+            SceneLoader.Instance.LoadSceneAtPosition(data.sceneName, targetPosition);
+        }
+        else
+        {
+            Debug.LogError("SaveManager: SceneLoader.Instance == null. Загрузка сохранения невозможна без SceneLoader в GameManager prefab.");
+        }
 
         Debug.Log($"Загрузка: сцена {data.sceneName}, позиция ({data.playerX}, {data.playerY})");
     }
@@ -140,63 +142,9 @@ public class SaveManager : MonoBehaviour
         PlayerPrefs.DeleteKey(SaveDataKey);
         PlayerPrefs.Save();
     }
-    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
-    {
-
-        if (!_pendingPositionRestore) return;
-
-        _pendingPositionRestore = false;
-
-        // Ждём один кадр — GameManager успеет заспавнить игрока
-        StartCoroutine(RestorePositionNextFrame());
-
-        ResetGameplayState();
-    }
-
-    private IEnumerator RestorePositionNextFrame()
-    {
-        // Ждём пока GameManager заспавнит игрока
-        yield return null;
-
-        GameObject player = GameObject.FindWithTag("Player");
-        if (player != null)
-            player.transform.position = new Vector3(_loadedPlayerX, _loadedPlayerY, 0);
-        else
-            Debug.LogError("RestorePosition: Player не найден!");
-    }
-
-    private void OnEnable()
-    {
-        SceneManager.sceneLoaded += OnSceneLoaded;
-    }
-    
-    private void OnDisable()
-    {
-        SceneManager.sceneLoaded -= OnSceneLoaded;
-    }
-    private IEnumerator SetPositionAfterLoad(float x, float y)
-    {
-        // Ждём один кадр — сцена должна загрузиться
-        yield return null;
-
-        GameObject player = GameObject.FindWithTag("Player");
-        if (player != null)
-            player.transform.position = new Vector3(x, y, 0);
-
-    }
 
     // Контейнер всех данных для сохранения
     // [System.Serializable] нужен чтобы JsonUtility мог сериализовать класс
-    private static void ResetGameplayState()
-    {
-        Time.timeScale = 1f;
-        GameState.IsDialogueOpen = false;
-        GameState.IsInventoryOpen = false;
-        GameState.IsTransitioning = false;
-        GameState.IsMenuOpen = false;
-        GameState.IsInspecting = false;
-    }
-
     [System.Serializable]
     public class SaveData
     {

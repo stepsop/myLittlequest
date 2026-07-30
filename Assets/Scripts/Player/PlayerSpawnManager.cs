@@ -34,13 +34,32 @@ public class PlayerSpawnManager : MonoBehaviour
             return;
         }
 
-        // Двигаем и Rigidbody2D (физическое тело), и transform —
-        // иначе один кадр физика может "откатить" позицию назад.
+        MovePlayerTo(player, target.transform.position);
+    }
+
+    // Ставит игрока на конкретные координаты — используется при загрузке сохранения,
+    // где нет SpawnPoint с ID, а есть сырые X/Y из SaveData.
+    public void SpawnAtPosition(Vector3 position)
+    {
+        GameObject player = GameObject.FindGameObjectWithTag("Player");
+        if (player == null)
+        {
+            Debug.LogError("PlayerSpawnManager: Player не найден на сцене!");
+            return;
+        }
+
+        MovePlayerTo(player, position);
+    }
+
+    // Общая логика перемещения — двигаем и Rigidbody2D, и transform,
+    // иначе один кадр физика может "откатить" позицию назад.
+    private void MovePlayerTo(GameObject player, Vector3 position)
+    {
         Rigidbody2D rb = player.GetComponent<Rigidbody2D>();
         if (rb != null)
-            rb.position = target.transform.position;
+            rb.position = position;
 
-        player.transform.position = target.transform.position;
+        player.transform.position = position;
     }
 
     // Находит все SpawnPoint в активной сцене и берёт нужный по ID.
@@ -55,25 +74,4 @@ public class PlayerSpawnManager : MonoBehaviour
         return null;
     }
 
-    // Гарантирует что в сцене остался ровно один Player.
-    // Если по ошибке в новой сцене вручную стоит ещё один Player —
-    // лишние уничтожаются, остаётся persistent-инстанс.
-    // private GameObject GetSinglePlayer()
-    // {
-    //     GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
-
-    //     if (players.Length == 0)
-    //         return null;
-
-    //     if (players.Length > 1)
-    //     {
-    //         Debug.LogWarning($"PlayerSpawnManager: найдено {players.Length} объектов Player, " +
-    //                           "удаляю дубли.");
-    //         // Оставляем первый, остальные — в мусор.
-    //         for (int i = 1; i < players.Length; i++)
-    //             Destroy(players[i]);
-    //     }
-
-    //     return players[0];
-    // }
 }

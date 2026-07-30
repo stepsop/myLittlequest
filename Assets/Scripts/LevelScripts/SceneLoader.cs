@@ -34,10 +34,32 @@ public class SceneLoader : MonoBehaviour
     public void LoadScene(string sceneName, int targetSpawnID)
     {
         if (isLoading) return;
-        StartCoroutine(LoadSceneRoutine(sceneName, targetSpawnID));
+        StartCoroutine(LoadSceneRoutine(sceneName, () =>
+        {
+            if (PlayerSpawnManager.Instance != null)
+                PlayerSpawnManager.Instance.SpawnAtID(targetSpawnID);
+            else
+                Debug.LogError("SceneLoader: PlayerSpawnManager.Instance == null. Добавь его в GameManager prefab.");
+        }));
     }
 
-    private IEnumerator LoadSceneRoutine(string sceneName, int targetSpawnID)
+    // Используется при загрузке сохранения — вместо SpawnPoint с ID
+    // ставим игрока на сырые координаты из SaveData.
+    public void LoadSceneAtPosition(string sceneName, Vector3 position)
+    {
+        if (isLoading) return;
+        StartCoroutine(LoadSceneRoutine(sceneName, () =>
+        {
+            if (PlayerSpawnManager.Instance != null)
+                PlayerSpawnManager.Instance.SpawnAtPosition(position);
+            else
+                Debug.LogError("SceneLoader: PlayerSpawnManager.Instance == null. Добавь его в GameManager prefab.");
+        }));
+    }
+
+    // Общая корутина: fade out → загрузка сцены → спавн игрока (через колбэк) → fade in.
+    // spawnAction решает КАК именно поставить игрока — по SpawnPoint ID или по координатам.
+    private IEnumerator LoadSceneRoutine(string sceneName, System.Action spawnAction)
     {
         isLoading = true;
         GameState.IsTransitioning = true;
@@ -54,13 +76,8 @@ public class SceneLoader : MonoBehaviour
         // Ждём кадр — GameManager успевает заспавнить UIRoot и т.д.
         yield return null;
 
-        // Спавним игрока НА НУЖНОМ SpawnPoint.
-        // Это явный вызов, а не флаг + угадывание порядка Start() —
-        // поэтому 100% гарантия, что игрок появится в правильном месте.
-        if (PlayerSpawnManager.Instance != null)
-            PlayerSpawnManager.Instance.SpawnAtID(targetSpawnID);
-        else
-            Debug.LogError("SceneLoader: PlayerSpawnManager.Instance == null. Добавь его в GameManager prefab.");
+        // Спавним игрока — конкретный способ передан через spawnAction.
+        spawnAction?.Invoke();
 
         // Сбрасываем состояния UI
         GameState.IsMenuOpen = false;

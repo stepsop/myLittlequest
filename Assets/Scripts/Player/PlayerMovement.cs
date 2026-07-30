@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour
 {
-    public float movingSpeed = 5f;
+    [SerializeField] private float movingSpeed = 5f;
 
     private Rigidbody2D rb;
     private PlayerInputActions input;
@@ -60,11 +60,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (GameState.IsDialogueOpen || GameState.IsTransitioning || GameState.IsMenuOpen || GameState.IsInspecting)
-            return;
-
-        // Обновляем подсказку каждый кадр
-        /*  UpdateHint(); */
+        if (IsMovementBlocked()) return; 
 
         if (input.Player.Interact.WasPressedThisFrame())
             TryInteract();
@@ -99,7 +95,7 @@ public class PlayerMovement : MonoBehaviour
                    $"{gameObject.name} → input уничтожен");
         input.Disable();
 
-       
+
         if (Instance == this)
             Instance = null;
     }
