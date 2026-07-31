@@ -6,10 +6,7 @@ public class SingleEventSystem : MonoBehaviour
 {
     private void Awake()
     {
-        var all = FindObjectsByType<EventSystem>(
-            FindObjectsInactive.Include,
-            FindObjectsSortMode.None
-        );
+        var all = FindObjectsByType<EventSystem>(FindObjectsInactive.Include); ;
 
         // Если нас больше одного — уничтожаем себя
         if (all.Length > 1)

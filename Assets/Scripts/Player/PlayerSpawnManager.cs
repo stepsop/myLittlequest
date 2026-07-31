@@ -65,7 +65,7 @@ public class PlayerSpawnManager : MonoBehaviour
     // Находит все SpawnPoint в активной сцене и берёт нужный по ID.
     private SpawnPoint FindSpawnPoint(int spawnID)
     {
-        SpawnPoint[] points = FindObjectsByType<SpawnPoint>(FindObjectsSortMode.None);
+        SpawnPoint[] points = FindObjectsByType<SpawnPoint>(FindObjectsInactive.Exclude);
         foreach (var point in points)
         {
             if (point.SpawnID == spawnID)

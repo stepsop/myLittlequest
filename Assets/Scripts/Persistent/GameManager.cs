@@ -3,10 +3,9 @@ using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 public sealed class GameManager : MonoBehaviour
 {
-    //[SerializeField] private GameObject playerPrefab;
-    //[SerializeField] private GameObject cameraPrefab;
+
     [SerializeField] private GameObject uiRootPrefab;
-    //private Transform playerTransform;
+    private bool uiRootSpawned = false;
 
     public static GameManager Instance { get; private set; }
 
@@ -36,15 +35,13 @@ public sealed class GameManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-     
+
         SceneManager.sceneLoaded += OnSceneLoaded;
 
     }
     private void SpawnUIRoot()
     {
-        if (SceneManager.GetActiveScene().name == "Main menu") return;
-        // Проверяем — вдруг UIRoot уже есть (например при повторном Awake)
-        if (FindAnyObjectByType<InventoryUI>() != null) return;
+        if (uiRootSpawned) return;
 
         if (uiRootPrefab == null)
         {
@@ -55,13 +52,14 @@ public sealed class GameManager : MonoBehaviour
         var uiRoot = Instantiate(uiRootPrefab);
         uiRoot.name = "UIRoot";
         DontDestroyOnLoad(uiRoot);
+        uiRootSpawned = true;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         GameState.IsTransitioning = false;
         // Главное меню — ничего не делаем
-        if (scene.name == "Main menu") return;
+        //if (scene.name == "Main menu") return;
 
         SpawnUIRoot();
 
@@ -72,6 +70,6 @@ public sealed class GameManager : MonoBehaviour
 
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
-   
+
 
 }

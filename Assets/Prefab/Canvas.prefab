@@ -834,11 +834,7 @@ MonoBehaviour:
   nextButton: {fileID: 5315246474567249070}
   prevButton: {fileID: 6064352938125214766}
   pauseMenuUI: {fileID: 196291362298590009}
-  animSteps: 4
-  stepDuration: 0.5
-  audioSource: {fileID: 0}
-  openSound: {fileID: 0}
-  closeSound: {fileID: 0}
+  slideAnimation: {fileID: 0}
 --- !u!1 &3335163921636326999
 GameObject:
   m_ObjectHideFlags: 0
@@ -1933,7 +1929,7 @@ RectTransform:
   m_GameObject: {fileID: 5295855778019542547}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 1.1944, y: 1.1944, z: 1.1944}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2304341557247406832}
@@ -1972,8 +1968,8 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: -690193993665188495, guid: 34ed12a1c3dd75b478f052e09cfcd6a7, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4

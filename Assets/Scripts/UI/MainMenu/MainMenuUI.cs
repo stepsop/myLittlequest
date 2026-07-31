@@ -71,7 +71,7 @@ public class MainMenuUI : MonoBehaviour
 
         NPCState[] allStates = Resources.FindObjectsOfTypeAll<NPCState>();
         foreach (var state in allStates) state.Reset();
-
+        Debug.Log($"[StartNewGame] SceneLoader.Instance = {SceneLoader.Instance}");
         // Используем SceneLoader если есть, иначе грузим напрямую
         if (SceneLoader.Instance != null)
             SceneLoader.Instance.LoadScene("Level1", 0);

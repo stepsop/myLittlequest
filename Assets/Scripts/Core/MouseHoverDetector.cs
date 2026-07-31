@@ -11,9 +11,16 @@ public class MouseHoverDetector : MonoBehaviour
     private Camera cam;
     private IHoverable currentHovered;   // объект, над которым сейчас курсор
 
+    private ContactFilter2D contactFilter;
+
     private void Awake()
     {
         cam = GetComponent<Camera>();
+
+
+        contactFilter = new ContactFilter2D();
+        contactFilter.SetLayerMask(layerMask);
+        contactFilter.useTriggers = true;
     }
 
     private void Update()
@@ -47,7 +54,7 @@ public class MouseHoverDetector : MonoBehaviour
 
     private IHoverable FindHoverableAt(Vector3 worldPosition)
     {
-        int hitCount = Physics2D.OverlapPointNonAlloc(worldPosition, hoverHits, layerMask);
+        int hitCount = Physics2D.OverlapPoint(worldPosition, contactFilter, hoverHits);
 
         for (int i = 0; i < hitCount; i++)
         {
