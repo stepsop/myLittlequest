@@ -56,7 +56,8 @@ public class CombineManager : MonoBehaviour
 
     private CombineEntry SearchIn(ItemData source, ItemData target)
     {
-        if (source.combineWith == null) return null;
+        // source может быть null (например пустой слот) — тогда рецептов нет
+        if (source == null || source.combineWith == null) return null;
 
         foreach (var entry in source.combineWith)
         {

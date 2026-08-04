@@ -9,16 +9,22 @@ public class PlayerMovement : MonoBehaviour
     public static PlayerMovement Instance { get; private set; }
     private Camera _mainCamera;
 
-    private bool _isAlive;
+  
     private bool _isRunning;
 
 
-    /* private InteractionHint currentHint; */
 
     private void Awake()
     {
+   
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         Instance = this;
-        _isAlive = true;
+      
         rb = GetComponent<Rigidbody2D>();
         _mainCamera = Camera.main;
         Debug.Log($"{gameObject.name} → input создан");
@@ -72,7 +78,7 @@ public class PlayerMovement : MonoBehaviour
         Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1.2f);
 
         IInteractable found = null;
-        //InteractionHint foundHint = null;
+      
 
         foreach (var hit in hits)
         {
@@ -80,7 +86,7 @@ public class PlayerMovement : MonoBehaviour
             if (interactable != null && interactable.CanInteract())
             {
                 found = interactable;
-                //foundHint = hit.GetComponent<InteractionHint>();
+               
                 break;
             }
         }
@@ -91,18 +97,14 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDestroy()
     {
-        Debug.Log($"[SPAWN] Сцена={UnityEngine.SceneManagement.SceneManager.GetActiveScene().name}, " +
-                   $"{gameObject.name} → input уничтожен");
+       
         input.Disable();
 
 
         if (Instance == this)
             Instance = null;
     }
-    public bool IsAlive()
-    {
-        return _isAlive;
-    }
+   
     public bool IsRunning()
     {
         return _isRunning;

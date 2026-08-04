@@ -90,20 +90,6 @@ public class UIItemSlot : MonoBehaviour,
         }
     }
 
-    // public void OnClick()
-    // {
-    // Важно: этот метод вызывается Unity UI Button'ом (onClick) из префаба слота.
-    //
-    // Но этот же класс также реализует IPointerClickHandler (OnPointerClick),
-    // где мы уже обрабатываем ЛКМ/ПКМ и делаем SelectItem/InspectItem.
-    //
-    // Если оставить SelectItem и тут, и в OnPointerClick, то при клике ЛКМ часто происходит:
-    // 1) OnPointerClick -> SelectItem(item)  (выбрали)
-    // 2) Button.onClick -> OnClick -> SelectItem(item) (сразу же сняли, потому что SelectItem = toggle)
-    //
-    // В итоге визуально кажется, что выбор предмета "перестал работать".
-    // Поэтому onClick-обработчик намеренно оставляем пустым и используем OnPointerClick как единую точку правды.
-    // }
 
     public void SetSelected(bool value)
     {
@@ -160,6 +146,11 @@ public class UIItemSlot : MonoBehaviour,
     public void OnDrop(PointerEventData eventData)
     {
         if (dragSource == null || dragSource == this) return;
+
+        // Бросили на пустой слот (item == null) — комбинировать не с чем,
+        // просто возвращаем иконку на место и выходим.
+        if (item == null) { dragSource.ResetDragVisual(); return; }
+
         if (dragSource.item == item) return;
 
         dragSource.ResetDragVisual();

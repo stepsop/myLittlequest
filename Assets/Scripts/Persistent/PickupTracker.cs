@@ -48,6 +48,11 @@ public class PickupTracker : MonoBehaviour
     public void LoadPickedUpItems(List<string> items)
     {
         pickedUpItems.Clear();
+
+        // JsonUtility иногда даёт null вместо пустого списка (если в сохранении
+        // не было подобранных предметов) — тогда foreach ниже упал бы с ошибкой.
+        if (items == null) return;
+
         foreach (var item in items)
             pickedUpItems.Add(item);
     }

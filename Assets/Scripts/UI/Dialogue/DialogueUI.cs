@@ -8,9 +8,8 @@ public class DialogueUI : MonoBehaviour
     public static DialogueUI Instance;
 
     [Header("Главное окно")]
-    [SerializeField] private GameObject dialogueCanvas;      // DialogueCanvas
-    [SerializeField] private GameObject optionsCanvas;       // OptionsDialogueCanvas ← новое
-
+    [SerializeField] private GameObject dialogueCanvas;      
+    [SerializeField] private GameObject optionsCanvas;      
     [Header("Игрок — левая сторона")]
     [SerializeField] private Image playerPortraitImage;
     [SerializeField] private TMP_Text playerNameText;
@@ -21,7 +20,7 @@ public class DialogueUI : MonoBehaviour
 
     [Header("Диалог")]
     [SerializeField] private TMP_Text dialogueText;
-    [SerializeField] private Transform optionsContainer;     // OptionsContainer внутри OptionsCanvas
+    [SerializeField] private Transform optionsContainer;     
     [SerializeField] private Button optionPrefab;
 
     [Header("Скорость печати")]
@@ -35,22 +34,19 @@ public class DialogueUI : MonoBehaviour
     private void Awake()
     {
         input = new PlayerInputActions();
-        Instance = this; // Это работает только если объект активен при старте
+        Instance = this; 
 
-        // Input System: пока asset не включён, WasPressedThisFrame() никогда не сработает.
-        // Мы включаем его здесь, чтобы диалог гарантированно реагировал на Interact,
-        // даже если другие части игры используют свои экземпляры PlayerInputActions.
+      
         input.Enable();
 
-        // Канвасы скрываем через SetActive — сам объект DialogueUI должен быть активен!
+       
         dialogueCanvas.SetActive(false);
         optionsCanvas.SetActive(false);
     }
 
     private void OnDestroy()
     {
-        // Корректно отключаем input, чтобы не оставлять включённые action maps после уничтожения UI.
-        // (Особенно важно, если кто-то всё-таки решит пересоздавать DialogueUI при смене сцен.)
+  
         input?.Disable();
     }
 
@@ -124,7 +120,10 @@ public class DialogueUI : MonoBehaviour
         // Считаем сколько кнопок реально появится
         int visibleCount = 0;
 
-        foreach (var option in dialogue.options)
+       
+        var options = dialogue.options ?? new System.Collections.Generic.List<DialogueOption>();
+
+        foreach (var option in options)
         {
             // Решение "показывать или нет" — не забота UI, спрашиваем DialogueLogic
             if (!DialogueLogic.CheckCondition(option)) continue;
@@ -136,7 +135,7 @@ public class DialogueUI : MonoBehaviour
             var localOption = option;
             btn.onClick.AddListener(() =>
             {
-                // Что произойдёт при выборе — тоже не забота UI
+                
                 DialogueLogic.ExecuteAction(localOption);
 
                 if (localOption.nextDialogue != null)
@@ -168,6 +167,6 @@ public class DialogueUI : MonoBehaviour
         GameState.IsDialogueOpen = false;
         ClearOptions();
         dialogueCanvas.SetActive(false);
-        optionsCanvas.SetActive(false); // Прячем оба канваса
+        optionsCanvas.SetActive(false); 
     }
 }

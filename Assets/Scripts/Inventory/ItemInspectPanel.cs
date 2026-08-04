@@ -26,7 +26,7 @@ public class ItemInspectPanel : MonoBehaviour
         gameObject.SetActive(true);
         input = new PlayerInputActions();
         input.Player.Enable();
-        Debug.Log($"{gameObject.name} → input создан");
+       
 
         if (panel != null)
             panel.SetActive(false);
@@ -34,8 +34,8 @@ public class ItemInspectPanel : MonoBehaviour
 
     private void Update()
     {
-        // Только закрытие по Escape
-        if (panel.activeSelf && input.Player.Menu.WasPressedThisFrame())
+      
+        if (panel != null && panel.activeSelf && input.Player.Menu.WasPressedThisFrame())
         {
             Close();
         }
@@ -45,7 +45,6 @@ public class ItemInspectPanel : MonoBehaviour
     {
         if (item == null) return;
 
-        // Если уже открыт этот же предмет - закрываем
         if (panel.activeSelf && currentItem == item)
         {
             Close();
@@ -79,6 +78,5 @@ public class ItemInspectPanel : MonoBehaviour
     private void OnDestroy()
     {
         input?.Player.Disable();
-        Debug.Log($"{gameObject.name} → input уничтожен");
     }
 }

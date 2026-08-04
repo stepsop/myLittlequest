@@ -25,9 +25,7 @@ public class InventoryManager : MonoBehaviour
 
     private void Awake()
     {
-        // Единственный инвентарь на всю игру (между сценами).
-        // Если где-то в сцене случайно лежит ещё один InventoryManager —
-        // он не должен перезаписать Instance и "обнулить" список предметов.
+       
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -36,8 +34,7 @@ public class InventoryManager : MonoBehaviour
 
         Instance = this;
 
-        // Иначе при переходе сцены список предметов сбрасывается.
-        //DontDestroyOnLoad(gameObject);
+        
     }
 
     public void AddItem(ItemData item, int amount = 1)
@@ -115,7 +112,7 @@ public class InventoryManager : MonoBehaviour
         }
     }
 
-    // Полная очистка инвентаря — используется при загрузке сохранения
+   
     public void ClearInventory()
     {
         items.Clear();

@@ -310,12 +310,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InventorySlideAnimation
   panelToMove: {fileID: 5414960817692898454}
+  buttonToMove: {fileID: 7869563256659632440}
   hiddenOffsetY: 150
   steps: 4
   stepDuration: 0.05
   audioSource: {fileID: 0}
   openSound: {fileID: 0}
   closeSound: {fileID: 0}
+--- !u!224 &7869563256659632440 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 3693886961850241375, guid: 43f06c4c1bba45e4eadbd641fc9f20c7, type: 3}
+  m_PrefabInstance: {fileID: 6806377785421869159}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &9132649962409779486 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 2362327437179965817, guid: 43f06c4c1bba45e4eadbd641fc9f20c7, type: 3}

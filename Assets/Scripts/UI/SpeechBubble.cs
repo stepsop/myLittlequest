@@ -17,8 +17,10 @@ public class SpeechBubble : MonoBehaviour
 
     private void Awake()
     {
-        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
-        Instance = this;
+       
+        if (Instance == null)
+            Instance = this;
+
         bubblePanel.SetActive(false);
     }
 
@@ -28,7 +30,7 @@ public class SpeechBubble : MonoBehaviour
 
         bubblePanel.SetActive(true);
 
-        // Останавливаем предыдущие корутины если облачко уже показывается
+      
         if (hideCoroutine != null) StopCoroutine(hideCoroutine);
         if (typeCoroutine != null) StopCoroutine(typeCoroutine);
 

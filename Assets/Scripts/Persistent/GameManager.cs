@@ -57,12 +57,8 @@ public sealed class GameManager : MonoBehaviour
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
-        GameState.IsTransitioning = false;
-        // Главное меню — ничего не делаем
-        //if (scene.name == "Main menu") return;
 
         SpawnUIRoot();
-
     }
 
     private void OnDestroy()

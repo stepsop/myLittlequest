@@ -6,11 +6,11 @@ using UnityEngine.Rendering.Universal; // нужно для Light2D
 public class FlickerLight2D : MonoBehaviour
 {
     [Header("Обычное дрожание (естественное мерцание лампы)")]
-    [SerializeField] private float minIntensity = 1.5f;
-    [SerializeField] private float maxIntensity = 3f;
-    [SerializeField] private float minDelay = 0.05f;
-    [SerializeField] private float maxDelay = 0.3f;
-    [SerializeField] private float smoothSpeed = 8f;
+    [SerializeField] [Range(0f, 10f)] private float minIntensity = 1.5f;
+    [SerializeField] [Range(0f, 10f)] private float maxIntensity = 3f;
+    [SerializeField] [Range(0f, 10f)] private float minDelay = 0.05f;
+    [SerializeField] [Range(0f, 10f)] private float maxDelay = 0.3f;
+    [SerializeField] [Range(0f, 10f)] private float smoothSpeed = 8f;
 
     [Header("Глитч (эффект поломки)")]
     // Шанс, что в течение секунды случится глитч (0.1 = примерно раз в 10 сек)
@@ -20,7 +20,7 @@ public class FlickerLight2D : MonoBehaviour
     [SerializeField] [Range(0f, 1f)] private float glitchIntensity = 0.05f;
 
     // Сколько длится один глитч-провал
-    [SerializeField] private float glitchDuration = 0.08f;
+    [SerializeField] [Range(0f, 1f)] private float glitchDuration = 0.08f;
 
     private Light2D light2D;
     private float targetIntensity;

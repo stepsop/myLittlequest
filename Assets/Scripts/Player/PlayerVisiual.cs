@@ -20,9 +20,7 @@ public class PlayerVisual : MonoBehaviour
 
     private void OnEnable()
     {
-        // Подписка нужна, чтобы после каждой загрузки сцены
-        // принудительно обновить Animator — иначе он иногда
-        // "застревает" на прошлом состоянии (Idle/Walk).
+       
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -35,9 +33,7 @@ public class PlayerVisual : MonoBehaviour
     {
         if (_animator == null) return;
 
-        // Сброс в Idle и принудительный прогон одного кадра аниматора.
-        // Update() Animator'а может "проспать" первый кадр новой сцены —
-        // Rebind() форсит переинициализацию всех параметров и слоёв.
+   
         _animator.Rebind();
         _animator.Update(0f);
     }
@@ -49,7 +45,6 @@ public class PlayerVisual : MonoBehaviour
 
         _animator.SetBool(Running, PlayerMovement.Instance.IsRunning());
 
-        if (PlayerMovement.Instance.IsAlive())
             AdjustPlayerFacingDirection();
     }
 

@@ -8,16 +8,16 @@ public class InventoryUI : MonoBehaviour
     private PlayerInputActions input;
 
     [Header("UI References")]
-    [SerializeField] private GameObject inventoryPanel; // Перетащи сюда InventoryPanel
+    [SerializeField] private GameObject inventoryPanel; 
     [SerializeField] private Transform itemsContainer;
     [SerializeField] private UIItemSlot slotPrefab;
     [SerializeField] private int itemsPerPage = 6;
     [SerializeField] private GameObject nextButton;
     [SerializeField] private GameObject prevButton;
-    [SerializeField] private PauseMenuUI pauseMenuUI; // Назначи в редакторе
+    [SerializeField] private PauseMenuUI pauseMenuUI; 
 
     [Header("Анимация")]
-    [SerializeField] private InventorySlideAnimation slideAnimation; // на InventoryPanel
+    [SerializeField] private InventorySlideAnimation slideAnimation; 
 
     private int currentPage = 0;
     private Dictionary<ItemData, UIItemSlot> slots = new();
@@ -38,23 +38,18 @@ public class InventoryUI : MonoBehaviour
         input = new PlayerInputActions();
         input.Enable();
 
-        // Панелью (показ/скрытие/анимация) управляет InventorySlideAnimation —
-        // он сам прячет панель в своём Awake()
+        
     }
 
     private void Start()
     {
-        // В сцене кнопки перелистывания иногда "теряют" target в OnClick (UnityEvent),
-        // и тогда нажатие визуально происходит, но метод NextPage/PrevPage не вызывается.
-        // Чтобы не чинить руками YAML каждой сцены — страхуемся кодом.
+        
         WirePaginationButtonsIfNeeded();
     }
 
     private void WirePaginationButtonsIfNeeded()
     {
-        // Привязываем обработчики к кнопкам только если у них нет валидных persistent listeners.
-        // Это важно: если в инспекторе всё настроено корректно — мы не добавим второй обработчик
-        // и не получим двойной перелист.
+        
         TryWireButton(nextButton, NextPage);
         TryWireButton(prevButton, PrevPage);
     }
@@ -66,9 +61,7 @@ public class InventoryUI : MonoBehaviour
         var button = buttonObject.GetComponent<Button>();
         if (button == null) return;
 
-        // Persistent listeners — это те, что видны в инспекторе (UnityEvent).
-        // Проблема конкретно у тебя была в том, что listener есть, но target = null,
-        // то есть Unity нечего вызывать.
+        
         int persistentCount = button.onClick.GetPersistentEventCount();
         bool hasValidPersistentTarget = false;
         for (int i = 0; i < persistentCount; i++)
@@ -88,17 +81,14 @@ public class InventoryUI : MonoBehaviour
     {
         if (input.Player.OpenInventory.WasPressedThisFrame())
         {
-            Debug.Log("Кнопка I нажата!");
+           
             if (GameState.IsDialogueOpen) return;
             if (GameState.IsMenuOpen) return; // Не открывать инвентарь если меню открыто
             ToggleInventory();
         }
     }
 
-    /// <summary>
-    /// Переключает инвентарь — если открыт закрывает, если закрыт открывает
-    /// Toggle — это паттерн переключения состояния
-    /// </summary>
+    
     public void ToggleInventory()
     {
         isOpen = !isOpen; // Инвертируем состояние
