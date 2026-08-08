@@ -76,6 +76,12 @@ public static class DialogueLogic
                 if (option.targetNpcState != null)
                     option.targetNpcState.isLocked = true;
                 break;
+
+            case ActionType.DestroyObject:
+                // Уничтожаем объект, на который ссылается опция
+                if (option.objectToDestroy != null)
+                    GameObject.Destroy(option.objectToDestroy);
+                break;
         }
 
         if (option.lockDialogue && option.targetNpcState != null)

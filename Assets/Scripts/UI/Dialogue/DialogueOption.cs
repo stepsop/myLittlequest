@@ -24,6 +24,9 @@ public class DialogueOption
     [Header("Фраза НПС после блокировки")]
     public string lockedPhrase;
     public AudioClip lockedAudio;
+
+    [InspectorName("Уничтожить объект")]
+    public GameObject objectToDestroy;
 }
 
 public enum ConditionType
@@ -51,5 +54,7 @@ public enum ActionType
     [InspectorName("NPC становится лояльным")]
     SetLoyal,
     [InspectorName("Заблокировать диалог")]
-    LockDialogue
+    LockDialogue,
+    [InspectorName("Уничтожить объект")]
+    DestroyObject
 }

@@ -11,12 +11,15 @@ public class NPCState : ScriptableObject
     public bool itemGiven;
     public bool isLocked;
 
+    public bool isDestroyed;
+
     // Сброс используется только при старте новой игры
     public void Reset()
     {
         isLoyal = false;
         itemGiven = false;
         isLocked = false;
+        isDestroyed = false;
     }
 
 #if UNITY_EDITOR

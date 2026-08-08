@@ -28,33 +28,22 @@ public class NPCDialogue : MonoBehaviour, IInteractable
         }
        
 
-        // DialogueUI.Instance становится null, если объект с DialogueUI выключен в инспекторе:
-        // Unity НЕ вызывает Awake() на неактивных объектах => Instance не присваивается.
-        //
-        // Поэтому мы делаем "мягкий автоподъём":
-        // 1) пробуем Instance
-        // 2) если null — ищем DialogueUI даже среди неактивных объектов
-        // 3) если нашли, но он выключен — включаем (Unity вызовет Awake и он сам выставит Instance)
+        
         DialogueUI ui = DialogueUI.Instance;
         if (ui == null)
         {
-            // FindObjectsInactive.Include позволяет найти объект даже если его GameObject выключен.
+           
             ui = Object.FindAnyObjectByType<DialogueUI>(FindObjectsInactive.Include);
         }
 
         if (ui == null)
         {
-            Debug.LogError("DialogueUI не найден в сцене. Либо добавь DialogueUI на сцену, либо убедись что он существует в префабе UI.");
             return;
         }
 
         if (!ui.gameObject.activeInHierarchy)
         {
-            // Важно: если DialogueUI лежит внутри выключенного родителя (например, весь UI-контейнер),
-            // то SetActive(true) только на самом DialogueWindow НЕ поможет:
-            // активность в иерархии = activeSelf && active всех родителей.
-            //
-            // Поэтому поднимаем вверх по Transform-цепочке и включаем всех отключённых родителей.
+          
             Transform t = ui.transform;
             while (t != null)
             {
