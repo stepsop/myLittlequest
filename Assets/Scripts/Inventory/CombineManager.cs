@@ -1,7 +1,7 @@
 using UnityEngine;
 
 // Отвечает только за логику комбинирования.
-// UI и инвентарь вызывает через их Instance — сам ничего не знает про слоты.
+
 public class CombineManager : MonoBehaviour
 {
     public static CombineManager Instance { get; private set; }
@@ -33,7 +33,7 @@ public class CombineManager : MonoBehaviour
             InventoryManager.Instance.AddItem(entry.result);
 
             // Показываем фразу успеха над персонажем
-            SpeechBubble.Instance.Show(entry.successPhrase, entry.successAudio);
+            SpeechBubble.Instance?.Show(entry.successPhrase, entry.successAudio);
             return;
         }
 
@@ -43,7 +43,7 @@ public class CombineManager : MonoBehaviour
             : null;
 
         if (fail != null)
-            SpeechBubble.Instance.Show(fail.text, fail.audio);
+            SpeechBubble.Instance?.Show(fail.text, fail.audio);
     }
 
     private CombineEntry FindEntry(ItemData a, ItemData b)
@@ -56,7 +56,7 @@ public class CombineManager : MonoBehaviour
 
     private CombineEntry SearchIn(ItemData source, ItemData target)
     {
-        // source может быть null (например пустой слот) — тогда рецептов нет
+        
         if (source == null || source.combineWith == null) return null;
 
         foreach (var entry in source.combineWith)

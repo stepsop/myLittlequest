@@ -69,7 +69,7 @@ public class InteractionHintUI : MonoBehaviour
         if (hintUI == null)
             return null;
 
-        hintUI.ActivateHierarchy();
+        UIActivator.ActivateHierarchy(hintUI.transform);
         hintUI.RegisterInstance();
         hintUI.Hide();
 
@@ -85,17 +85,5 @@ public class InteractionHintUI : MonoBehaviour
         }
 
         Instance = this;
-    }
-
-    private void ActivateHierarchy()
-    {
-        Transform current = transform;
-        while (current != null)
-        {
-            if (!current.gameObject.activeSelf)
-                current.gameObject.SetActive(true);
-
-            current = current.parent;
-        }
     }
 }

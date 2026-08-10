@@ -154,7 +154,7 @@ public class UIItemSlot : MonoBehaviour,
         if (dragSource.item == item) return;
 
         dragSource.ResetDragVisual();
-        CombineManager.Instance.TryCombine(dragSource.item, item);
+        CombineManager.Instance?.TryCombine(dragSource.item, item);
     }
 
     public void ResetDragVisual()

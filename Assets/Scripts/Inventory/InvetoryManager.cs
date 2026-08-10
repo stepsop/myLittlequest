@@ -77,12 +77,12 @@ public class InventoryManager : MonoBehaviour
         if (SelectedItem == item)
         {
             SelectedItem = null;
-            InventoryUI.Instance.ClearSelection();
+            InventoryUI.Instance?.ClearSelection();
             return;
         }
 
         SelectedItem = item;
-        InventoryUI.Instance.Highlight(item);
+        InventoryUI.Instance?.Highlight(item);
     }
 
     public bool SpendCoins(ItemData coinItem, int amount)
@@ -117,7 +117,7 @@ public class InventoryManager : MonoBehaviour
     {
         items.Clear();
         SelectedItem = null;
-        // проверяем что Instance жив:
+        
         if (InventoryUI.Instance != null && InventoryUI.Instance.gameObject != null)
             InventoryUI.Instance.RefreshUI(items);
     }

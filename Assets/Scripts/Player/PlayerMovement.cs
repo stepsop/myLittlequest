@@ -97,9 +97,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnDestroy()
     {
-       
-        input.Disable();
-
+        input?.Disable();
 
         if (Instance == this)
             Instance = null;

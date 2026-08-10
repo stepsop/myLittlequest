@@ -50,6 +50,14 @@ public class DialogueUI : MonoBehaviour
         input?.Disable();
     }
 
+    // Находит DialogueUI, даже если он выключен (например если UIRoot ещё
+    // не активирован полностью). Саму работу "найти и включить" делает
+    // UIActivator — DialogueUI тут просто просит найти себя.
+    public static DialogueUI GetOrFindInstance()
+    {
+        return Instance != null ? Instance : UIActivator.FindAndActivate<DialogueUI>();
+    }
+
     public void OpenDialogue(DialogueData dialogue)
     {
         currentDialogue = dialogue;
