@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 5902213404277611064}
   - component: {fileID: 2228488208626067950}
   - component: {fileID: 7695798274462020986}
+  - component: {fileID: 754742502627284163}
   m_Layer: 0
   m_Name: HintText
   m_TagString: Untagged
@@ -67,7 +68,7 @@ MonoBehaviour:
       m_Calls: []
   m_text: New Text
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 26e3d6d5bb8f20147993f4752c49bd2f, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
@@ -134,9 +135,29 @@ MonoBehaviour:
   m_margin: {x: 0, y: 0, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
-  m_hasFontAssetChanged: 0
+  m_hasFontAssetChanged: 1
   m_baseMaterial: {fileID: 0}
   m_maskOffset: {x: 0, y: 0, z: 0, w: 0}
+--- !u!114 &754742502627284163
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 602930286475988819}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7b3770f782161b34d8e580e8c7a459b4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::JumpingText
+  amplitudeX: 0.024
+  amplitudeY: 0.288
+  noiseStrength: 1.23
+  smoothSpeed: 5.1
+  minDelay: 0.009
+  maxDelay: 0.02
+  usePerlinNoise: 0
+  perlinScale: 2.2
 --- !u!1 &8040543859212806918
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,8 +2,7 @@ using UnityEngine;
 
 public class InteractionHint : MonoBehaviour, IHoverable
 {
-    [SerializeField] private float heightOffset = 1f;
-    [SerializeField] private Vector3 offset = Vector3.zero;
+    [SerializeField] private Transform hintPoint; // сюда кидаешь дочерний объект "Hint"
 
     // Текст подсказки — берём из PickupItem или имени объекта
     private string hintText;
@@ -27,7 +26,9 @@ public class InteractionHint : MonoBehaviour, IHoverable
             return;
         }
 
-        hintUI.Show(hintText, transform.position + offset, heightOffset);
+        // Если hintPoint не назначен — используем transform самого объекта
+        Transform point = hintPoint != null ? hintPoint : transform;
+        hintUI.Show(hintText, point);
     }
 
     public void OnMouseExit()

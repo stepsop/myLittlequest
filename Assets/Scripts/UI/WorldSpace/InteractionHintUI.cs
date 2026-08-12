@@ -38,8 +38,10 @@ public class InteractionHintUI : MonoBehaviour
             transform.rotation = mainCamera.transform.rotation;
     }
 
-    // Показать подсказку над указанной позицией
-    public void Show(string text, Vector3 worldPosition, float heightOffset = 1f)
+    /// <summary>
+    /// Показать подсказку в позиции указанного Transform (Hint).
+    /// </summary>
+    public void Show(string text, Transform hintPoint)
     {
         if (label == null)
         {
@@ -47,11 +49,17 @@ public class InteractionHintUI : MonoBehaviour
             return;
         }
 
+        if (hintPoint == null)
+        {
+            Debug.LogError("InteractionHintUI: hintPoint равен null.", this);
+            return;
+        }
+
         if (mainCamera == null)
             mainCamera = Camera.main;
 
         label.text = text;
-        transform.position = worldPosition + Vector3.up * heightOffset;
+        transform.position = hintPoint.position;
         gameObject.SetActive(true);
     }
 
@@ -72,7 +80,6 @@ public class InteractionHintUI : MonoBehaviour
         UIActivator.ActivateHierarchy(hintUI.transform);
         hintUI.RegisterInstance();
         hintUI.Hide();
-
         return Instance;
     }
 
