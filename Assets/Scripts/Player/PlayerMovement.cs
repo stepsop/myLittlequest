@@ -9,14 +9,14 @@ public class PlayerMovement : MonoBehaviour
     public static PlayerMovement Instance { get; private set; }
     private Camera _mainCamera;
 
-  
+
     private bool _isRunning;
 
 
 
     private void Awake()
     {
-   
+
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -24,7 +24,7 @@ public class PlayerMovement : MonoBehaviour
         }
 
         Instance = this;
-      
+
         rb = GetComponent<Rigidbody2D>();
         _mainCamera = Camera.main;
         Debug.Log($"{gameObject.name} → input создан");
@@ -66,33 +66,10 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (IsMovementBlocked()) return; 
+        if (IsMovementBlocked()) return;
 
         if (input.Player.Interact.WasPressedThisFrame())
-            TryInteract();
-    }
-
-
-    void TryInteract()
-    {
-        Collider2D[] hits = Physics2D.OverlapCircleAll(transform.position, 1.2f);
-
-        IInteractable found = null;
-      
-
-        foreach (var hit in hits)
-        {
-            IInteractable interactable = hit.GetComponent<IInteractable>();
-            if (interactable != null && interactable.CanInteract())
-            {
-                found = interactable;
-               
-                break;
-            }
-        }
-
-        if (found != null)
-            found.Interact();
+            MouseInteractDetector.Instance?.TryInteractUnderCursor();
     }
 
     private void OnDestroy()
@@ -102,7 +79,7 @@ public class PlayerMovement : MonoBehaviour
         if (Instance == this)
             Instance = null;
     }
-   
+
     public bool IsRunning()
     {
         return _isRunning;

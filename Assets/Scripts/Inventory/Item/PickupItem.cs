@@ -13,22 +13,32 @@ public class PickupItem : MonoBehaviour, IInteractable
 
     private void Start()
     {
-        // ID = сцена + имя объекта — уникален пока объект не переименован
         itemID = gameObject.scene.name + "_" + gameObject.name
-       + "_" + transform.position.x + "_" + transform.position.y;
+           + "_" + transform.position.x + "_" + transform.position.y;
 
-        // Если уже подбирали — скрываем сразу при загрузке сцены
-        if (PickupTracker.Instance != null && PickupTracker.Instance.IsPickedUp(itemID))
+        if (PickupTracker.Instance != null &&
+            PickupTracker.Instance.IsPickedUp(itemID))
+        {
             gameObject.SetActive(false);
+        }
     }
 
-    public bool CanInteract() => playerInside;
+    public bool CanInteract()
+    {
+        return playerInside;
+    }
 
     public void Interact()
     {
         if (!CanInteract()) return;
+
+        if (PickupTracker.Instance != null &&
+            PickupTracker.Instance.IsPickedUp(itemID))
+            return;
+
         PickupTracker.Instance?.MarkPickedUp(itemID);
         InventoryManager.Instance.AddItem(itemData);
+
         Destroy(gameObject);
     }
 

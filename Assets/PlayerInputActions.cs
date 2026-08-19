@@ -187,8 +187,8 @@ public partial class @PlayerInputActions: IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": """",
-                    ""id"": ""3b08a9aa-87bc-4d38-8217-0609dea34f63"",
-                    ""path"": ""<Keyboard>/e"",
+                    ""id"": ""0edc5ca0-ce32-487a-80b3-f7979645b61d"",
+                    ""path"": ""<Mouse>/leftButton"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
