@@ -60,6 +60,7 @@ public class DialogueUI : MonoBehaviour
 
     public void OpenDialogue(DialogueData dialogue)
     {
+        
         currentDialogue = dialogue;
         GameState.IsDialogueOpen = true;
 

@@ -41,9 +41,14 @@ public class PlayerVisual : MonoBehaviour
     private void Update()
     {
         if (_animator == null) return; // защита от NRE, если Animator не найден
-        if (PlayerMovement.Instance == null) return;
-
-        _animator.SetBool(Running, PlayerMovement.Instance.IsRunning());
+        if (PlayerMovement.Instance == null)
+        {
+            _animator.SetBool(Running, false);
+        }
+        else
+        {
+            _animator.SetBool(Running, PlayerMovement.Instance.IsRunning());
+        }
 
             AdjustPlayerFacingDirection();
     }
