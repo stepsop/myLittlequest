@@ -26,7 +26,10 @@ public class MouseHoverDetector : MonoBehaviour
     private void Update()
     {
         if (!IsHoverableAlive(currentHovered))
+        {
+            InteractionHintUI.GetOrFindInstance()?.Hide();
             currentHovered = null;
+        }
 
         Vector3 mouseWorldPos = cam.ScreenToWorldPoint(Input.mousePosition);
         IHoverable newHovered = FindHoverableAt(mouseWorldPos);

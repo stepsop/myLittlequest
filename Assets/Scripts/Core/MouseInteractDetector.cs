@@ -22,12 +22,15 @@ public class MouseInteractDetector : MonoBehaviour
 
     public void TryInteractUnderCursor()
     {
+        Debug.Log("[Interact] TryInteractUnderCursor called");
         Vector3 worldPos = cam.ScreenToWorldPoint(GameInput.GetMousePosition());
         int count = Physics2D.OverlapPoint(worldPos, contactFilter, hits);
+        Debug.Log($"[Interact] hits: {count}");
 
         for (int i = 0; i < count; i++)
         {
             IInteractable interactable = hits[i].GetComponent<IInteractable>();
+             Debug.Log($"[Interact] hit {hits[i].name}, IInteractable: {interactable != null}, CanInteract: {interactable?.CanInteract()}");
             if (interactable != null && interactable.CanInteract())
             {
                 interactable.Interact();

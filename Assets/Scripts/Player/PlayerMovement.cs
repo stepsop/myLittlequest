@@ -66,10 +66,17 @@ public class PlayerMovement : MonoBehaviour
 
     private void Update()
     {
-        if (IsMovementBlocked()) return;
+        if (IsMovementBlocked())
+        {
+            Debug.Log("[Interact] blocked by GameState");
+            return;
+        }
 
         if (input.Player.Interact.WasPressedThisFrame())
+        {
+            Debug.Log("[Interact] Interact action pressed");
             MouseInteractDetector.Instance?.TryInteractUnderCursor();
+        }
     }
 
     private void OnDestroy()
