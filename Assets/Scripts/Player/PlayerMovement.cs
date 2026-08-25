@@ -8,8 +8,6 @@ public class PlayerMovement : MonoBehaviour
     private PlayerInputActions input;
     public static PlayerMovement Instance { get; private set; }
     private Camera _mainCamera;
-
-
     private bool _isRunning;
 
 
@@ -38,6 +36,7 @@ public class PlayerMovement : MonoBehaviour
         if (IsMovementBlocked())
         {
             rb.linearVelocity = Vector2.zero;
+            _isRunning = false;
             return;
         }
 

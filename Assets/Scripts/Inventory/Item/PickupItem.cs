@@ -8,7 +8,7 @@ public class PickupItem : MonoBehaviour, IInteractable
     [Header("Данные предмета — назначь SO из Assets/Inventory/Items/")]
     public ItemData itemData;
 
-    private bool playerInside;
+    [SerializeField] private float interactDistance = 3f;
     private string itemID;
 
     private void Start()
@@ -25,7 +25,9 @@ public class PickupItem : MonoBehaviour, IInteractable
 
     public bool CanInteract()
     {
-        return playerInside;
+        Transform player = PlayerMovement.Instance?.transform;
+        if (player == null) return false;
+        return Vector2.Distance(player.position, transform.position) <= interactDistance;
     }
 
     public void Interact()
@@ -38,17 +40,18 @@ public class PickupItem : MonoBehaviour, IInteractable
 
         PickupTracker.Instance?.MarkPickedUp(itemID);
         InventoryManager.Instance.AddItem(itemData);
+        SpeechBubble.Instance?.Show(itemData.pickupPhrase);
 
         Destroy(gameObject);
     }
 
-    private void OnTriggerEnter2D(Collider2D other)
-    {
-        if (other.CompareTag("Player")) playerInside = true;
-    }
+    //private void OnTriggerEnter2D(Collider2D other)
+    //{
+    // if (other.CompareTag("Player")) playerInside = true;
+    //}
 
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        if (other.CompareTag("Player")) playerInside = false;
-    }
+    //private void OnTriggerExit2D(Collider2D other)
+    // {
+    //if (other.CompareTag("Player")) playerInside = false;
+    //}
 }

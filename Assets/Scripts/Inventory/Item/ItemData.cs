@@ -7,6 +7,9 @@ public class ItemData : ScriptableObject
     public string itemName => name;
     public Sprite icon;
     public bool consumable = true;
+    
+    [Header("Подбор")]
+    [TextArea] public string pickupPhrase;
 
     [Header("Осмотр")]
     [TextArea] public string inspectPhrase;
