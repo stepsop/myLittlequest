@@ -63,7 +63,7 @@ public class ItemInspectPanel : MonoBehaviour
                 : "Нет описания.";
         }
 
-        GameState.IsInspecting = true;
+        GameState.Current = UIState.Inspecting;
         SpeechBubble.Instance?.Show(item.inspectPhrase, item.inspectAudio);
     }
 
@@ -72,7 +72,7 @@ public class ItemInspectPanel : MonoBehaviour
         if (panel != null)
             panel.SetActive(false);
 
-        GameState.IsInspecting = false;
+        GameState.Current = UIState.None;
         currentItem = null;
     }
     private void OnDestroy()

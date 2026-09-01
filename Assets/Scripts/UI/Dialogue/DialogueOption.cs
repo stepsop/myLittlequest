@@ -14,19 +14,18 @@ public class DialogueOption
     public ItemData requiredItem;
     public NPCState npcState;
 
-    [Header("Действие при выборе")]
-    public ActionType actionType;
-    public ItemData giveItem;
-    public ItemData takeItem;
-    public NPCState targetNpcState;
+    [Header("Скрыть если предмет уже выдан")]
+    public NPCState hideIfItemGiven;
+
+    [Header("Действия при выборе")]
+    public ScriptableObject[] actions; // каждый реализует IDialogueAction
+
     public bool lockDialogue;
 
     [Header("Фраза НПС после блокировки")]
     public string lockedPhrase;
     public AudioClip lockedAudio;
-
-    [InspectorName("Уничтожить объект")]
-    public GameObject objectToDestroy;
+    
 }
 
 public enum ConditionType
@@ -39,22 +38,4 @@ public enum ConditionType
     NPCIsLoyal,
     [InspectorName("NPC не лоялен")]
     NPCNotLoyal
-}
-
-public enum ActionType
-{
-    [InspectorName("Нет действия")]
-    None,
-    [InspectorName("NPC выдаёт предмет")]
-    GiveItem,
-    [InspectorName("NPC забирает предмет")]
-    TakeItem,
-    [InspectorName("Обмен предметами")]
-    ExchangeItems,
-    [InspectorName("NPC становится лояльным")]
-    SetLoyal,
-    [InspectorName("Заблокировать диалог")]
-    LockDialogue,
-    [InspectorName("Уничтожить объект")]
-    DestroyObject
 }

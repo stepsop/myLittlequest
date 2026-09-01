@@ -253,10 +253,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7b3770f782161b34d8e580e8c7a459b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::JumpingText
-  jumpHeight: 4
+  amplitudeX: 3
+  amplitudeY: 5
+  noiseStrength: 1.8
   smoothSpeed: 12
   minDelay: 0.05
   maxDelay: 0.25
+  usePerlinNoise: 1
+  perlinScale: 8
 --- !u!1 &3013421522557968391
 GameObject:
   m_ObjectHideFlags: 0
@@ -484,7 +488,7 @@ SpriteRenderer:
   m_GlobalIlluminationMeshLod: 0
   m_SortingLayerID: 0
   m_SortingLayer: 0
-  m_SortingOrder: 0
+  m_SortingOrder: -1
   m_MaskInteraction: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
   m_Color: {r: 0, g: 0, b: 0, a: 0.7176471}
@@ -823,7 +827,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e4d7f0f7496a0774484e0dbfedf310f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerMovement
-  movingSpeed: 5
+  movingSpeed: 7
 --- !u!114 &1884589650314435927
 MonoBehaviour:
   m_ObjectHideFlags: 0

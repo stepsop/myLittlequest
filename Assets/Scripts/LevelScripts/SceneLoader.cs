@@ -62,7 +62,7 @@ public class SceneLoader : MonoBehaviour
     private IEnumerator LoadSceneRoutine(string sceneName, System.Action spawnAction)
     {
         isLoading = true;
-        GameState.IsTransitioning = true;
+        GameState.Current = UIState.Transitioning;
 
         // Fade Out
         if (fadeController != null)
@@ -80,15 +80,12 @@ public class SceneLoader : MonoBehaviour
         spawnAction?.Invoke();
 
         // Сбрасываем состояния UI
-        GameState.IsMenuOpen = false;
-        GameState.IsDialogueOpen = false;
-        GameState.IsInspecting = false;
-
+        GameState.Current = UIState.None;
         // Fade In
         if (fadeController != null)
             yield return StartCoroutine(fadeController.Fade(1f, 0f));
 
-        GameState.IsTransitioning = false;
+        
         isLoading = false;
     }
 }

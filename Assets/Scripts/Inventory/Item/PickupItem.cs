@@ -6,15 +6,18 @@ using UnityEngine;
 public class PickupItem : MonoBehaviour, IInteractable
 {
     [Header("Данные предмета — назначь SO из Assets/Inventory/Items/")]
-    public ItemData itemData;
-
+    [SerializeField] private ItemData itemData;
     [SerializeField] private float interactDistance = 3f;
+    [SerializeField] private string uniqueId; // задать вручную в инспекторе, уникально в пределах сцены
+
     private string itemID;
+
+    public string ItemName => itemData?.itemName;
 
     private void Start()
     {
-        itemID = gameObject.scene.name + "_" + gameObject.name
-           + "_" + transform.position.x + "_" + transform.position.y;
+        itemID = gameObject.scene.name + "_" +
+                (!string.IsNullOrEmpty(uniqueId) ? uniqueId : gameObject.name);
 
         if (PickupTracker.Instance != null &&
             PickupTracker.Instance.IsPickedUp(itemID))
@@ -44,14 +47,4 @@ public class PickupItem : MonoBehaviour, IInteractable
 
         Destroy(gameObject);
     }
-
-    //private void OnTriggerEnter2D(Collider2D other)
-    //{
-    // if (other.CompareTag("Player")) playerInside = true;
-    //}
-
-    //private void OnTriggerExit2D(Collider2D other)
-    // {
-    //if (other.CompareTag("Player")) playerInside = false;
-    //}
 }

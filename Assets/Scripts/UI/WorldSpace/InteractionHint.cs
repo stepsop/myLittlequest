@@ -43,6 +43,6 @@ public class InteractionHint : MonoBehaviour, IHoverable
     private void RefreshHintText()
     {
         PickupItem pickup = GetComponent<PickupItem>();
-        hintText = (pickup?.itemData?.itemName) ?? gameObject.name;
+        hintText = (pickup?.ItemName) ?? gameObject.name;
     }
 }

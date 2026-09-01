@@ -40,14 +40,12 @@ public class PauseMenuUI : MonoBehaviour
     {
         if (input.Player.Menu.WasPressedThisFrame())
         {
-            // Если открыт инспектор - закрываем его и НЕ открываем меню паузы
             if (GameState.IsInspecting)
             {
                 ItemInspectPanel.Instance?.Close();
-                return; // Выходим, чтобы меню паузы не открывалось
+                return;
             }
 
-            // Если инспектор закрыт - открываем/закрываем меню паузы
             ToggleMenu();
         }
     }
@@ -56,13 +54,13 @@ public class PauseMenuUI : MonoBehaviour
     {
         bool isOpen = !pauseMenuPanel.activeSelf;
         pauseMenuPanel.SetActive(isOpen);
-        GameState.IsMenuOpen = isOpen;
+        GameState.Current = isOpen ? UIState.Menu : UIState.None;
     }
 
     public void CloseMenu()
     {
         pauseMenuPanel.SetActive(false);
-        GameState.IsMenuOpen = false;
+        GameState.Current = UIState.None;
     }
 
     public void SetMenuButtonActive(bool active)
@@ -78,7 +76,6 @@ public class PauseMenuUI : MonoBehaviour
     private void OpenSaveLoad()
     {
         SaveManager.Instance.Save();
-        // Можно показать надпись "Сохранено!" через SpeechBubble или отдельный текст
         Debug.Log("Игра сохранена!");
     }
     private void OnDestroy()

@@ -22,7 +22,6 @@ public class InventoryUI : MonoBehaviour
     private int currentPage = 0;
     private Dictionary<ItemData, UIItemSlot> slots = new();
 
-    // Открыт ли инвентарь сейчас
     private bool isOpen = false;
 
     private void Awake()
@@ -37,19 +36,15 @@ public class InventoryUI : MonoBehaviour
         gameObject.SetActive(true);
         input = new PlayerInputActions();
         input.Enable();
-
-        
     }
 
     private void Start()
     {
-        
         WirePaginationButtonsIfNeeded();
     }
 
     private void WirePaginationButtonsIfNeeded()
     {
-        
         TryWireButton(nextButton, NextPage);
         TryWireButton(prevButton, PrevPage);
     }
@@ -61,7 +56,6 @@ public class InventoryUI : MonoBehaviour
         var button = buttonObject.GetComponent<Button>();
         if (button == null) return;
 
-        
         int persistentCount = button.onClick.GetPersistentEventCount();
         bool hasValidPersistentTarget = false;
         for (int i = 0; i < persistentCount; i++)
@@ -81,34 +75,28 @@ public class InventoryUI : MonoBehaviour
     {
         if (input.Player.OpenInventory.WasPressedThisFrame())
         {
-           
             if (GameState.IsDialogueOpen) return;
-            if (GameState.IsMenuOpen) return; // Не открывать инвентарь если меню открыто
+            if (GameState.IsMenuOpen) return;
             ToggleInventory();
         }
     }
 
-    
     public void ToggleInventory()
     {
-        isOpen = !isOpen; // Инвертируем состояние
-        GameState.IsInventoryOpen = isOpen;
+        isOpen = !isOpen;
+        GameState.Current = isOpen ? UIState.Inventory : UIState.None;
 
-        // Управляем видимостью кнопки меню
         if (pauseMenuUI != null)
         {
             pauseMenuUI.SetMenuButtonActive(isOpen);
 
-            // Если закрыли инвентарь — закрываем pausePanel
             if (!isOpen)
                 pauseMenuUI.CloseMenu();
         }
 
-        // Если открыли — обновляем UI чтобы показать актуальные предметы
         if (isOpen)
             RefreshUI(InventoryManager.Instance.Items);
 
-        // Запускаем анимацию
         if (slideAnimation != null)
         {
             if (isOpen)
@@ -120,7 +108,6 @@ public class InventoryUI : MonoBehaviour
 
     public void RefreshUI(List<InventoryManager.ItemStack> items)
     {
-        // Если контейнер уничтожен — выходим
         if (itemsContainer == null) return;
 
         foreach (Transform child in itemsContainer)

@@ -50,9 +50,6 @@ public class DialogueUI : MonoBehaviour
         input?.Disable();
     }
 
-    // Находит DialogueUI, даже если он выключен (например если UIRoot ещё
-    // не активирован полностью). Саму работу "найти и включить" делает
-    // UIActivator — DialogueUI тут просто просит найти себя.
     public static DialogueUI GetOrFindInstance()
     {
         return Instance != null ? Instance : UIActivator.FindAndActivate<DialogueUI>();
@@ -62,12 +59,11 @@ public class DialogueUI : MonoBehaviour
     {
         
         currentDialogue = dialogue;
-        GameState.IsDialogueOpen = true;
+        GameState.Current = UIState.Dialogue;
 
         dialogueCanvas.SetActive(true);
         optionsCanvas.SetActive(true); // Кнопки скрыты пока текст печатается
 
-        // Портрет и имя игрока
         if (playerNameText != null)
             playerNameText.text = dialogue.playerName;
         if (playerPortraitImage != null)
@@ -76,7 +72,6 @@ public class DialogueUI : MonoBehaviour
             playerPortraitImage.gameObject.SetActive(dialogue.playerPortrait != null);
         }
 
-        // Портрет и имя NPC
         if (npcNameText != null)
             npcNameText.text = dialogue.npcName;
         if (npcPortraitImage != null)
@@ -85,7 +80,6 @@ public class DialogueUI : MonoBehaviour
             npcPortraitImage.gameObject.SetActive(dialogue.npcPortrait != null);
         }
 
-        // Запускаем печать текста
         ClearOptions();
         if (typewriterCoroutine != null) StopCoroutine(typewriterCoroutine);
         typewriterCoroutine = StartCoroutine(TypeText(dialogue));
@@ -103,12 +97,11 @@ public class DialogueUI : MonoBehaviour
         }
 
         isTyping = false;
-        SpawnOptions(dialogue); // Текст допечатан — показываем кнопки
+        SpawnOptions(dialogue);
     }
 
     private void Update()
     {
-        // Пропустить анимацию печати по нажатию E или Space
         if (GameState.IsDialogueOpen && isTyping)
         {
             if (input.Player.Interact.WasPressedThisFrame())
@@ -126,15 +119,12 @@ public class DialogueUI : MonoBehaviour
         ClearOptions();
         optionsCanvas.SetActive(true);
 
-        // Считаем сколько кнопок реально появится
         int visibleCount = 0;
 
-       
         var options = dialogue.options ?? new System.Collections.Generic.List<DialogueOption>();
 
         foreach (var option in options)
         {
-            // Решение "показывать или нет" — не забота UI, спрашиваем DialogueLogic
             if (!DialogueLogic.CheckCondition(option)) continue;
 
             visibleCount++;
@@ -144,7 +134,6 @@ public class DialogueUI : MonoBehaviour
             var localOption = option;
             btn.onClick.AddListener(() =>
             {
-                
                 DialogueLogic.ExecuteAction(localOption);
 
                 if (localOption.nextDialogue != null)
@@ -154,7 +143,6 @@ public class DialogueUI : MonoBehaviour
             });
         }
 
-        // Если ни одна опция не прошла условие — добавляем кнопку выхода
         if (visibleCount == 0)
         {
             Button exitBtn = Instantiate(optionPrefab, optionsContainer);
@@ -173,7 +161,7 @@ public class DialogueUI : MonoBehaviour
     {
         if (typewriterCoroutine != null) StopCoroutine(typewriterCoroutine);
         isTyping = false;
-        GameState.IsDialogueOpen = false;
+        GameState.Current = UIState.None;
         ClearOptions();
         dialogueCanvas.SetActive(false);
         optionsCanvas.SetActive(false); 
