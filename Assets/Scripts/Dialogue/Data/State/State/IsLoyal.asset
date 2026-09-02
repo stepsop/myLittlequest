@@ -9,12 +9,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 97ee081b04e4979439ff49fae0e2b212, type: 3}
-  m_Name: Test_NPC1
-  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
-  playerName: 
-  playerPortrait: {fileID: 0}
-  npcName: 
-  npcPortrait: {fileID: 0}
-  text: 
-  options: []
+  m_Script: {fileID: 11500000, guid: f4e1b24c0b74efe498cf6f172b081017, type: 3}
+  m_Name: IsLoyal
+  m_EditorClassIdentifier: Assembly-CSharp::NPCState
+  isLoyal: 0
+  itemGiven: 0
+  isLocked: 0
+  isDestroyed: 0

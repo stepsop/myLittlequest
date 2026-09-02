@@ -60,15 +60,16 @@ public class SaveManager : MonoBehaviour
         data.pickedUpItems = new List<string>(PickupTracker.Instance.GetPickedUpItems());
 
         // 5. Состояния NPC — берём все NPCState assets
-        NPCState[] allStates = Resources.LoadAll<NPCState>("NPCStates");
-        foreach (var state in allStates)
+        NPCDialogue[] allNpcs = FindObjectsByType<NPCDialogue>(FindObjectsInactive.Include);
+        foreach (var npc in allNpcs)
         {
+            if (npc.State == null || string.IsNullOrEmpty(npc.NpcID)) continue;
             data.npcStates.Add(new NPCStateSaveData
             {
-                stateName = state.name,
-                isLoyal = state.isLoyal,
-                itemGiven = state.itemGiven,
-                isLocked = state.isLocked
+                stateName = npc.NpcID,
+                isLoyal = npc.State.isLoyal,
+                itemGiven = npc.State.itemGiven,
+                isLocked = npc.State.isLocked
             });
         }
 
@@ -105,15 +106,15 @@ public class SaveManager : MonoBehaviour
         PickupTracker.Instance.LoadPickedUpItems(data.pickedUpItems);
 
         // 3. Состояния NPC
-        NPCState[] allStates = Resources.LoadAll<NPCState>("NPCStates");
+        NPCDialogue[] allNpcs = FindObjectsByType<NPCDialogue>(FindObjectsInactive.Include);
         foreach (var saved in data.npcStates)
         {
-            foreach (var state in allStates)
+            foreach (var npc in allNpcs)
             {
-                if (state.name != saved.stateName) continue;
-                state.isLoyal = saved.isLoyal;
-                state.itemGiven = saved.itemGiven;
-                state.isLocked = saved.isLocked;
+                if (npc.NpcID != saved.stateName || npc.State == null) continue;
+                npc.State.isLoyal = saved.isLoyal;
+                npc.State.itemGiven = saved.itemGiven;
+                npc.State.isLocked = saved.isLocked;
                 break;
             }
         }

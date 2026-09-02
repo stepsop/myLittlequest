@@ -70,7 +70,7 @@ public class MainMenuUI : MonoBehaviour
         PickupTracker.Instance?.LoadPickedUpItems(new List<string>());
 
         NPCState[] allStates = Resources.FindObjectsOfTypeAll<NPCState>();
-        foreach (var state in allStates) state.Reset();
+        //foreach (var state in allStates) state.Reset();
         Debug.Log($"[StartNewGame] SceneLoader.Instance = {SceneLoader.Instance}");
         // Используем SceneLoader если есть, иначе грузим напрямую
         if (SceneLoader.Instance != null)

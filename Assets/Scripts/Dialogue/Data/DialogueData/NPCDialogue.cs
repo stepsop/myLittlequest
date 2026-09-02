@@ -4,13 +4,21 @@ public class NPCDialogue : MonoBehaviour, IInteractable
 {
     [SerializeField] private DialogueData startDialogue;
 
-    [SerializeField] private NPCState npcState;
+    [SerializeField] private NPCState npcStateTemplate;
+    private NPCState npcState;
+    [SerializeField] private string npcID;
+    public NPCState State => npcState;
+    public string NpcID => npcID;
 
     [SerializeField] private string lockedPhrase = "Я занят, уходи.";
     [SerializeField] private AudioClip lockedAudio;
 
     private bool playerInside;
 
+    private void Awake()
+    {
+        npcState = npcStateTemplate != null ? npcStateTemplate.CreateInstance() : null;
+    }
     public bool CanInteract()
     {
         return playerInside;
@@ -26,13 +34,13 @@ public class NPCDialogue : MonoBehaviour, IInteractable
             SpeechBubble.Instance?.Show(lockedPhrase, lockedAudio);
             return;
         }
-       
 
-        
+
+
         DialogueUI ui = DialogueUI.Instance;
         if (ui == null)
         {
-           
+
             ui = Object.FindAnyObjectByType<DialogueUI>(FindObjectsInactive.Include);
         }
 
@@ -43,7 +51,7 @@ public class NPCDialogue : MonoBehaviour, IInteractable
 
         if (!ui.gameObject.activeInHierarchy)
         {
-          
+
             Transform t = ui.transform;
             while (t != null)
             {

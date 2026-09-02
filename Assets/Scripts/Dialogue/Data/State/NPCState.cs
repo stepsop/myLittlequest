@@ -3,7 +3,7 @@
 
 using UnityEngine;
 
-[CreateAssetMenu(menuName = "Диалог/Состояние НПС")]
+[CreateAssetMenu(menuName = "Dialogue/NPC State")]
 public class NPCState : ScriptableObject
 {
     [Header("Состояние НПС")]
@@ -22,12 +22,10 @@ public class NPCState : ScriptableObject
         isDestroyed = false;
     }
 
-#if UNITY_EDITOR
-  
-    private void OnEnable()
+    public NPCState CreateInstance()
     {
-        if (UnityEditor.EditorApplication.isPlayingOrWillChangePlaymode)
-            Reset();
+        var instance = Instantiate(this);
+        instance.name = name; // имя нужно для SaveManager (поиск по name)
+        return instance;
     }
-#endif
 }
