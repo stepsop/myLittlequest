@@ -29,7 +29,7 @@ public class DialogueOptionDrawer : PropertyDrawer
             EditorGUI.indentLevel++;
             Draw("conditionLogic");
             Draw("requiredItem");
-            Draw("requiredLoyalState");
+            Draw("requiredLoyalNpc");
             EditorGUI.indentLevel--;
         }
 
@@ -51,7 +51,7 @@ public class DialogueOptionDrawer : PropertyDrawer
         {
             h += EditorGUI.GetPropertyHeight(prop.FindPropertyRelative("conditionLogic"), true) + sp;
             h += EditorGUI.GetPropertyHeight(prop.FindPropertyRelative("requiredItem"), true) + sp;
-            h += EditorGUI.GetPropertyHeight(prop.FindPropertyRelative("requiredLoyalState"), true) + sp;
+            h += EditorGUI.GetPropertyHeight(prop.FindPropertyRelative("requiredLoyalNpc"), true) + sp;
         }
 
         h += EditorGUI.GetPropertyHeight(prop.FindPropertyRelative("actions"), true) + sp;
