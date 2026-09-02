@@ -10,27 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 97ee081b04e4979439ff49fae0e2b212, type: 3}
-  m_Name: 1
+  m_Name: New Dialogue Data
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   playerName: 
   playerPortrait: {fileID: 0}
   npcName: 
   npcPortrait: {fileID: 0}
-  text: "\u041A\u043E\u043D\u0435\u0446"
-  options:
-  - text: 
-    nextDialogue: {fileID: 0}
-    useCondition: 0
-    conditionLogic: 0
-    requiredItem: {fileID: 0}
-    requiredLoyalNpc: {fileID: 0}
-    actions:
-    - type: 2
-      item: {fileID: 0}
-      giverNpc: {fileID: 0}
-      targetNpc: {fileID: 0}
-      loyalValue: 0
-      lockedValue: 0
-      applyLoyal: 0
-      applyLocked: 0
-      targetObject: {fileID: 0}
+  text: 
+  options: []

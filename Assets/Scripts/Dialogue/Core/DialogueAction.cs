@@ -24,7 +24,7 @@ public class DialogueAction
     public bool applyLocked;
 
     [Header("DestroyObject")]
-    public GameObject targetObject;
+    [SerializeField] private GameObject targetObject;
 
     public void Execute()
     {

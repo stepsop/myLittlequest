@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4e1b24c0b74efe498cf6f172b081017, type: 3}
-  m_Name: IsLocked
-  m_EditorClassIdentifier: Assembly-CSharp::NPCState
-  isLoyal: 0
-  itemGiven: 0
-  isLocked: 1
-  isDestroyed: 0
+  m_Script: {fileID: 11500000, guid: d0509e30cc7d7d441a355d8fbe6ed608, type: 3}
+  m_Name: New Set Loyal Action
+  m_EditorClassIdentifier: Assembly-CSharp::SetLoyalAction
+  targetState: {fileID: 11400000, guid: 117e16da8c415cc4eb25ee489e9f4fca, type: 2}

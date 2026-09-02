@@ -9,10 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4e1b24c0b74efe498cf6f172b081017, type: 3}
-  m_Name: IsLocked
-  m_EditorClassIdentifier: Assembly-CSharp::NPCState
-  isLoyal: 0
-  itemGiven: 0
-  isLocked: 1
-  isDestroyed: 0
+  m_Script: {fileID: 11500000, guid: 0e3f3e33bfdfbf6488e3a92c41367c7c, type: 3}
+  m_Name: New Give Item Action
+  m_EditorClassIdentifier: Assembly-CSharp::GiveItemAction
+  item: {fileID: 0}

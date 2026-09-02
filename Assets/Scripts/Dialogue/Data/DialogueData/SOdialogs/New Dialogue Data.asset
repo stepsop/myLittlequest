@@ -16,5 +16,21 @@ MonoBehaviour:
   playerPortrait: {fileID: 0}
   npcName: 
   npcPortrait: {fileID: 0}
-  text: 
-  options: []
+  text: "\u041F\u0440\u0438\u0432\u0435\u0442"
+  options:
+  - text: "\u0432\u044B\u0434\u0430\u0442\u044C \u043F\u0440\u0435\u0434\u043C\u0435\u0442"
+    nextDialogue: {fileID: 0}
+    useCondition: 1
+    conditionLogic: 0
+    requiredItem: {fileID: 11400000, guid: 273dc93c9ce729e449535a72194423bf, type: 2}
+    requiredLoyalNpc: {fileID: 0}
+    actions:
+    - type: 0
+      item: {fileID: 11400000, guid: c6641ff0a593b644eb3ea73da3737fa6, type: 2}
+      giverNpc: {fileID: 0}
+      targetNpc: {fileID: 0}
+      loyalValue: 0
+      lockedValue: 0
+      applyLoyal: 0
+      applyLocked: 0
+      targetObject: {fileID: 0}
