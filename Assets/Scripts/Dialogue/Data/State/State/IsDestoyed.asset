@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4e1b24c0b74efe498cf6f172b081017, type: 3}
   m_Name: IsDestoyed
   m_EditorClassIdentifier: Assembly-CSharp::NPCState
-  isLoyal: 1
+  isLoyal: 0
   itemGiven: 0
   isLocked: 0
-  isDestroyed: 0
+  isDestroyed: 1
