@@ -1,46 +1,61 @@
 fileFormatVersion: 2
-guid: 5f49ca1a6b078684cbad1a0dafa4ad12
+guid: 6f699e267f0ac4b44bfacb172fce84a2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2240130448241406067
-    second: verg_idle_0
+      213: 9163921628740493882
+    second: verg_idle 1_0
   - first:
-      213: -5147723934063351810
-    second: verg_idle_1
+      213: 579506295496175845
+    second: verg_idle 1_1
   - first:
-      213: 2514270225446856858
-    second: verg_idle_2
+      213: 4663203077944700436
+    second: verg_idle 1_2
   - first:
-      213: -4901929249974827499
-    second: verg_idle_3
+      213: 6100943372793711341
+    second: verg_idle 1_3
   - first:
-      213: 3442119470773510245
-    second: verg_idle_4
+      213: -4254278182774581851
+    second: verg_idle 1_4
   - first:
-      213: 5415468893379156343
-    second: verg_idle_5
+      213: -6039715179819898992
+    second: verg_idle 1_5
   - first:
-      213: -7499504634329713852
-    second: verg_idle_6
+      213: 1861885984153650807
+    second: verg_idle 1_6
   - first:
-      213: 1764521219236163704
-    second: verg_idle_7
+      213: 3530995610138112246
+    second: verg_idle 1_7
   - first:
-      213: 1939563639544746180
-    second: verg_idle_8
+      213: -2036706950777210202
+    second: verg_idle 1_8
   - first:
-      213: -8284826352223605410
-    second: verg_idle_9
+      213: 3916501567683499468
+    second: verg_idle 1_9
   - first:
-      213: 7722141119859077824
-    second: verg_idle_10
+      213: 4039994681246477494
+    second: verg_idle 1_10
   - first:
-      213: -1525161642581548233
-    second: verg_idle_11
+      213: -9000875285740050234
+    second: verg_idle 1_11
   - first:
-      213: 4246344183844933790
-    second: verg_idle_12
+      213: -3038466609389275438
+    second: verg_idle 1_12
+  - first:
+      213: 5615757733703928609
+    second: verg_idle 1_13
+  - first:
+      213: 6073207869139747607
+    second: verg_idle 1_14
+  - first:
+      213: -1383200810921947374
+    second: verg_idle 1_15
+  - first:
+      213: 630217040772971614
+    second: verg_idle 1_16
+  - first:
+      213: -7130956743128168218
+    second: verg_idle 1_17
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -87,7 +102,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 22
+  spritePixelsToUnits: 60
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -136,23 +151,45 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: verg_idle_0
+      name: verg_idle 1_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 68
+        y: 0
         width: 305
-        height: 908
+        height: 1024
       alignment: 9
-      pivot: {x: 0.6234184, y: 0.59494907}
+      pivot: {x: 0.6111318, y: 0.5797427}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: d8fc80ed93579e0e0800000000000000
-      internalID: -2240130448241406067
+      spriteID: a32a8963b2acc2f70800000000000000
+      internalID: 9163921628740493882
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: verg_idle_0
+      rect:
+        serializedVersion: 2
+        x: 310
+        y: 0
+        width: 305
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.6161841, y: 0.5838827}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5ef81a28e43aab346b66cee7fd405d0e
+      internalID: 40727246
       vertices: []
       indices: 
       edges: []
@@ -161,20 +198,20 @@ TextureImporter:
       name: verg_idle_1
       rect:
         serializedVersion: 2
-        x: 621
-        y: 68
+        x: 620
+        y: 0
         width: 305
-        height: 908
+        height: 1024
       alignment: 9
-      pivot: {x: 0.57166266, y: 0.5962864}
+      pivot: {x: 0.5808232, y: 0.5857611}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: ef7a0641b5c9f88b0800000000000000
-      internalID: -5147723934063351810
+      spriteID: 77e689b6c00dccc41b2b2744d5e195db
+      internalID: -1986456129
       vertices: []
       indices: 
       edges: []
@@ -183,20 +220,20 @@ TextureImporter:
       name: verg_idle_2
       rect:
         serializedVersion: 2
-        x: 309
-        y: 68
-        width: 305
-        height: 908
+        x: 928
+        y: 0
+        width: 294
+        height: 1024
       alignment: 9
-      pivot: {x: 0.63536215, y: 0.59494907}
+      pivot: {x: 0.58908767, y: 0.58275187}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: a98e919e27b74e220800000000000000
-      internalID: 2514270225446856858
+      spriteID: 38bebb4c444bac6468d729ce73681270
+      internalID: -1607627334
       vertices: []
       indices: 
       edges: []
@@ -205,20 +242,20 @@ TextureImporter:
       name: verg_idle_3
       rect:
         serializedVersion: 2
-        x: 1232
-        y: 68
-        width: 303
-        height: 908
+        x: 1226
+        y: 0
+        width: 279
+        height: 1024
       alignment: 9
-      pivot: {x: 0.56412077, y: 0.59494907}
+      pivot: {x: 0.6214884, y: 0.5857611}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 51647259159d8fbb0800000000000000
-      internalID: -4901929249974827499
+      spriteID: c4c5dee8ff3c3454dba4701b324b3634
+      internalID: -774602351
       vertices: []
       indices: 
       edges: []
@@ -227,20 +264,108 @@ TextureImporter:
       name: verg_idle_4
       rect:
         serializedVersion: 2
-        x: 932
-        y: 68
-        width: 286
-        height: 908
+        x: 1510
+        y: 0
+        width: 279
+        height: 1024
       alignment: 9
-      pivot: {x: 0.59765196, y: 0.59494907}
+      pivot: {x: 0.61277896, y: 0.56210655}
       border: {x: 0, y: 0, z: 0, w: 0}
       customData: 
       outline: []
       physicsShape: []
-      tessellationDetail: -1
+      tessellationDetail: 0
       bones: []
-      spriteID: 56029e9eb6dd4cf20800000000000000
-      internalID: 3442119470773510245
+      spriteID: fab45113c52890c45ad963a9750d4164
+      internalID: 1140466249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: verg_idle_5
+      rect:
+        serializedVersion: 2
+        x: 1794
+        y: 0
+        width: 289
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.6439403, y: 0.575229}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce2e07f4c247ad544aabb61a03f93f3b
+      internalID: -1342707564
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: verg_idle_6
+      rect:
+        serializedVersion: 2
+        x: 2087
+        y: 0
+        width: 299
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.61851597, y: 0.5692107}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ce7757917c37e4e4a8f4ee19b2973c53
+      internalID: 1946232282
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: verg_idle_7
+      rect:
+        serializedVersion: 2
+        x: 2388
+        y: 0
+        width: 304
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.66217846, y: 0.57221985}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b20a461aa33611145be970c5f0c06692
+      internalID: -1722684325
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: verg_idle_8
+      rect:
+        serializedVersion: 2
+        x: 2692
+        y: 0
+        width: 304
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.6114976, y: 0.5601832}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1e008ac8ab510d9469dfb247a6b99f89
+      internalID: -1486891853
       vertices: []
       indices: 
       edges: []
@@ -249,7 +374,7 @@ TextureImporter:
     customData: 
     physicsShape: []
     bones: []
-    spriteID: ae0be57865e23f24590736e167d8e353
+    spriteID: 829c6fa9a1099de4c9a9d644735632fd
     internalID: 0
     vertices: []
     indices: 
@@ -259,19 +384,33 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      verg_idle_0: -2240130448241406067
-      verg_idle_1: -5147723934063351810
-      verg_idle_10: 7722141119859077824
-      verg_idle_11: -1525161642581548233
-      verg_idle_12: 4246344183844933790
-      verg_idle_2: 2514270225446856858
-      verg_idle_3: -4901929249974827499
-      verg_idle_4: 3442119470773510245
-      verg_idle_5: 5415468893379156343
-      verg_idle_6: -7499504634329713852
-      verg_idle_7: 1764521219236163704
-      verg_idle_8: 1939563639544746180
-      verg_idle_9: -8284826352223605410
+      verg_idle 1_0: 9163921628740493882
+      verg_idle 1_1: 579506295496175845
+      verg_idle 1_10: 4039994681246477494
+      verg_idle 1_11: -9000875285740050234
+      verg_idle 1_12: -3038466609389275438
+      verg_idle 1_13: 5615757733703928609
+      verg_idle 1_14: 6073207869139747607
+      verg_idle 1_15: -1383200810921947374
+      verg_idle 1_16: 630217040772971614
+      verg_idle 1_17: -7130956743128168218
+      verg_idle 1_2: 4663203077944700436
+      verg_idle 1_3: 6100943372793711341
+      verg_idle 1_4: -4254278182774581851
+      verg_idle 1_5: -6039715179819898992
+      verg_idle 1_6: 1861885984153650807
+      verg_idle 1_7: 3530995610138112246
+      verg_idle 1_8: -2036706950777210202
+      verg_idle 1_9: 3916501567683499468
+      verg_idle_0: 40727246
+      verg_idle_1: -1986456129
+      verg_idle_2: -1607627334
+      verg_idle_3: -774602351
+      verg_idle_4: 1140466249
+      verg_idle_5: -1342707564
+      verg_idle_6: 1946232282
+      verg_idle_7: -1722684325
+      verg_idle_8: -1486891853
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

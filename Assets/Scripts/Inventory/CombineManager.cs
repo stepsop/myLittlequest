@@ -8,9 +8,12 @@ public class CombineManager : MonoBehaviour
 
     [Header("База фраз когда комбинация не найдена")]
     [SerializeField] private FailPhraseDatabase failPhraseDatabase;
+    private SpeechBubble speechBubble;
+    
 
     private void Awake()
     {
+        speechBubble = GetComponentInChildren<SpeechBubble>();
         if (Instance != null && Instance != this)
         {
             Destroy(gameObject);
@@ -33,7 +36,7 @@ public class CombineManager : MonoBehaviour
             InventoryManager.Instance.AddItem(entry.result);
 
             // Показываем фразу успеха над персонажем
-            SpeechBubble.Instance?.Show(entry.successPhrase, entry.successAudio);
+            speechBubble.Show(entry.successPhrase, entry.successAudio);
             return;
         }
 
@@ -43,7 +46,7 @@ public class CombineManager : MonoBehaviour
             : null;
 
         if (fail != null)
-            SpeechBubble.Instance?.Show(fail.text, fail.audio);
+            speechBubble?.Show(fail.text, fail.audio);
     }
 
     private CombineEntry FindEntry(ItemData a, ItemData b)

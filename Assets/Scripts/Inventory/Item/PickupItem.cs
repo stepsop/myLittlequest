@@ -8,7 +8,8 @@ public class PickupItem : MonoBehaviour, IInteractable
     [Header("Данные предмета — назначь SO из Assets/Inventory/Items/")]
     [SerializeField] private ItemData itemData;
     [SerializeField] private float interactDistance = 3f;
-    [SerializeField] private string uniqueId; // задать вручную в инспекторе, уникально в пределах сцены
+    [SerializeField] private string uniqueId;
+    
 
     private string itemID;
 
@@ -43,7 +44,7 @@ public class PickupItem : MonoBehaviour, IInteractable
 
         PickupTracker.Instance?.MarkPickedUp(itemID);
         InventoryManager.Instance.AddItem(itemData);
-        SpeechBubble.Instance?.Show(itemData.pickupPhrase);
+        
 
         Destroy(gameObject);
     }

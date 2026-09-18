@@ -4,8 +4,6 @@ using TMPro;
 
 public class SpeechBubble : MonoBehaviour
 {
-    public static SpeechBubble Instance { get; private set; }
-
     [SerializeField] private GameObject bubblePanel;
     [SerializeField] private TextMeshProUGUI bubbleText;
     [SerializeField] private AudioSource audioSource;
@@ -17,10 +15,6 @@ public class SpeechBubble : MonoBehaviour
 
     private void Awake()
     {
-       
-        if (Instance == null)
-            Instance = this;
-
         bubblePanel.SetActive(false);
     }
 

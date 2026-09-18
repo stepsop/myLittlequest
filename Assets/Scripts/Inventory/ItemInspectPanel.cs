@@ -10,6 +10,7 @@ public class ItemInspectPanel : MonoBehaviour
     [SerializeField] private Image itemIcon;
     [SerializeField] private TextMeshProUGUI itemName;
     [SerializeField] private TextMeshProUGUI description;
+    [SerializeField] private SpeechBubble speechBubble;
 
     private PlayerInputActions input;
     private ItemData currentItem;
@@ -64,7 +65,7 @@ public class ItemInspectPanel : MonoBehaviour
         }
 
         GameState.Current = UIState.Inspecting;
-        SpeechBubble.Instance?.Show(item.inspectPhrase, item.inspectAudio);
+        speechBubble.Show(item.inspectPhrase, item.inspectAudio);
     }
 
     public void Close()

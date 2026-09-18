@@ -3,6 +3,7 @@ using UnityEngine;
 public class NPCDialogue : MonoBehaviour, IInteractable
 {
     [SerializeField] private DialogueData startDialogue;
+    private SpeechBubble speechBubble;
 
     [SerializeField] private NPCState npcStateTemplate;
     private NPCState npcState;
@@ -17,6 +18,7 @@ public class NPCDialogue : MonoBehaviour, IInteractable
 
     private void Awake()
     {
+        speechBubble = GetComponentInChildren<SpeechBubble>();
         npcState = npcStateTemplate != null ? npcStateTemplate.CreateInstance() : null;
     }
     public bool CanInteract()
@@ -31,7 +33,7 @@ public class NPCDialogue : MonoBehaviour, IInteractable
         // Если диалог заблокирован — NPC не разговаривает
         if (npcState != null && npcState.isLocked)
         {
-            SpeechBubble.Instance?.Show(lockedPhrase, lockedAudio);
+            speechBubble.Show(lockedPhrase, lockedAudio);
             return;
         }
 

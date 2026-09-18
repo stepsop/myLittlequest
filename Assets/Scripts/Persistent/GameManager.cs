@@ -20,7 +20,7 @@ public sealed class GameManager : MonoBehaviour
         if (prefab != null)
             Instantiate(prefab);
         else
-            Debug.LogError("Положи GameManager.prefab в Assets/Resources/");
+            Debug.LogError("Не удалось загрузить GameManager.prefab из Resources!");
 
     }
 

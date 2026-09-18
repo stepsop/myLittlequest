@@ -16,6 +16,8 @@ public class ItemTrigger : MonoBehaviour, IInteractable
     [Header("Фразы если не тот предмет")]
     public FailPhraseDatabase wrongItemPhrases;
 
+    private SpeechBubble playerSpeechBubble;
+
     private bool playerInside;
 
     // Однократное использование — после активации триггер больше не работает
@@ -32,7 +34,7 @@ public class ItemTrigger : MonoBehaviour, IInteractable
             // Случайная фраза из базы без повторов
             var phrase = wrongItemPhrases != null ? wrongItemPhrases.GetRandom() : null;
             if (phrase != null)
-                SpeechBubble.Instance?.Show(phrase.text, phrase.audio);
+                playerSpeechBubble.Show(phrase.text, phrase.audio);
             return;
         }
 
