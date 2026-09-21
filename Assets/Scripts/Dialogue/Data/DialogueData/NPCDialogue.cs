@@ -11,8 +11,9 @@ public class NPCDialogue : MonoBehaviour, IInteractable
     public NPCState State => npcState;
     public string NpcID => npcID;
 
-    [SerializeField] private string lockedPhrase = "Я занят, уходи.";
-    [SerializeField] private AudioClip lockedAudio;
+
+    [SerializeField] private FailPhraseDatabase failPhrase;
+
 
     private bool playerInside;
 
@@ -31,11 +32,12 @@ public class NPCDialogue : MonoBehaviour, IInteractable
         if (!CanInteract()) return;
 
         // Если диалог заблокирован — NPC не разговаривает
-        if (npcState != null && npcState.isLocked)
+        FailPhrase phrase = failPhrase != null ? failPhrase.GetRandom() : null;
+        if (phrase != null)
         {
-            speechBubble.Show(lockedPhrase, lockedAudio);
-            return;
+            speechBubble.Show(phrase.text, phrase.audio);
         }
+        return;
 
 
 
