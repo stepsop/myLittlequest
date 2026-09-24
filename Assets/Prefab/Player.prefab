@@ -895,7 +895,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::CombineManager
   failPhraseDatabase: {fileID: 11400000, guid: da4c7a7954c206444955ca3bdb29b0eb, type: 2}
-  playerSpeechBubble: {fileID: 0}
 --- !u!114 &2823022057703583368
 MonoBehaviour:
   m_ObjectHideFlags: 0

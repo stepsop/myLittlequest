@@ -15,6 +15,7 @@ public class InventoryUI : MonoBehaviour
     [SerializeField] private GameObject nextButton;
     [SerializeField] private GameObject prevButton;
     [SerializeField] private PauseMenuUI pauseMenuUI; 
+    
 
     [Header("Анимация")]
     [SerializeField] private InventorySlideAnimation slideAnimation; 

@@ -4,23 +4,15 @@ using UnityEngine;
 public class MouseHoverDetector : MonoBehaviour
 {
     [Header("Настройки")]
-    [Tooltip("Какой слой проверять (по умолчанию Default)")]
+    [Tooltip("Какие слои участвуют в наведении")]
     public LayerMask layerMask = Physics2D.DefaultRaycastLayers;
 
-    private readonly Collider2D[] hoverHits = new Collider2D[16];
     private Camera cam;
-    private IHoverable currentHovered;   // объект, над которым сейчас курсор
-
-    private ContactFilter2D contactFilter;
+    private IHoverable currentHovered;
 
     private void Awake()
     {
         cam = GetComponent<Camera>();
-
-
-        contactFilter = new ContactFilter2D();
-        contactFilter.SetLayerMask(layerMask);
-        contactFilter.useTriggers = true;
     }
 
     private void Update()
@@ -31,20 +23,49 @@ public class MouseHoverDetector : MonoBehaviour
             currentHovered = null;
         }
 
-        Vector3 mouseWorldPos = cam.ScreenToWorldPoint(Input.mousePosition);
-        IHoverable newHovered = FindHoverableAt(mouseWorldPos);
+        IHoverable newHovered = FindHoverableUnderMouse();
 
-        // Смена объекта под курсором
         if (newHovered != currentHovered)
         {
-            if (IsHoverableAlive(currentHovered))      // уход с предыдущего
+            if (IsHoverableAlive(currentHovered))
                 currentHovered.OnMouseExit();
 
-            if (IsHoverableAlive(newHovered))          // вход на новый
+            if (IsHoverableAlive(newHovered))
                 newHovered.OnMouseEnter();
 
             currentHovered = newHovered;
         }
+    }
+
+    private IHoverable FindHoverableUnderMouse()
+    {
+        Ray ray = cam.ScreenPointToRay(Input.mousePosition);
+
+        RaycastHit2D[] hits = Physics2D.RaycastAll(
+            ray.origin,
+            ray.direction,
+            Mathf.Infinity,
+            layerMask
+        );
+
+        // RaycastAll возвращает попадания от ближайшего
+        // объекта к самому дальнему.
+        for (int i = 0; i < hits.Length; i++)
+        {
+            Collider2D collider = hits[i].collider;
+
+            if (collider == null)
+                continue;
+
+            IHoverable hoverable =
+                collider.GetComponent<IHoverable>() ??
+                collider.GetComponentInParent<IHoverable>();
+
+            if (IsHoverableAlive(hoverable))
+                return hoverable;
+        }
+
+        return null;
     }
 
     private void OnDisable()
@@ -55,28 +76,13 @@ public class MouseHoverDetector : MonoBehaviour
         currentHovered = null;
     }
 
-    private IHoverable FindHoverableAt(Vector3 worldPosition)
-    {
-        int hitCount = Physics2D.OverlapPoint(worldPosition, contactFilter, hoverHits);
-
-        for (int i = 0; i < hitCount; i++)
-        {
-            Collider2D hit = hoverHits[i];
-            if (hit == null)
-                continue;
-
-            IHoverable hoverable = hit.GetComponent<IHoverable>() ?? hit.GetComponentInParent<IHoverable>();
-            if (IsHoverableAlive(hoverable))
-                return hoverable;
-        }
-
-        return null;
-    }
-
     private static bool IsHoverableAlive(IHoverable hoverable)
     {
-        if (hoverable == null) return false;
+        if (hoverable == null)
+            return false;
+
         Object unityObject = hoverable as Object;
-        return unityObject != null; // уничтоженный объект вернёт false
+
+        return unityObject != null;
     }
 }
