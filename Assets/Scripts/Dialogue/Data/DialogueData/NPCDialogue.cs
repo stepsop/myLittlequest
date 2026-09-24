@@ -1,7 +1,10 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class NPCDialogue : MonoBehaviour, IInteractable
 {
+    public static readonly Dictionary<string, NPCDialogue> Registry = new();
+
     [SerializeField] private DialogueData startDialogue;
     private SpeechBubble speechBubble;
 
@@ -11,17 +14,32 @@ public class NPCDialogue : MonoBehaviour, IInteractable
     public NPCState State => npcState;
     public string NpcID => npcID;
 
-
     [SerializeField] private FailPhraseDatabase failPhrase;
-
 
     private bool playerInside;
 
     private void Awake()
     {
+        // Если NPC был уничтожен ранее (через диалоговое действие DestroyObject)
+        if (SaveManager.Instance != null && SaveManager.Instance.IsDestroyed(npcID))
+        {
+            Destroy(gameObject);
+            return;
+        }
+
         speechBubble = GetComponentInChildren<SpeechBubble>();
         npcState = npcStateTemplate != null ? npcStateTemplate.CreateInstance() : null;
+
+        if (!string.IsNullOrEmpty(npcID)) 
+            Registry[npcID] = this;
     }
+
+    private void OnDestroy()
+    {
+        if (!string.IsNullOrEmpty(npcID)) 
+            Registry.Remove(npcID);
+    }
+
     public bool CanInteract()
     {
         return playerInside;
@@ -36,15 +54,12 @@ public class NPCDialogue : MonoBehaviour, IInteractable
         if (phrase != null)
         {
             speechBubble.Show(phrase.text, phrase.audio);
+            return;
         }
-        return;
-
-
 
         DialogueUI ui = DialogueUI.Instance;
         if (ui == null)
         {
-
             ui = Object.FindAnyObjectByType<DialogueUI>(FindObjectsInactive.Include);
         }
 
@@ -55,7 +70,6 @@ public class NPCDialogue : MonoBehaviour, IInteractable
 
         if (!ui.gameObject.activeInHierarchy)
         {
-
             Transform t = ui.transform;
             while (t != null)
             {

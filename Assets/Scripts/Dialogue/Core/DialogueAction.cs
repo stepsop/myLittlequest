@@ -23,8 +23,9 @@ public class DialogueAction
     public bool applyLoyal;
     public bool applyLocked;
 
-    [Header("DestroyObject")]
-    [SerializeField] private GameObject targetObject;
+    [Header("DestroyObject — заполни ОДНО из полей")]
+    [SerializeField] private string targetNpcId;
+    [SerializeField] private string targetItemUniqueId;
 
     public void Execute()
     {
@@ -44,7 +45,26 @@ public class DialogueAction
                 break;
 
             case DialogueActionType.DestroyObject:
-                if (targetObject != null) Object.Destroy(targetObject);
+                if (!string.IsNullOrEmpty(targetNpcId))
+                {
+                    if (NPCDialogue.Registry.TryGetValue(targetNpcId, out var npc) && npc != null)
+                    {
+                        if (SaveManager.Instance != null)
+                            SaveManager.Instance.MarkAsDestroyed(targetNpcId);
+
+                        Object.Destroy(npc.gameObject);
+                    }
+                }
+                else if (!string.IsNullOrEmpty(targetItemUniqueId))
+                {
+                    if (PickupItem.Registry.TryGetValue(targetItemUniqueId, out var item) && item != null)
+                    {
+                        if (SaveManager.Instance != null)
+                            SaveManager.Instance.MarkAsDestroyed(targetItemUniqueId);
+
+                        Object.Destroy(item.gameObject);
+                    }
+                }
                 break;
         }
     }

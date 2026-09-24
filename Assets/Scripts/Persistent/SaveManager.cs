@@ -2,16 +2,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-// Отвечает за сохранение и загрузку всего состояния игры.
-// Использует PlayerPrefs + JSON — просто и без внешних зависимостей.
-// Один слот сохранения на всю игру.
 public class SaveManager : MonoBehaviour
 {
     public static SaveManager Instance { get; private set; }
 
-    // Ключи в PlayerPrefs — константы чтобы не ошибиться в строках
     private const string SaveExistsKey = "HasSave";
     private const string SaveDataKey = "SaveData";
+
+    // Хранилище уничтоженных объектов (NPC, квестовые предметы и др.)
+    private HashSet<string> destroyedObjectIds = new HashSet<string>();
+
+    // Кэш состояний NPC со всех посещенных сцен в текущей сессии
+    private Dictionary<string, NPCStateSaveData> cachedNpcStates = new Dictionary<string, NPCStateSaveData>();
 
     private void Awake()
     {
@@ -22,23 +24,48 @@ public class SaveManager : MonoBehaviour
         }
         Instance = this;
         DontDestroyOnLoad(gameObject);
+
+        // Подписываемся на смену/загрузку сцен
+        SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
-    // Проверяем есть ли сохранение — используется в MainMenu
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    // --- МЕТОДЫ ДЛЯ ТРЕКИНГА УНИЧТОЖЕНИЯ ---
+
+    /// <summary>
+    /// Помечает объект как уничтоженный (запоминает его ID).
+    /// </summary>
+    public void MarkAsDestroyed(string id)
+    {
+        if (!string.IsNullOrEmpty(id))
+            destroyedObjectIds.Add(id);
+    }
+
+    /// <summary>
+    /// Проверяет, был ли объект с таким ID уничтожен ранее.
+    /// </summary>
+    public bool IsDestroyed(string id)
+    {
+        return !string.IsNullOrEmpty(id) && destroyedObjectIds.Contains(id);
+    }
+
+    // --- СОХРАНЕНИЕ И ЗАГРУЗКА ---
+
     public static bool HasSave()
     {
         return PlayerPrefs.HasKey(SaveExistsKey);
     }
 
-    // Сохраняем всё состояние игры
     public void Save()
     {
         SaveData data = new SaveData();
 
-        // 1. Текущая сцена
+        // 1. Сцена и позиция игрока
         data.sceneName = SceneManager.GetActiveScene().name;
-
-        // 2. Позиция игрока
         GameObject player = GameObject.FindWithTag("Player");
         if (player != null)
         {
@@ -46,46 +73,41 @@ public class SaveManager : MonoBehaviour
             data.playerY = player.transform.position.y;
         }
 
-        // 3. Инвентарь — список предметов и их количество
-        foreach (var stack in InventoryManager.Instance.Items)
+        // 2. Инвентарь
+        if (InventoryManager.Instance != null)
         {
-            data.inventoryItems.Add(new ItemSaveData
+            foreach (var stack in InventoryManager.Instance.Items)
             {
-                itemName = stack.itemData.name, // Имя SO asset файла
-                amount = stack.amount
-            });
+                data.inventoryItems.Add(new ItemSaveData
+                {
+                    itemName = stack.itemData.name,
+                    amount = stack.amount
+                });
+            }
         }
 
-        // 4. Подобранные предметы из PickupTracker
-        data.pickedUpItems = new List<string>(PickupTracker.Instance.GetPickedUpItems());
-
-        // 5. Состояния NPC — берём все NPCState assets
-        NPCDialogue[] allNpcs = FindObjectsByType<NPCDialogue>(FindObjectsInactive.Include);
-        foreach (var npc in allNpcs)
+        // 3. Подобранные предметы (PickupTracker)
+        if (PickupTracker.Instance != null)
         {
-            if (npc.State == null || string.IsNullOrEmpty(npc.NpcID)) continue;
-            data.npcStates.Add(new NPCStateSaveData
-            {
-                stateName = npc.NpcID,
-                isLoyal = npc.State.isLoyal,
-                itemGiven = npc.State.itemGiven,
-                isLocked = npc.State.isLocked
-            });
+            data.pickedUpItems = new List<string>(PickupTracker.Instance.GetPickedUpItems());
         }
 
-        // Сериализуем в JSON и сохраняем
+        // 4. Уничтоженные объекты
+        data.destroyedObjects = new List<string>(destroyedObjectIds);
+
+        // 5. Состояния NPC
+        SyncCurrentSceneNPCsToCache();
+        data.npcStates = new List<NPCStateSaveData>(cachedNpcStates.Values);
+
+        // Сериализация и запись
         string json = JsonUtility.ToJson(data);
         PlayerPrefs.SetString(SaveDataKey, json);
         PlayerPrefs.SetInt(SaveExistsKey, 1);
         PlayerPrefs.Save();
 
-        Debug.Log("Игра сохранена");
+        Debug.Log("[SaveManager] Игра успешно сохранена.");
     }
 
-    // Загружаем состояние игры.
-    // Сцену и позицию игрока грузит SceneLoader — так же, как обычный переход
-    // между уровнями (fade out → загрузка → спавн → fade in), только по координатам,
-    // а не по SpawnPoint ID.
     public void Load()
     {
         if (!HasSave()) return;
@@ -94,58 +116,103 @@ public class SaveManager : MonoBehaviour
         SaveData data = JsonUtility.FromJson<SaveData>(json);
 
         // 1. Инвентарь
-        InventoryManager.Instance.ClearInventory();
-        foreach (var itemData in data.inventoryItems)
+        if (InventoryManager.Instance != null)
         {
-            ItemData item = Resources.Load<ItemData>($"Items/{itemData.itemName}");
-            if (item != null)
-                InventoryManager.Instance.AddItem(item, itemData.amount);
-        }
-
-        // 2. Подобранные предметы
-        PickupTracker.Instance.LoadPickedUpItems(data.pickedUpItems);
-
-        // 3. Состояния NPC
-        NPCDialogue[] allNpcs = FindObjectsByType<NPCDialogue>(FindObjectsInactive.Include);
-        foreach (var saved in data.npcStates)
-        {
-            foreach (var npc in allNpcs)
+            InventoryManager.Instance.ClearInventory();
+            foreach (var itemData in data.inventoryItems)
             {
-                if (npc.NpcID != saved.stateName || npc.State == null) continue;
-                npc.State.isLoyal = saved.isLoyal;
-                npc.State.itemGiven = saved.itemGiven;
-                npc.State.isLocked = saved.isLocked;
-                break;
+                ItemData item = Resources.Load<ItemData>($"Items/{itemData.itemName}");
+                if (item != null)
+                    InventoryManager.Instance.AddItem(item, itemData.amount);
             }
         }
 
-        // 4. Сцена + позиция игрока — через SceneLoader, с fade-эффектом,
-        // как обычный переход. IsTransitioning и сброс UI-состояний
-        // SceneLoader делает сам.
-        Vector3 targetPosition = new Vector3(data.playerX, data.playerY, 0);
+        // 2. Подобранные предметы
+        if (PickupTracker.Instance != null)
+        {
+            PickupTracker.Instance.LoadPickedUpItems(data.pickedUpItems);
+        }
 
+        // 3. Восстановление списка уничтоженных объектов
+        destroyedObjectIds.Clear();
+        if (data.destroyedObjects != null)
+        {
+            foreach (var id in data.destroyedObjects)
+                destroyedObjectIds.Add(id);
+        }
+
+        // 4. Кэш NPC
+        cachedNpcStates.Clear();
+        foreach (var savedNpc in data.npcStates)
+        {
+            cachedNpcStates[savedNpc.stateName] = savedNpc;
+        }
+
+        // 5. Переход на сохраненную сцену
+        Vector3 targetPosition = new Vector3(data.playerX, data.playerY, 0);
         if (SceneLoader.Instance != null)
         {
             SceneLoader.Instance.LoadSceneAtPosition(data.sceneName, targetPosition);
         }
         else
         {
-            Debug.LogError("SaveManager: SceneLoader.Instance == null. Загрузка сохранения невозможна без SceneLoader в GameManager prefab.");
+            Debug.LogError("[SaveManager] SceneLoader.Instance не найден!");
         }
 
-        Debug.Log($"Загрузка: сцена {data.sceneName}, позиция ({data.playerX}, {data.playerY})");
+        Debug.Log($"[SaveManager] Загрузка инициирована: сцена {data.sceneName}");
     }
 
-    // Удаляем сохранение — при новой игре
     public void DeleteSave()
     {
         PlayerPrefs.DeleteKey(SaveExistsKey);
         PlayerPrefs.DeleteKey(SaveDataKey);
         PlayerPrefs.Save();
+        cachedNpcStates.Clear();
+        destroyedObjectIds.Clear();
     }
 
-    // Контейнер всех данных для сохранения
-    // [System.Serializable] нужен чтобы JsonUtility мог сериализовать класс
+    // --- ОБРАБОТКА СЦЕНЫ ---
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        ApplyCachedStatesToSceneNPCs();
+    }
+
+    public void SyncCurrentSceneNPCsToCache()
+    {
+        NPCDialogue[] allNpcs = FindObjectsByType<NPCDialogue>(FindObjectsInactive.Include);
+        foreach (var npc in allNpcs)
+        {
+            if (npc.State == null || string.IsNullOrEmpty(npc.NpcID)) continue;
+
+            cachedNpcStates[npc.NpcID] = new NPCStateSaveData
+            {
+                stateName = npc.NpcID,
+                isLoyal = npc.State.isLoyal,
+                itemGiven = npc.State.itemGiven,
+                isLocked = npc.State.isLocked
+            };
+        }
+    }
+
+    private void ApplyCachedStatesToSceneNPCs()
+    {
+        NPCDialogue[] allNpcs = FindObjectsByType<NPCDialogue>(FindObjectsInactive.Include);
+        foreach (var npc in allNpcs)
+        {
+            if (string.IsNullOrEmpty(npc.NpcID) || npc.State == null) continue;
+
+            if (cachedNpcStates.TryGetValue(npc.NpcID, out var savedState))
+            {
+                npc.State.isLoyal = savedState.isLoyal;
+                npc.State.itemGiven = savedState.itemGiven;
+                npc.State.isLocked = savedState.isLocked;
+            }
+        }
+    }
+
+    // --- МОДЕЛИ ДАННЫХ ---
+
     [System.Serializable]
     public class SaveData
     {
@@ -154,20 +221,21 @@ public class SaveManager : MonoBehaviour
         public float playerY;
         public List<ItemSaveData> inventoryItems = new List<ItemSaveData>();
         public List<string> pickedUpItems = new List<string>();
+        public List<string> destroyedObjects = new List<string>();
         public List<NPCStateSaveData> npcStates = new List<NPCStateSaveData>();
     }
 
     [System.Serializable]
     public class ItemSaveData
     {
-        public string itemName; // Имя SO asset файла
+        public string itemName;
         public int amount;
     }
 
     [System.Serializable]
     public class NPCStateSaveData
     {
-        public string stateName; // Имя NPCState SO asset файла
+        public string stateName;
         public bool isLoyal;
         public bool itemGiven;
         public bool isLocked;

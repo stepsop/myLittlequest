@@ -66,7 +66,9 @@ public class DialogueActionDrawer : PropertyDrawer
                 break;
 
             case DialogueActionType.DestroyObject:
-                Draw("targetObject");
+                // Отрисовываем поля ID вместо несуществующего targetObject
+                Draw("targetNpcId");
+                Draw("targetItemUniqueId");
                 break;
         }
 
@@ -114,7 +116,9 @@ public class DialogueActionDrawer : PropertyDrawer
                 break;
 
             case DialogueActionType.DestroyObject:
-                h += GetHeight(prop, "targetObject", sp);
+                // Считаем высоту для обоих полей
+                h += GetHeight(prop, "targetNpcId", sp);
+                h += GetHeight(prop, "targetItemUniqueId", sp);
                 break;
         }
 
