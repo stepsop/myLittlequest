@@ -25,7 +25,6 @@ public class SaveManager : MonoBehaviour
         Instance = this;
         DontDestroyOnLoad(gameObject);
 
-        // Подписываемся на смену/загрузку сцен
         SceneManager.sceneLoaded += OnSceneLoaded;
     }
 
@@ -34,26 +33,16 @@ public class SaveManager : MonoBehaviour
         SceneManager.sceneLoaded -= OnSceneLoaded;
     }
 
-    // --- МЕТОДЫ ДЛЯ ТРЕКИНГА УНИЧТОЖЕНИЯ ---
-
-    /// <summary>
-    /// Помечает объект как уничтоженный (запоминает его ID).
-    /// </summary>
     public void MarkAsDestroyed(string id)
     {
         if (!string.IsNullOrEmpty(id))
             destroyedObjectIds.Add(id);
     }
 
-    /// <summary>
-    /// Проверяет, был ли объект с таким ID уничтожен ранее.
-    /// </summary>
     public bool IsDestroyed(string id)
     {
         return !string.IsNullOrEmpty(id) && destroyedObjectIds.Contains(id);
     }
-
-    // --- СОХРАНЕНИЕ И ЗАГРУЗКА ---
 
     public static bool HasSave()
     {
@@ -64,7 +53,6 @@ public class SaveManager : MonoBehaviour
     {
         SaveData data = new SaveData();
 
-        // 1. Сцена и позиция игрока
         data.sceneName = SceneManager.GetActiveScene().name;
         GameObject player = GameObject.FindWithTag("Player");
         if (player != null)
@@ -73,7 +61,6 @@ public class SaveManager : MonoBehaviour
             data.playerY = player.transform.position.y;
         }
 
-        // 2. Инвентарь
         if (InventoryManager.Instance != null)
         {
             foreach (var stack in InventoryManager.Instance.Items)
@@ -86,20 +73,16 @@ public class SaveManager : MonoBehaviour
             }
         }
 
-        // 3. Подобранные предметы (PickupTracker)
         if (PickupTracker.Instance != null)
         {
             data.pickedUpItems = new List<string>(PickupTracker.Instance.GetPickedUpItems());
         }
 
-        // 4. Уничтоженные объекты
         data.destroyedObjects = new List<string>(destroyedObjectIds);
 
-        // 5. Состояния NPC
         SyncCurrentSceneNPCsToCache();
         data.npcStates = new List<NPCStateSaveData>(cachedNpcStates.Values);
 
-        // Сериализация и запись
         string json = JsonUtility.ToJson(data);
         PlayerPrefs.SetString(SaveDataKey, json);
         PlayerPrefs.SetInt(SaveExistsKey, 1);
@@ -115,7 +98,6 @@ public class SaveManager : MonoBehaviour
         string json = PlayerPrefs.GetString(SaveDataKey);
         SaveData data = JsonUtility.FromJson<SaveData>(json);
 
-        // 1. Инвентарь
         if (InventoryManager.Instance != null)
         {
             InventoryManager.Instance.ClearInventory();
@@ -123,17 +105,21 @@ public class SaveManager : MonoBehaviour
             {
                 ItemData item = Resources.Load<ItemData>($"Items/{itemData.itemName}");
                 if (item != null)
+                {
                     InventoryManager.Instance.AddItem(item, itemData.amount);
+                }
+                else
+                {
+                    Debug.LogError($"[SaveManager] Item '{itemData.itemName}' not found in Resources/Items — save data lost.");
+                }
             }
         }
 
-        // 2. Подобранные предметы
         if (PickupTracker.Instance != null)
         {
             PickupTracker.Instance.LoadPickedUpItems(data.pickedUpItems);
         }
 
-        // 3. Восстановление списка уничтоженных объектов
         destroyedObjectIds.Clear();
         if (data.destroyedObjects != null)
         {
@@ -141,14 +127,12 @@ public class SaveManager : MonoBehaviour
                 destroyedObjectIds.Add(id);
         }
 
-        // 4. Кэш NPC
         cachedNpcStates.Clear();
         foreach (var savedNpc in data.npcStates)
         {
             cachedNpcStates[savedNpc.stateName] = savedNpc;
         }
 
-        // 5. Переход на сохраненную сцену
         Vector3 targetPosition = new Vector3(data.playerX, data.playerY, 0);
         if (SceneLoader.Instance != null)
         {
@@ -170,8 +154,6 @@ public class SaveManager : MonoBehaviour
         cachedNpcStates.Clear();
         destroyedObjectIds.Clear();
     }
-
-    // --- ОБРАБОТКА СЦЕНЫ ---
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
@@ -210,8 +192,6 @@ public class SaveManager : MonoBehaviour
             }
         }
     }
-
-    // --- МОДЕЛИ ДАННЫХ ---
 
     [System.Serializable]
     public class SaveData

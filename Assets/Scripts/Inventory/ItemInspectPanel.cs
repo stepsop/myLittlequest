@@ -27,7 +27,6 @@ public class ItemInspectPanel : MonoBehaviour
         gameObject.SetActive(true);
         input = new PlayerInputActions();
         input.Player.Enable();
-       
 
         if (panel != null)
             panel.SetActive(false);
@@ -35,7 +34,6 @@ public class ItemInspectPanel : MonoBehaviour
 
     private void Update()
     {
-      
         if (panel != null && panel.activeSelf && input.Player.Menu.WasPressedThisFrame())
         {
             Close();
@@ -65,7 +63,7 @@ public class ItemInspectPanel : MonoBehaviour
         }
 
         GameState.Current = UIState.Inspecting;
-        speechBubble.Show(item.inspectPhrase, item.inspectAudio);
+        speechBubble?.Show(item.inspectPhrase, item.inspectAudio);
     }
 
     public void Close()
@@ -76,6 +74,7 @@ public class ItemInspectPanel : MonoBehaviour
         GameState.Current = UIState.None;
         currentItem = null;
     }
+
     private void OnDestroy()
     {
         input?.Player.Disable();

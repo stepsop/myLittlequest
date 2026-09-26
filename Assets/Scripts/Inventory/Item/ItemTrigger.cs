@@ -16,7 +16,7 @@ public class ItemTrigger : MonoBehaviour, IInteractable
     [Header("Фразы если не тот предмет")]
     public FailPhraseDatabase wrongItemPhrases;
 
-    private SpeechBubble playerSpeechBubble;
+    [SerializeField] private SpeechBubble playerSpeechBubble;
 
     private bool playerInside;
 
@@ -31,17 +31,15 @@ public class ItemTrigger : MonoBehaviour, IInteractable
 
         if (InventoryManager.Instance.SelectedItem != requiredItem)
         {
-            // Случайная фраза из базы без повторов
             var phrase = wrongItemPhrases != null ? wrongItemPhrases.GetRandom() : null;
             if (phrase != null)
-                playerSpeechBubble.Show(phrase.text, phrase.audio);
+                playerSpeechBubble?.Show(phrase.text, phrase.audio);
             return;
         }
 
         if (rewardPrefab != null && spawnPoint != null)
         {
             GameObject reward = Instantiate(rewardPrefab, spawnPoint.position, Quaternion.identity);
-            // Убираем "(Clone)" — иначе PickupTracker создаст неправильный ID
             reward.name = rewardPrefab.name;
         }
 

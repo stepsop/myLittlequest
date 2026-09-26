@@ -143,12 +143,11 @@ public class DialogueUI : MonoBehaviour
             });
         }
 
-        if (visibleCount == 0)
-        {
+        
             Button exitBtn = Instantiate(optionPrefab, optionsContainer);
             exitBtn.GetComponentInChildren<TMP_Text>().text = "Выйти";
             exitBtn.onClick.AddListener(CloseDialogue);
-        }
+        
     }
 
     private void ClearOptions()
