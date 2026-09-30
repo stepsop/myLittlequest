@@ -72,3 +72,20 @@ MonoBehaviour:
       applyLocked: 1
       targetNpcId: 1
       targetItemUniqueId: 
+  - text: "\u043F\u043E\u043C\u0435\u043D\u044F\u0442\u044C \u0444\u043B\u0430\u0433"
+    nextDialogue: {fileID: 0}
+    useCondition: 0
+    conditionLogic: 0
+    requiredItem: {fileID: 0}
+    requiredLoyalNpc: {fileID: 0}
+    actions:
+    - type: 0
+      item: {fileID: 11400000, guid: 96f1ef06a1c770b4499a96b44f7ef9a3, type: 2}
+      giverNpcId: 
+      giverNpc: {fileID: 0}
+      loyalValue: 1
+      lockedValue: 0
+      applyLoyal: 1
+      applyLocked: 1
+      targetNpcId: 1
+      targetItemUniqueId: 

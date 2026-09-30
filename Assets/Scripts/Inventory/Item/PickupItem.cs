@@ -15,6 +15,7 @@ public class PickupItem : MonoBehaviour, IInteractable
 
     private string itemID;
 
+    public ItemData Data => itemData;
     public string ItemName => itemData?.itemName;
 
     private void Start()

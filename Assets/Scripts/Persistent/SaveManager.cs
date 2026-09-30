@@ -6,6 +6,7 @@ public class SaveManager : MonoBehaviour
 
 {
     private HashSet<string> givenItemNpcIds = new HashSet<string>();
+    private HashSet<string> givenDialogueRewardIds = new HashSet<string>();
     public static SaveManager Instance { get; private set; }
 
     private const string SaveExistsKey = "HasSave";
@@ -57,6 +58,17 @@ public class SaveManager : MonoBehaviour
             givenItemNpcIds.Add(npcId);
     }
 
+    public bool HasGivenDialogueReward(string rewardId)
+    {
+        return !string.IsNullOrEmpty(rewardId) && givenDialogueRewardIds.Contains(rewardId);
+    }
+
+    public void MarkDialogueRewardGiven(string rewardId)
+    {
+        if (!string.IsNullOrEmpty(rewardId))
+            givenDialogueRewardIds.Add(rewardId);
+    }
+
     
 public static bool HasSave()
     {
@@ -94,6 +106,7 @@ public void Save()
 
         data.destroyedObjects = new List<string>(destroyedObjectIds);
         data.givenItemNpcIds = new List<string>(givenItemNpcIds);
+        data.givenDialogueRewardIds = new List<string>(givenDialogueRewardIds);
 
         SyncCurrentSceneNPCsToCache();
         data.npcStates = new List<NPCStateSaveData>(cachedNpcStates.Values);
@@ -150,6 +163,14 @@ public void Load()
                     givenItemNpcIds.Add(npcId);
         }
 
+        givenDialogueRewardIds.Clear();
+        if (data.givenDialogueRewardIds != null)
+        {
+            foreach (var rewardId in data.givenDialogueRewardIds)
+                if (!string.IsNullOrEmpty(rewardId))
+                    givenDialogueRewardIds.Add(rewardId);
+        }
+
         cachedNpcStates.Clear();
         if (data.npcStates != null)
         {
@@ -182,6 +203,7 @@ public void DeleteSave()
         cachedNpcStates.Clear();
         destroyedObjectIds.Clear();
         givenItemNpcIds.Clear();
+        givenDialogueRewardIds.Clear();
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -225,6 +247,7 @@ private void ApplyCachedStatesToSceneNPCs()
 
     {
         public List<string> givenItemNpcIds = new List<string>();
+        public List<string> givenDialogueRewardIds = new List<string>();
         public string sceneName;
         public float playerX;
         public float playerY;

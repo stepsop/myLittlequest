@@ -125,7 +125,7 @@ public class DialogueUI : MonoBehaviour
 
         foreach (var option in options)
         {
-            if (!DialogueLogic.CheckCondition(option)) continue;
+            if (!DialogueLogic.CheckCondition(dialogue, option)) continue;
 
             visibleCount++;
             Button btn = Instantiate(optionPrefab, optionsContainer);
@@ -134,7 +134,7 @@ public class DialogueUI : MonoBehaviour
             var localOption = option;
             btn.onClick.AddListener(() =>
             {
-                DialogueLogic.ExecuteAction(localOption);
+                DialogueLogic.ExecuteAction(dialogue, localOption);
 
                 if (localOption.nextDialogue != null)
                     OpenDialogue(localOption.nextDialogue);

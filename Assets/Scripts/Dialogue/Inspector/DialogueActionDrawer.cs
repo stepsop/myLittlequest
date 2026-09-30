@@ -45,7 +45,8 @@ public class DialogueActionDrawer : PropertyDrawer
         {
             case DialogueActionType.GiveItem:
                 Draw("item");
-                Draw("giverNpcId");
+                Draw("itemPrefab");
+                Draw("hideOptionAfterGive");
                 break;
 
             case DialogueActionType.SetFlag:
@@ -86,7 +87,8 @@ public class DialogueActionDrawer : PropertyDrawer
         {
             case DialogueActionType.GiveItem:
                 h += GetHeight(prop, "item", sp);
-                h += GetHeight(prop, "giverNpcId", sp);
+                h += GetHeight(prop, "itemPrefab", sp);
+                h += GetHeight(prop, "hideOptionAfterGive", sp);
                 break;
 
             case DialogueActionType.SetFlag:

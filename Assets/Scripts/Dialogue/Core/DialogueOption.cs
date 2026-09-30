@@ -17,6 +17,9 @@ public class DialogueOption
 
     [Header("Действия при выборе")]
     public DialogueAction[] actions;
+
+    [HideInInspector]
+    public string rewardTrackingId = System.Guid.NewGuid().ToString("N");
 }
 
 public enum ConditionLogic
