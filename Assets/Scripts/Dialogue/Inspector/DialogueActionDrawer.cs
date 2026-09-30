@@ -45,28 +45,20 @@ public class DialogueActionDrawer : PropertyDrawer
         {
             case DialogueActionType.GiveItem:
                 Draw("item");
-                Draw("giverNpc");
+                Draw("giverNpcId");
                 break;
 
             case DialogueActionType.SetFlag:
-                Draw("targetNpc");
-
+                Draw("targetNpcId");
                 Draw("applyLoyal");
-
-                var applyLoyal = prop.FindPropertyRelative("applyLoyal");
-                if (applyLoyal != null && applyLoyal.boolValue)
+                if (prop.FindPropertyRelative("applyLoyal").boolValue)
                     Draw("loyalValue");
-
                 Draw("applyLocked");
-
-                var applyLocked = prop.FindPropertyRelative("applyLocked");
-                if (applyLocked != null && applyLocked.boolValue)
+                if (prop.FindPropertyRelative("applyLocked").boolValue)
                     Draw("lockedValue");
-
                 break;
 
             case DialogueActionType.DestroyObject:
-                // Отрисовываем поля ID вместо несуществующего targetObject
                 Draw("targetNpcId");
                 Draw("targetItemUniqueId");
                 break;
@@ -94,29 +86,20 @@ public class DialogueActionDrawer : PropertyDrawer
         {
             case DialogueActionType.GiveItem:
                 h += GetHeight(prop, "item", sp);
-                h += GetHeight(prop, "giverNpc", sp);
+                h += GetHeight(prop, "giverNpcId", sp);
                 break;
 
             case DialogueActionType.SetFlag:
-                h += GetHeight(prop, "targetNpc", sp);
+                h += GetHeight(prop, "targetNpcId", sp);
                 h += GetHeight(prop, "applyLoyal", sp);
-
-                var applyLoyal = prop.FindPropertyRelative("applyLoyal");
-
-                if (applyLoyal != null && applyLoyal.boolValue)
+                if (prop.FindPropertyRelative("applyLoyal").boolValue)
                     h += GetHeight(prop, "loyalValue", sp);
-
                 h += GetHeight(prop, "applyLocked", sp);
-
-                var applyLocked = prop.FindPropertyRelative("applyLocked");
-
-                if (applyLocked != null && applyLocked.boolValue)
+                if (prop.FindPropertyRelative("applyLocked").boolValue)
                     h += GetHeight(prop, "lockedValue", sp);
-
                 break;
 
             case DialogueActionType.DestroyObject:
-                // Считаем высоту для обоих полей
                 h += GetHeight(prop, "targetNpcId", sp);
                 h += GetHeight(prop, "targetItemUniqueId", sp);
                 break;

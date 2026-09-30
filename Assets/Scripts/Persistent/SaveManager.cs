@@ -3,7 +3,9 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 
 public class SaveManager : MonoBehaviour
+
 {
+    private HashSet<string> givenItemNpcIds = new HashSet<string>();
     public static SaveManager Instance { get; private set; }
 
     private const string SaveExistsKey = "HasSave";
@@ -44,12 +46,24 @@ public class SaveManager : MonoBehaviour
         return !string.IsNullOrEmpty(id) && destroyedObjectIds.Contains(id);
     }
 
-    public static bool HasSave()
+    public bool HasGivenItem(string npcId)
+    {
+        return !string.IsNullOrEmpty(npcId) && givenItemNpcIds.Contains(npcId);
+    }
+
+    public void MarkItemGiven(string npcId)
+    {
+        if (!string.IsNullOrEmpty(npcId))
+            givenItemNpcIds.Add(npcId);
+    }
+
+    
+public static bool HasSave()
     {
         return PlayerPrefs.HasKey(SaveExistsKey);
     }
 
-    public void Save()
+public void Save()
     {
         SaveData data = new SaveData();
 
@@ -79,6 +93,7 @@ public class SaveManager : MonoBehaviour
         }
 
         data.destroyedObjects = new List<string>(destroyedObjectIds);
+        data.givenItemNpcIds = new List<string>(givenItemNpcIds);
 
         SyncCurrentSceneNPCsToCache();
         data.npcStates = new List<NPCStateSaveData>(cachedNpcStates.Values);
@@ -91,7 +106,7 @@ public class SaveManager : MonoBehaviour
         Debug.Log("[SaveManager] Игра успешно сохранена.");
     }
 
-    public void Load()
+public void Load()
     {
         if (!HasSave()) return;
 
@@ -127,10 +142,23 @@ public class SaveManager : MonoBehaviour
                 destroyedObjectIds.Add(id);
         }
 
-        cachedNpcStates.Clear();
-        foreach (var savedNpc in data.npcStates)
+        givenItemNpcIds.Clear();
+        if (data.givenItemNpcIds != null)
         {
-            cachedNpcStates[savedNpc.stateName] = savedNpc;
+            foreach (var npcId in data.givenItemNpcIds)
+                if (!string.IsNullOrEmpty(npcId))
+                    givenItemNpcIds.Add(npcId);
+        }
+
+        cachedNpcStates.Clear();
+        if (data.npcStates != null)
+        {
+            foreach (var savedNpc in data.npcStates)
+            {
+                cachedNpcStates[savedNpc.stateName] = savedNpc;
+                if (savedNpc.itemGiven && !string.IsNullOrEmpty(savedNpc.stateName))
+                    givenItemNpcIds.Add(savedNpc.stateName);
+            }
         }
 
         Vector3 targetPosition = new Vector3(data.playerX, data.playerY, 0);
@@ -146,13 +174,14 @@ public class SaveManager : MonoBehaviour
         Debug.Log($"[SaveManager] Загрузка инициирована: сцена {data.sceneName}");
     }
 
-    public void DeleteSave()
+public void DeleteSave()
     {
         PlayerPrefs.DeleteKey(SaveExistsKey);
         PlayerPrefs.DeleteKey(SaveDataKey);
         PlayerPrefs.Save();
         cachedNpcStates.Clear();
         destroyedObjectIds.Clear();
+        givenItemNpcIds.Clear();
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
@@ -160,7 +189,7 @@ public class SaveManager : MonoBehaviour
         ApplyCachedStatesToSceneNPCs();
     }
 
-    public void SyncCurrentSceneNPCsToCache()
+public void SyncCurrentSceneNPCsToCache()
     {
         NPCDialogue[] allNpcs = FindObjectsByType<NPCDialogue>(FindObjectsInactive.Include);
         foreach (var npc in allNpcs)
@@ -171,13 +200,12 @@ public class SaveManager : MonoBehaviour
             {
                 stateName = npc.NpcID,
                 isLoyal = npc.State.isLoyal,
-                itemGiven = npc.State.itemGiven,
                 isLocked = npc.State.isLocked
             };
         }
     }
 
-    private void ApplyCachedStatesToSceneNPCs()
+private void ApplyCachedStatesToSceneNPCs()
     {
         NPCDialogue[] allNpcs = FindObjectsByType<NPCDialogue>(FindObjectsInactive.Include);
         foreach (var npc in allNpcs)
@@ -187,7 +215,6 @@ public class SaveManager : MonoBehaviour
             if (cachedNpcStates.TryGetValue(npc.NpcID, out var savedState))
             {
                 npc.State.isLoyal = savedState.isLoyal;
-                npc.State.itemGiven = savedState.itemGiven;
                 npc.State.isLocked = savedState.isLocked;
             }
         }
@@ -195,7 +222,9 @@ public class SaveManager : MonoBehaviour
 
     [System.Serializable]
     public class SaveData
+
     {
+        public List<string> givenItemNpcIds = new List<string>();
         public string sceneName;
         public float playerX;
         public float playerY;

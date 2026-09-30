@@ -13,6 +13,4 @@ MonoBehaviour:
   m_Name: IsLocked
   m_EditorClassIdentifier: Assembly-CSharp::NPCState
   isLoyal: 0
-  itemGiven: 0
   isLocked: 1
-  isDestroyed: 0

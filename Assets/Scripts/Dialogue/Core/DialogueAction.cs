@@ -14,18 +14,20 @@ public class DialogueAction
 
     [Header("GiveItem")]
     public ItemData item;
-    public NPCDialogue giverNpc;
+    [SerializeField] private string giverNpcId;
+    [HideInInspector] public NPCDialogue giverNpc;
+    public string GiverNpcId => !string.IsNullOrEmpty(giverNpcId) ? giverNpcId : giverNpc != null ? giverNpc.NpcID : string.Empty;
 
     [Header("SetFlag")]
-    public NPCDialogue targetNpc;
     public bool loyalValue;
     public bool lockedValue;
     public bool applyLoyal;
     public bool applyLocked;
 
-    [Header("DestroyObject — заполни ОДНО из полей")]
+    [Header("Identifiers")]
     [SerializeField] private string targetNpcId;
     [SerializeField] private string targetItemUniqueId;
+
 
     public void Execute()
     {
@@ -33,36 +35,60 @@ public class DialogueAction
         {
             case DialogueActionType.GiveItem:
                 if (item == null) break;
+                if (string.IsNullOrEmpty(GiverNpcId))
+                    Debug.LogWarning("[DialogueAction] GiveItem has no giver NPC ID; repeated rewards cannot be prevented.");
                 InventoryManager.Instance.AddItem(item);
-                if (giverNpc != null && giverNpc.State != null)
-                    giverNpc.State.itemGiven = true;
+                if (!string.IsNullOrEmpty(GiverNpcId))
+                {
+                    if (SaveManager.Instance != null)
+                        SaveManager.Instance.MarkItemGiven(GiverNpcId);
+                    else
+                        Debug.LogWarning("[DialogueAction] Cannot track the one-time item reward because SaveManager is missing.");
+                }
                 break;
 
             case DialogueActionType.SetFlag:
-                if (targetNpc == null || targetNpc.State == null) break;
-                if (applyLoyal) targetNpc.State.isLoyal = loyalValue;
-                if (applyLocked) targetNpc.State.isLocked = lockedValue;
+                if (string.IsNullOrEmpty(targetNpcId))
+                {
+                    Debug.LogWarning("[DialogueAction] SetFlag targetNpcId is empty.");
+                    break;
+                }
+
+                if (!NPCDialogue.Registry.TryGetValue(targetNpcId, out var npc) || npc == null || npc.State == null)
+                {
+                    Debug.LogWarning($"[DialogueAction] NPC with ID '{targetNpcId}' was not found or has no state.");
+                    break;
+                }
+
+                if (!applyLoyal && !applyLocked)
+                {
+                    Debug.LogWarning($"[DialogueAction] SetFlag for NPC '{targetNpcId}' has no selected flags.");
+                    break;
+                }
+
+                if (applyLoyal) npc.State.isLoyal = loyalValue;
+                if (applyLocked) npc.State.isLocked = lockedValue;
                 break;
 
             case DialogueActionType.DestroyObject:
                 if (!string.IsNullOrEmpty(targetNpcId))
                 {
-                    if (NPCDialogue.Registry.TryGetValue(targetNpcId, out var npc) && npc != null)
+                    if (NPCDialogue.Registry.TryGetValue(targetNpcId, out var npcToDestroy) && npcToDestroy != null)
                     {
                         if (SaveManager.Instance != null)
                             SaveManager.Instance.MarkAsDestroyed(targetNpcId);
 
-                        Object.Destroy(npc.gameObject);
+                        Object.Destroy(npcToDestroy.gameObject);
                     }
                 }
                 else if (!string.IsNullOrEmpty(targetItemUniqueId))
                 {
-                    if (PickupItem.Registry.TryGetValue(targetItemUniqueId, out var item) && item != null)
+                    if (PickupItem.Registry.TryGetValue(targetItemUniqueId, out var itemToDestroy) && itemToDestroy != null)
                     {
                         if (SaveManager.Instance != null)
                             SaveManager.Instance.MarkAsDestroyed(targetItemUniqueId);
 
-                        Object.Destroy(item.gameObject);
+                        Object.Destroy(itemToDestroy.gameObject);
                     }
                 }
                 break;

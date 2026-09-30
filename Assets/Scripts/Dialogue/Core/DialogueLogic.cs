@@ -4,15 +4,15 @@
 public static class DialogueLogic
 {
     // Проверяет — показывать ли эту опцию игроку
-    public static bool CheckCondition(DialogueOption option)
+public static bool CheckCondition(DialogueOption option)
     {
-        if (option.actions != null)
+        if (option.actions != null && SaveManager.Instance != null)
         {
             foreach (var action in option.actions)
             {
                 if (action.type == DialogueActionType.GiveItem &&
-                    action.giverNpc != null && action.giverNpc.State != null &&
-                    action.giverNpc.State.itemGiven)
+                    !string.IsNullOrEmpty(action.GiverNpcId) &&
+                    SaveManager.Instance.HasGivenItem(action.GiverNpcId))
                     return false;
             }
         }

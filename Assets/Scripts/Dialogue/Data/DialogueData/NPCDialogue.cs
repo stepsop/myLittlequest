@@ -45,15 +45,18 @@ public class NPCDialogue : MonoBehaviour, IInteractable
         return playerInside;
     }
 
-    public void Interact()
+public void Interact()
     {
         if (!CanInteract()) return;
 
-        // Если диалог заблокирован — NPC не разговаривает
-        FailPhrase phrase = failPhrase != null ? failPhrase.GetRandom() : null;
-        if (phrase != null)
+        if (State != null && State.isLocked)
         {
-            speechBubble.Show(phrase.text, phrase.audio);
+            FailPhrase phrase = failPhrase != null ? failPhrase.GetRandom() : null;
+            if (phrase != null && speechBubble != null)
+                speechBubble.Show(phrase.text, phrase.audio);
+            else
+                Debug.LogWarning($"[NPCDialogue] NPC '{npcID}' is locked but has no usable fail phrase.");
+
             return;
         }
 
@@ -65,6 +68,7 @@ public class NPCDialogue : MonoBehaviour, IInteractable
 
         if (ui == null)
         {
+            Debug.LogWarning("[NPCDialogue] DialogueUI was not found.");
             return;
         }
 

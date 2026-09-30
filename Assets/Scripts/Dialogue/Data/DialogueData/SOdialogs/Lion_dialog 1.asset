@@ -27,8 +27,8 @@ MonoBehaviour:
     actions:
     - type: 2
       item: {fileID: 0}
+      giverNpcId: 
       giverNpc: {fileID: 0}
-      targetNpc: {fileID: 0}
       loyalValue: 0
       lockedValue: 0
       applyLoyal: 0
@@ -37,8 +37,8 @@ MonoBehaviour:
       targetItemUniqueId: 
     - type: 2
       item: {fileID: 0}
+      giverNpcId: 
       giverNpc: {fileID: 0}
-      targetNpc: {fileID: 0}
       loyalValue: 0
       lockedValue: 0
       applyLoyal: 0
@@ -47,11 +47,28 @@ MonoBehaviour:
       targetItemUniqueId: 
     - type: 2
       item: {fileID: 0}
+      giverNpcId: 
       giverNpc: {fileID: 0}
-      targetNpc: {fileID: 0}
       loyalValue: 0
       lockedValue: 0
       applyLoyal: 0
       applyLocked: 0
       targetNpcId: 2
+      targetItemUniqueId: 
+  - text: "\u043F\u043E\u043C\u0435\u043D\u044F\u0442\u044C \u0444\u043B\u0430\u0433"
+    nextDialogue: {fileID: 0}
+    useCondition: 0
+    conditionLogic: 0
+    requiredItem: {fileID: 0}
+    requiredLoyalNpc: {fileID: 0}
+    actions:
+    - type: 1
+      item: {fileID: 0}
+      giverNpcId: 
+      giverNpc: {fileID: 0}
+      loyalValue: 1
+      lockedValue: 0
+      applyLoyal: 1
+      applyLocked: 1
+      targetNpcId: 1
       targetItemUniqueId: 

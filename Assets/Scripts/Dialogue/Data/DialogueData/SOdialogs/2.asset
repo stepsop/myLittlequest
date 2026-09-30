@@ -24,4 +24,11 @@ MonoBehaviour:
     conditionLogic: 0
     requiredItem: {fileID: 0}
     requiredLoyalNpc: {fileID: 0}
-    actions: []
+    actions:
+    - type: 1
+      item: {fileID: 0}
+      giverNpc: {fileID: 0}
+      openValue: 0
+      blockValue: 0
+      targetNpcId: 
+      targetItemUniqueId: 
