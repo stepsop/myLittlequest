@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
+
 public class ItemInspectPanel : MonoBehaviour
 {
     public static ItemInspectPanel Instance { get; private set; }

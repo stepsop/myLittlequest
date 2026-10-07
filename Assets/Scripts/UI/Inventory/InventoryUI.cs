@@ -8,17 +8,17 @@ public class InventoryUI : MonoBehaviour
     private PlayerInputActions input;
 
     [Header("UI References")]
-    [SerializeField] private GameObject inventoryPanel; 
+    [SerializeField] private GameObject inventoryPanel;
     [SerializeField] private Transform itemsContainer;
     [SerializeField] private UIItemSlot slotPrefab;
     [SerializeField] private int itemsPerPage = 6;
     [SerializeField] private GameObject nextButton;
     [SerializeField] private GameObject prevButton;
-    [SerializeField] private PauseMenuUI pauseMenuUI; 
-    
+    [SerializeField] private PauseMenuUI pauseMenuUI;
+
 
     [Header("Анимация")]
-    [SerializeField] private InventorySlideAnimation slideAnimation; 
+    [SerializeField] private InventorySlideAnimation slideAnimation;
 
     private int currentPage = 0;
     private Dictionary<ItemData, UIItemSlot> slots = new();
@@ -92,7 +92,11 @@ public class InventoryUI : MonoBehaviour
             pauseMenuUI.SetMenuButtonActive(isOpen);
 
             if (!isOpen)
+            {
+                ItemInspectPanel.Instance?.Close();
                 pauseMenuUI.CloseMenu();
+            }
+
         }
 
         if (isOpen)

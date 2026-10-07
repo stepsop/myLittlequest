@@ -8,10 +8,11 @@ public class PickupItem : MonoBehaviour, IInteractable
 {
     public static readonly Dictionary<string, PickupItem> Registry = new();
 
-    [Header("Данные предмета — назначь SO из Assets/Inventory/Items/")]
+    [Header("Данные предмета")]
     [SerializeField] private ItemData itemData;
     [SerializeField] private float interactDistance = 3f;
     [SerializeField] private string uniqueId;
+    
 
     private string itemID;
 
@@ -62,6 +63,7 @@ public class PickupItem : MonoBehaviour, IInteractable
 
         PickupTracker.Instance?.MarkPickedUp(itemID);
         InventoryManager.Instance.AddItem(itemData);
+        PlayerMovement.Instance?.GetComponentInChildren<SpeechBubble>()?.Show(ItemName);
 
         Destroy(gameObject);
     }

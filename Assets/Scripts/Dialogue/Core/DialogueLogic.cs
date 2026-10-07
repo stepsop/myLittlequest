@@ -28,15 +28,21 @@ public static bool CheckCondition(DialogueData dialogue, DialogueOption option)
 
         if (!option.useCondition) return true;
 
-        bool hasItem = option.requiredItem != null &&
-                       InventoryManager.Instance.HasItem(option.requiredItem);
-        bool isLoyal = option.requiredLoyalNpc != null &&
-                       option.requiredLoyalNpc.State != null &&
-                       option.requiredLoyalNpc.State.isLoyal;
+        if (!option.requireItem && !option.requireLoyalty) return true;
 
-        return option.conditionLogic == ConditionLogic.ItemOrLoyal
-            ? hasItem || isLoyal
-            : hasItem && isLoyal;
+        if (option.requireItem &&
+            (option.requiredItem == null ||
+             InventoryManager.Instance == null ||
+             !InventoryManager.Instance.HasItem(option.requiredItem)))
+            return false;
+
+        if (option.requireLoyalty &&
+            (option.requiredLoyalNpc == null ||
+             option.requiredLoyalNpc.State == null ||
+             !option.requiredLoyalNpc.State.isLoyal))
+            return false;
+
+        return true;
     }
 
     // Выполняет то, что должно произойти после выбора опции игроком

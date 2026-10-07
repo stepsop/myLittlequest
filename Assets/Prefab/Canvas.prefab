@@ -954,7 +954,7 @@ MonoBehaviour:
   nextButton: {fileID: 5315246474567249070}
   prevButton: {fileID: 6064352938125214766}
   pauseMenuUI: {fileID: 196291362298590009}
-  slideAnimation: {fileID: 0}
+  slideAnimation: {fileID: 739917690308975499}
 --- !u!1 &3335163921636326999
 GameObject:
   m_ObjectHideFlags: 0
@@ -2491,8 +2491,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -147.99998}
-  m_SizeDelta: {x: 570, y: 295.9997}
+  m_AnchoredPosition: {x: 0, y: -124.3343}
+  m_SizeDelta: {x: 570, y: 247.0907}
   m_Pivot: {x: 0, y: 0}
 --- !u!222 &6321623334802798715
 CanvasRenderer:

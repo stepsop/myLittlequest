@@ -11,8 +11,14 @@ public class DialogueOption
 
     [Header("Условие показа")]
     public bool useCondition;
-    public ConditionLogic conditionLogic;
+    [HideInInspector] public ConditionLogic conditionLogic;
+    [InspectorName("Есть предмет")]
+    public bool requireItem;
+    [InspectorName("Лоялен")]
+    public bool requireLoyalty;
+    [InspectorName("Предмет")]
     public ItemData requiredItem;
+    [InspectorName("Лояльный NPC")]
     public NPCDialogue requiredLoyalNpc;
 
     [Header("Действия при выборе")]

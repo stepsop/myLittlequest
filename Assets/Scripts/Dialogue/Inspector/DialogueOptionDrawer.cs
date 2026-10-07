@@ -27,9 +27,12 @@ public class DialogueOptionDrawer : PropertyDrawer
         if (prop.FindPropertyRelative("useCondition").boolValue)
         {
             EditorGUI.indentLevel++;
-            Draw("conditionLogic");
-            Draw("requiredItem");
-            Draw("requiredLoyalNpc");
+            Draw("requireItem");
+            if (prop.FindPropertyRelative("requireItem").boolValue)
+                Draw("requiredItem");
+            Draw("requireLoyalty");
+            if (prop.FindPropertyRelative("requireLoyalty").boolValue)
+                Draw("requiredLoyalNpc");
             EditorGUI.indentLevel--;
         }
 
@@ -49,9 +52,16 @@ public class DialogueOptionDrawer : PropertyDrawer
 
         if (prop.FindPropertyRelative("useCondition").boolValue)
         {
-            h += EditorGUI.GetPropertyHeight(prop.FindPropertyRelative("conditionLogic"), true) + sp;
-            h += EditorGUI.GetPropertyHeight(prop.FindPropertyRelative("requiredItem"), true) + sp;
-            h += EditorGUI.GetPropertyHeight(prop.FindPropertyRelative("requiredLoyalNpc"), true) + sp;
+            var requireItem = prop.FindPropertyRelative("requireItem");
+            var requireLoyalty = prop.FindPropertyRelative("requireLoyalty");
+
+            h += EditorGUI.GetPropertyHeight(requireItem, true) + sp;
+            if (requireItem.boolValue)
+                h += EditorGUI.GetPropertyHeight(prop.FindPropertyRelative("requiredItem"), true) + sp;
+
+            h += EditorGUI.GetPropertyHeight(requireLoyalty, true) + sp;
+            if (requireLoyalty.boolValue)
+                h += EditorGUI.GetPropertyHeight(prop.FindPropertyRelative("requiredLoyalNpc"), true) + sp;
         }
 
         h += EditorGUI.GetPropertyHeight(prop.FindPropertyRelative("actions"), true) + sp;

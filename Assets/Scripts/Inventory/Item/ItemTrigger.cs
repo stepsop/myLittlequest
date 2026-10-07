@@ -1,7 +1,7 @@
 using UnityEngine;
 
 // Универсальный триггер — требует предмет из инвентаря, спавнит reward объект.
-// Чтобы сделать новый триггер — создай prefab, назначь requiredItem и rewardPrefab.
+
 public class ItemTrigger : MonoBehaviour, IInteractable
 {
     [Header("Что нужно иметь выбранным в инвентаре")]

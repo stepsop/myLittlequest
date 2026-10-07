@@ -25,6 +25,7 @@ public class Coin : MonoBehaviour, IInteractable
 
         PickupTracker.Instance?.MarkPickedUp(itemID);
         InventoryManager.Instance.AddItem(coinItemData, coinAmount);
+        PlayerMovement.Instance?.GetComponentInChildren<SpeechBubble>()?.Show(coinItemData?.itemName);
         Destroy(gameObject);
     }
 
