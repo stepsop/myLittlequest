@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97ee081b04e4979439ff49fae0e2b212, type: 3}
+  m_Name: LynxLionFoxMain
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  playerName: 
+  playerPortrait: {fileID: -7710925141277411097, guid: c2ed5c7a68c54714bb084319d6310399, type: 3}
+  npcName: "\u041B\u0438\u0441"
+  npcPortrait: {fileID: 725976524088372361, guid: 90c216749bde8d7458e0f1febb50fe93, type: 3}
+  text: "\u041E, \u0441\u043C\u043E\u0442\u0440\u0438\u0442\u0435-\u043A\u0430. \u0415\u0449\u0451
+    \u043E\u0434\u0438\u043D \u0437\u0430\u0431\u043B\u0443\u0434\u0438\u0432\u0448\u0438\u0439\u0441\u044F."
+  options:
+  - text: '>'
+    nextDialogue: {fileID: 11400000, guid: 37374a69b6b020746b336d2bde55d43f, type: 2}
+    useCondition: 0
+    conditionLogic: 0
+    requireItem: 0
+    requireLoyalty: 0
+    requiredItem: {fileID: 0}
+    consumeRequiredItem: 0
+    requiredLoyalNpc: {fileID: 0}
+    actions: []
+    rewardTrackingId: 2d32e7028d3f4a4bb47e4c219a52c977
+  rewardTrackingNamespace: 51fe7d3b69f2d264b82f380fceaa3a00

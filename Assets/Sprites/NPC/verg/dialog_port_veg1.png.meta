@@ -1,10 +1,10 @@
 fileFormatVersion: 2
-guid: c43a6a379fa87d24ba1fd788947423cd
+guid: 9af97e70ee87200478ed6f88d5e46eda
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -7376663337886844919
-    second: "\u041F\u043E\u0440\u0442\u0435\u0440\u0442_\u0413\u0435\u0440\u043E\u0439_0"
+      213: 851625194588420159
+    second: dialog_port_veg1_0
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -75,7 +75,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 1
+    textureCompression: 0
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -100,13 +100,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: "\u041F\u043E\u0440\u0442\u0435\u0440\u0442_\u0413\u0435\u0440\u043E\u0439_0"
+      name: dialog_port_veg1_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 341
-        height: 528
+        width: 154
+        height: 191
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +115,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 9087b9507c3d0a990800000000000000
-      internalID: -7376663337886844919
+      spriteID: f3837353a9491db00800000000000000
+      internalID: 851625194588420159
       vertices: []
       indices: 
       edges: []
@@ -135,7 +135,7 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      "\u041F\u043E\u0440\u0442\u0435\u0440\u0442_\u0413\u0435\u0440\u043E\u0439_0": -7376663337886844919
+      dialog_port_veg1_0: 851625194588420159
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

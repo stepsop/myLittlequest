@@ -12,11 +12,12 @@ public class DialogueOptionDrawer : PropertyDrawer
         float h = EditorGUIUtility.singleLineHeight;
         float sp = EditorGUIUtility.standardVerticalSpacing;
 
-        void Draw(string field)
+        void Draw(string field, string label = null)
         {
             var p = prop.FindPropertyRelative(field);
             float ph = EditorGUI.GetPropertyHeight(p, true);
-            EditorGUI.PropertyField(new Rect(pos.x, y, pos.width, ph), p, true);
+            var content = label == null ? new GUIContent(p.displayName) : new GUIContent(label);
+            EditorGUI.PropertyField(new Rect(pos.x, y, pos.width, ph), p, content, true);
             y += ph + sp;
         }
 
@@ -29,7 +30,10 @@ public class DialogueOptionDrawer : PropertyDrawer
             EditorGUI.indentLevel++;
             Draw("requireItem");
             if (prop.FindPropertyRelative("requireItem").boolValue)
+            {
                 Draw("requiredItem");
+                Draw("consumeRequiredItem", "Destroy Item");
+            }
             Draw("requireLoyalty");
             if (prop.FindPropertyRelative("requireLoyalty").boolValue)
                 Draw("requiredLoyalNpc");
@@ -57,7 +61,10 @@ public class DialogueOptionDrawer : PropertyDrawer
 
             h += EditorGUI.GetPropertyHeight(requireItem, true) + sp;
             if (requireItem.boolValue)
+            {
                 h += EditorGUI.GetPropertyHeight(prop.FindPropertyRelative("requiredItem"), true) + sp;
+                h += EditorGUI.GetPropertyHeight(prop.FindPropertyRelative("consumeRequiredItem"), true) + sp;
+            }
 
             h += EditorGUI.GetPropertyHeight(requireLoyalty, true) + sp;
             if (requireLoyalty.boolValue)

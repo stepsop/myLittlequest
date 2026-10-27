@@ -1,0 +1,58 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97ee081b04e4979439ff49fae0e2b212, type: 3}
+  m_Name: 7
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  playerName: 
+  playerPortrait: {fileID: -7710925141277411097, guid: c2ed5c7a68c54714bb084319d6310399, type: 3}
+  npcName: "\u0420\u044B\u0441\u044C"
+  npcPortrait: {fileID: 6332953535545932439, guid: 1a25864d4be968b43b56022dd5c681bd, type: 3}
+  text: "\u0410 \u043F\u043E\u0441\u043B\u0435\u0434\u0441\u0442\u0432\u0438\u044F
+    \u2014 \u043D\u0430\u0441\u0438\u043B\u044C\u0441\u0442\u0432\u0435\u043D\u043D\u044B\u0435."
+  options:
+  - text: "\u0421\u043A\u043E\u043B\u044C\u043A\u043E?"
+    nextDialogue: {fileID: 11400000, guid: 82ce517074275b949ba94ed0b7a35bf6, type: 2}
+    useCondition: 0
+    conditionLogic: 0
+    requireItem: 0
+    requireLoyalty: 0
+    requiredItem: {fileID: 0}
+    consumeRequiredItem: 0
+    requiredLoyalNpc: {fileID: 0}
+    actions: []
+    rewardTrackingId: bb362fe38ee34ebbad760bbf749eff9d
+  - text: "\xAB\u0412\u044B \u0441\u0435\u0440\u044C\u0451\u0437\u043D\u043E? \u0422\u0440\u043E\u0435
+      \u0432\u0437\u0440\u043E\u0441\u043B\u044B\u0445 \u0441\u043E\u0431\u0438\u0440\u0430\u044E\u0442
+      \u043C\u0435\u043B\u043E\u0447\u044C \u0432 \u043F\u043E\u0434\u0432\u043E\u0440\u043E\u0442\u043D\u0435?\xBB"
+    nextDialogue: {fileID: 11400000, guid: 447f2d8ca91f87e48b765abb57cc9421, type: 2}
+    useCondition: 0
+    conditionLogic: 0
+    requireItem: 0
+    requireLoyalty: 0
+    requiredItem: {fileID: 0}
+    consumeRequiredItem: 0
+    requiredLoyalNpc: {fileID: 0}
+    actions: []
+    rewardTrackingId: 165d02140a2948b3a644d92105e8680a
+  - text: "\u041E\u0442\u043E\u0439\u0434\u0438\u0442\u0435. \u042F \u043D\u0435
+      \u0432 \u043D\u0430\u0441\u0442\u0440\u043E\u0435\u043D\u0438\u0438"
+    nextDialogue: {fileID: 11400000, guid: b6942e15745dfcd438daaac31e978b1a, type: 2}
+    useCondition: 0
+    conditionLogic: 0
+    requireItem: 0
+    requireLoyalty: 0
+    requiredItem: {fileID: 0}
+    consumeRequiredItem: 0
+    requiredLoyalNpc: {fileID: 0}
+    actions: []
+    rewardTrackingId: 0b92f65d68c64d36a3619a2f2175fee6
+  rewardTrackingNamespace: 56e820fd7f39b51499ccdd1e82afb27e

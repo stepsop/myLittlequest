@@ -86,26 +86,4 @@ MonoBehaviour:
       targetNpcId: 1
       targetItemUniqueId: 
     rewardTrackingId: c1f78a2b06dd4ebea326f91a198bdac1
-  - text: "\u043F\u043E\u043C\u0435\u043D\u044F\u0442\u044C \u0444\u043B\u0430\u0433"
-    nextDialogue: {fileID: 0}
-    useCondition: 1
-    conditionLogic: 0
-    requireItem: 0
-    requireLoyalty: 0
-    requiredItem: {fileID: 11400000, guid: 273dc93c9ce729e449535a72194423bf, type: 2}
-    requiredLoyalNpc: {fileID: 0}
-    actions:
-    - type: 1
-      item: {fileID: 11400000, guid: 96f1ef06a1c770b4499a96b44f7ef9a3, type: 2}
-      itemPrefab: {fileID: 0}
-      hideOptionAfterGive: 1
-      giverNpcId: 
-      giverNpc: {fileID: 0}
-      loyalValue: 1
-      lockedValue: 0
-      applyLoyal: 1
-      applyLocked: 1
-      targetNpcId: 1
-      targetItemUniqueId: 
-    rewardTrackingId: 41ebd7fe0b8a4c219dc4df74df982982
   rewardTrackingNamespace: e7fe056a7a2729f4dabb06428ee6ae0f

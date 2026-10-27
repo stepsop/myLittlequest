@@ -69,6 +69,7 @@ public class DialogueUI : MonoBehaviour
         if (playerPortraitImage != null)
         {
             playerPortraitImage.sprite = dialogue.playerPortrait;
+            ApplyNativeSize(playerPortraitImage);
             playerPortraitImage.gameObject.SetActive(dialogue.playerPortrait != null);
         }
 
@@ -77,6 +78,7 @@ public class DialogueUI : MonoBehaviour
         if (npcPortraitImage != null)
         {
             npcPortraitImage.sprite = dialogue.npcPortrait;
+            ApplyNativeSize(npcPortraitImage);
             npcPortraitImage.gameObject.SetActive(dialogue.npcPortrait != null);
         }
 
@@ -84,6 +86,18 @@ public class DialogueUI : MonoBehaviour
         if (typewriterCoroutine != null) StopCoroutine(typewriterCoroutine);
         typewriterCoroutine = StartCoroutine(TypeText(dialogue));
     }
+
+// Размер портрета подгоняется под спрайт, иначе Image остаётся в 120x120 из префаба
+    private static void ApplyNativeSize(Image portrait)
+    {
+        if (portrait.sprite == null)
+        {
+            return;
+        }
+
+        portrait.SetNativeSize();
+    }
+
 
     private IEnumerator TypeText(DialogueData dialogue)
     {

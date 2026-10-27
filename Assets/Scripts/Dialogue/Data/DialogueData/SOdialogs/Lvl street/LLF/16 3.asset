@@ -10,22 +10,24 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 97ee081b04e4979439ff49fae0e2b212, type: 3}
-  m_Name: New Dialogue Data 1
+  m_Name: 16 3
   m_EditorClassIdentifier: Assembly-CSharp::DialogueData
   playerName: 
-  playerPortrait: {fileID: 0}
+  playerPortrait: {fileID: -7710925141277411097, guid: c2ed5c7a68c54714bb084319d6310399, type: 3}
   npcName: 
-  npcPortrait: {fileID: 0}
-  text: 
+  npcPortrait: {fileID: -8864094106105020514, guid: bcc705993ff24754aa69c44461a32c8c, type: 3}
+  text: "\u041D\u0430 \u0441\u0435\u043A\u0443\u043D\u0434\u0443 \u0432\u043E\u0446\u0430\u0440\u044F\u0435\u0442\u0441\u044F
+    \u0442\u0438\u0448\u0438\u043D\u0430."
   options:
-  - text: 
-    nextDialogue: {fileID: 0}
-    useCondition: 1
+  - text: '>'
+    nextDialogue: {fileID: 11400000, guid: 7db483423ead8d74abe99c942102ccd4, type: 2}
+    useCondition: 0
     conditionLogic: 0
     requireItem: 1
     requireLoyalty: 0
     requiredItem: {fileID: 11400000, guid: 273dc93c9ce729e449535a72194423bf, type: 2}
+    consumeRequiredItem: 0
     requiredLoyalNpc: {fileID: 0}
     actions: []
-    rewardTrackingId: 0cafc27d9f154a4190a80c31a33d535d
-  rewardTrackingNamespace: 51fe7d3b69f2d264b82f380fceaa3a00
+    rewardTrackingId: ff4b4db2baa24bfca777e611e5bf29fe
+  rewardTrackingNamespace: d95f66bb4d506af448547769147e57bf

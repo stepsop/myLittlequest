@@ -1,0 +1,32 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97ee081b04e4979439ff49fae0e2b212, type: 3}
+  m_Name: 5
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  playerName: 
+  playerPortrait: {fileID: -7710925141277411097, guid: c2ed5c7a68c54714bb084319d6310399, type: 3}
+  npcName: "\u041B\u0435\u0432"
+  npcPortrait: {fileID: 2185841603385871576, guid: abea85ff482d90b4da12173280522d97, type: 3}
+  text: "\u0414\u0435\u043D\u044C\u0433\u0438 \u0434\u0430\u0432\u0430\u0439."
+  options:
+  - text: "\u0410 \u0435\u0441\u043B\u0438 \u043D\u0435 \u0434\u0430\u043C?"
+    nextDialogue: {fileID: 11400000, guid: fe1710dfbf582264d84da8a42731c5bf, type: 2}
+    useCondition: 0
+    conditionLogic: 0
+    requireItem: 0
+    requireLoyalty: 0
+    requiredItem: {fileID: 0}
+    consumeRequiredItem: 0
+    requiredLoyalNpc: {fileID: 0}
+    actions: []
+    rewardTrackingId: 7f7bbb7887ed440c8e663b34e3142071
+  rewardTrackingNamespace: a66532fb1a3efdd4eab74b9c94ca3a76

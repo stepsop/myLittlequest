@@ -48,6 +48,29 @@ public static bool CheckCondition(DialogueData dialogue, DialogueOption option)
     // Выполняет то, что должно произойти после выбора опции игроком
     public static void ExecuteAction(DialogueData dialogue, DialogueOption option)
     {
+        bool optionSucceeded = true;
+
+        if (option.useCondition && option.requireItem && option.consumeRequiredItem)
+        {
+            if (option.requiredItem == null)
+            {
+                Debug.LogError("[DialogueLogic] Cannot consume the required item because no item is assigned.");
+                return;
+            }
+
+            if (InventoryManager.Instance == null)
+            {
+                Debug.LogError("[DialogueLogic] Cannot consume the required item because InventoryManager is missing.");
+                return;
+            }
+
+            if (!InventoryManager.Instance.HasItem(option.requiredItem))
+            {
+                Debug.LogError($"[DialogueLogic] Cannot consume required item '{option.requiredItem.name}' because it is not in the inventory.");
+                return;
+            }
+        }
+
         if (option.actions != null)
         {
             foreach (var action in option.actions)
@@ -57,18 +80,31 @@ public static bool CheckCondition(DialogueData dialogue, DialogueOption option)
                     SaveManager.Instance == null)
                 {
                     Debug.LogError("[DialogueLogic] Cannot issue a one-time item reward because SaveManager is missing.");
+                    optionSucceeded = false;
                     continue;
                 }
 
                 bool succeeded = action.Execute();
-                if (action.type != DialogueActionType.GiveItem || !succeeded) continue;
+                if (!succeeded)
+                {
+                    optionSucceeded = false;
+                    continue;
+                }
 
-                if (action.hideOptionAfterGive)
-                    SaveManager.Instance.MarkDialogueRewardGiven(dialogue.GetRewardTrackingId(option));
+                if (action.type == DialogueActionType.GiveItem)
+                {
+                    if (action.hideOptionAfterGive && SaveManager.Instance != null)
+                        SaveManager.Instance.MarkDialogueRewardGiven(dialogue.GetRewardTrackingId(option));
 
-                if (!string.IsNullOrEmpty(action.GiverNpcId))
-                    SaveManager.Instance?.MarkItemGiven(action.GiverNpcId);
+                    if (!string.IsNullOrEmpty(action.GiverNpcId))
+                        SaveManager.Instance?.MarkItemGiven(action.GiverNpcId);
+                }
             }
+        }
+
+        if (option.useCondition && option.requireItem && option.consumeRequiredItem && optionSucceeded)
+        {
+            InventoryManager.Instance?.RemoveItem(option.requiredItem);
         }
 
         SaveManager.Instance?.Save();

@@ -29,7 +29,9 @@ public class ItemTrigger : MonoBehaviour, IInteractable
     {
         if (!CanInteract()) return;
 
-        if (InventoryManager.Instance.SelectedItem != requiredItem)
+        if (requiredItem != null &&
+            (InventoryManager.Instance.SelectedItem == null ||
+             InventoryManager.Instance.SelectedItem != requiredItem))
         {
             var phrase = wrongItemPhrases != null ? wrongItemPhrases.GetRandom() : null;
             if (phrase != null)
@@ -37,13 +39,18 @@ public class ItemTrigger : MonoBehaviour, IInteractable
             return;
         }
 
-        if (rewardPrefab != null && spawnPoint != null)
+        if (rewardPrefab == null || spawnPoint == null)
         {
-            GameObject reward = Instantiate(rewardPrefab, spawnPoint.position, Quaternion.identity);
-            reward.name = rewardPrefab.name;
+            Debug.LogError($"[{nameof(ItemTrigger)}] Reward prefab or spawn point is not assigned.", this);
+            return;
         }
 
-        InventoryManager.Instance.ConsumeSelectedItem();
+        GameObject reward = Instantiate(rewardPrefab, spawnPoint.position, Quaternion.identity);
+        reward.name = rewardPrefab.name;
+
+        if (requiredItem != null)
+            InventoryManager.Instance.ConsumeSelectedItem();
+
         alreadyUsed = true;
     }
 

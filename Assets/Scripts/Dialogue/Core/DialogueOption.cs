@@ -18,6 +18,8 @@ public class DialogueOption
     public bool requireLoyalty;
     [InspectorName("Предмет")]
     public ItemData requiredItem;
+    [InspectorName("Destroy Item")]
+    public bool consumeRequiredItem;
     [InspectorName("Лояльный NPC")]
     public NPCDialogue requiredLoyalNpc;
 

@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 97ee081b04e4979439ff49fae0e2b212, type: 3}
+  m_Name: 13 1
+  m_EditorClassIdentifier: Assembly-CSharp::DialogueData
+  playerName: 
+  playerPortrait: {fileID: -7710925141277411097, guid: c2ed5c7a68c54714bb084319d6310399, type: 3}
+  npcName: "\u041B\u0435\u0432"
+  npcPortrait: {fileID: 2185841603385871576, guid: abea85ff482d90b4da12173280522d97, type: 3}
+  text: "\u041D\u0435\u0442 \u0434\u0435\u043D\u0435\u0433 \u2014 \u043D\u0435\u0442
+    \u043F\u0440\u043E\u0445\u043E\u0434\u0430."
+  options:
+  - text: "\u042F \u043E\u0431\u044F\u0437\u0430\u0442\u0435\u043B\u044C\u043D\u043E
+      \u0432\u0435\u0440\u043D\u0443\u0441\u044C, \u044F \u0432\u0438\u0436\u0443
+      \u0447\u0442\u043E \u043B\u044E\u0434\u0438 \u0432\u044B \u0441\u0435\u0440\u044C\u0435\u0437\u043D\u044B\u0435."
+    nextDialogue: {fileID: 11400000, guid: 51f9a19dc8361c84e8a6b3a66d51601d, type: 2}
+    useCondition: 0
+    conditionLogic: 0
+    requireItem: 0
+    requireLoyalty: 0
+    requiredItem: {fileID: 0}
+    consumeRequiredItem: 0
+    requiredLoyalNpc: {fileID: 0}
+    actions: []
+    rewardTrackingId: dab8fbfe1ff14b47ba3ba5d17ef7a863
+  rewardTrackingNamespace: f482935d562b9304d904ab9ffe46fa3f

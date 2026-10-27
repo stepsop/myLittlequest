@@ -63,7 +63,12 @@ public class PickupItem : MonoBehaviour, IInteractable
 
         PickupTracker.Instance?.MarkPickedUp(itemID);
         InventoryManager.Instance.AddItem(itemData);
-        PlayerMovement.Instance?.GetComponentInChildren<SpeechBubble>()?.Show(ItemName);
+        string textToShow = itemData == null
+            ? gameObject.name
+            : string.IsNullOrWhiteSpace(itemData.pickupPhrase)
+                ? itemData.itemName
+                : itemData.pickupPhrase;
+        PlayerMovement.Instance?.GetComponentInChildren<SpeechBubble>()?.Show(textToShow);
 
         Destroy(gameObject);
     }

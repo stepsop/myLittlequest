@@ -56,7 +56,14 @@ public class InventoryManager : MonoBehaviour
 
         stack.amount -= amount;
         if (stack.amount <= 0)
+        {
             items.Remove(stack);
+            if (SelectedItem == item)
+            {
+                SelectedItem = null;
+                InventoryUI.Instance?.ClearSelection();
+            }
+        }
 
         InventoryUI.Instance?.RefreshUI(items);
     }
